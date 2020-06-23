@@ -83,4 +83,8 @@ public class TodoServiceImpl implements TodoService{
 	public void agregarOeditarMateriaCursada(EstudianteMateria estudiante_materia) throws DataAccessException {
 		estMatR.save(estudiante_materia);
 	}
+	@Override
+	public List<Usuario> findByUsuarioAndContra(String usuario, String contra) {
+		return usR.findByUsuarioAndContra(usuario, contra);
+	}
 }

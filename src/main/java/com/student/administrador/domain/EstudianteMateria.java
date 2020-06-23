@@ -41,5 +41,55 @@ public class EstudianteMateria {
 	@ManyToOne
 	@MapsId("idMateria")
 	@JoinColumn(name="idMateria")
-	private Materia materia; 
+	private Materia materia;
+
+	public Integer getIdEstudianteMateria() {
+		return idEstudianteMateria;
+	}
+
+	public void setIdEstudianteMateria(Integer idEstudianteMateria) {
+		this.idEstudianteMateria = idEstudianteMateria;
+	}
+
+	public Float getNota() {
+		return nota;
+	}
+
+	public void setNota(Float nota) {
+		this.nota = nota;
+	}
+
+	public Integer getAnio() {
+		return anio;
+	}
+
+	public void setAnio(Integer anio) {
+		this.anio = anio;
+	}
+
+	public Integer getCicloCursado() {
+		return cicloCursado;
+	}
+
+	public void setCicloCursado(Integer cicloCursado) {
+		this.cicloCursado = cicloCursado;
+	}
+
+	public Estudiante getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(Estudiante estudiante) {
+		this.estudiante = estudiante;
+	}
+
+	public Materia getMateria() {
+		return materia;
+	}
+
+	public void setMateria(Materia materia) {
+		this.materia = materia;
+	} 
+	
+	
 }

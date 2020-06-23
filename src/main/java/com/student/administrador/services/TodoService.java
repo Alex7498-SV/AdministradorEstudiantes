@@ -21,14 +21,15 @@ public interface TodoService {
 	
 	
 	
-	//catalogos
+	//CATALOGOS
 	public List<Object[]> catalogoMaterias() throws DataAccessException;
 	public List<Object[]> catalogoEscuelas() throws DataAccessException;
 	public List<Object[]> catalogoUsuarios() throws DataAccessException;
 	
-	//tablas con query compleja
+	//QUERIES LARGAS
 	public List<Object[]> expedientePorNombreOApellido(String cadena) throws DataAccessException;
 	public List<Object[]> materiasPorEstudiante(String cadena) throws DataAccessException;
 
-	
+	//LOGIN
+	List<Usuario> findByUsuarioAndContra(String usuario, String contra);
 }

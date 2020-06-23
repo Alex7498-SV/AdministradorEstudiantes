@@ -14,4 +14,6 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 			value="SELECT u.idUsuario AS Codigo, u.nombre as Descripcion, u.estado as Estado"
 					+ "FROM public.usuario u ")
 	public List<Object[]> catalogoUsuarios() throws DataAccessException;
+	
+	List<Usuario> findByUsuarioAndContra(String usuario, String contra);
 }
