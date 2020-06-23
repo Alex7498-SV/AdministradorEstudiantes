@@ -11,7 +11,7 @@ import com.student.administrador.domain.CentroEscolar;
 public interface EscuelaRepo extends JpaRepository<CentroEscolar, Integer> {
 
 	@Query(nativeQuery=true,
-			value="SELECT c.idc_Escolar AS Codigo, c.nombre as Descripcion, c.estado as Estado"
-					+ "FROM public.c_Escolar c")
+			value="SELECT c.idEscolar AS Codigo, c.nombre as Descripcion, c.estado as Estado"
+					+ "FROM public.centroEscolar c")
 	public List<Object[]> catalogoEscuelas() throws DataAccessException;
 }

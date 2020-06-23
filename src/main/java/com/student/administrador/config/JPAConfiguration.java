@@ -16,8 +16,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.student.administrador.repositories")
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "com.student.administrador.repositories")
 public class JPAConfiguration {
 
 	@Bean
@@ -32,8 +32,8 @@ public class JPAConfiguration {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
-		em.setPersistenceUnitName("capas");
-		em.setPackagesToScan("com.uca.capas.domain");
+		//em.setPersistenceUnitName("administrador");
+		em.setPackagesToScan("com.student.administrador.domain");
 		
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
@@ -45,9 +45,9 @@ public class JPAConfiguration {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/ESTUDIANTE");
+		dataSource.setUrl("jdbc:postgresql://127.0.0.1:5432/DBEstudianteAdmin");
 		dataSource.setUsername("postgres");
-		dataSource.setPassword("");
+		dataSource.setPassword("12345678");
 		return dataSource;
 	}
 	

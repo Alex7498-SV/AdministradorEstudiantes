@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.student.administrador.domain.CentroEscolar;
 import com.student.administrador.domain.Estudiante;
@@ -36,6 +37,7 @@ public class TodoServiceImpl implements TodoService{
 	MunicipioRepo munR;
 	@Autowired
 	UsuarioRepo usR;
+	
 	@Override
 	public List<Object[]> catalogoMaterias() throws DataAccessException {
 		return matR.catalogoMaterias();
@@ -50,30 +52,35 @@ public class TodoServiceImpl implements TodoService{
 	}
 	@Override
 	public List<Object[]> expedientePorNombreOApellido(String cadena) throws DataAccessException {
-		return estR.expedientePorNombreApellido(cadena);
+		return estR.expedientePorNombreApellidos(cadena);
 	}
 	@Override
 	public List<Object[]> materiasPorEstudiante(String cadena) throws DataAccessException {
 		return matR.materiasCursadasPorEstudiante(cadena);
 	}
 	@Override
+	@Transactional
 	public void insertarOeditarMateria(Materia materia) throws DataAccessException {
 		matR.save(materia);
 	}
 	@Override
+	@Transactional
 	public void insertarOeditarUsuario(Usuario usuario) throws DataAccessException {
 		usR.save(usuario);
 	}
 	@Override
+	@Transactional
 	public void insertarOeditarEscuela(CentroEscolar escuela) throws DataAccessException {
 		escR.save(escuela);
 	}
 	@Override
-	public void agregarNuevoExpediente(Estudiante estudiante) throws DataAccessException {
+	@Transactional
+	public void agregarOeditarExpediente(Estudiante estudiante) throws DataAccessException {
 		estR.save(estudiante);
 	}
 	@Override
-	public void agregarNuevaMateriaCursada(EstudianteMateria estudiante_materia) throws DataAccessException {
+	@Transactional
+	public void agregarOeditarMateriaCursada(EstudianteMateria estudiante_materia) throws DataAccessException {
 		estMatR.save(estudiante_materia);
 	}
 }

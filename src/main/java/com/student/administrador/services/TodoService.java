@@ -16,8 +16,8 @@ public interface TodoService {
 	void insertarOeditarUsuario(Usuario usuario) throws DataAccessException;
 	void insertarOeditarEscuela(CentroEscolar escuela) throws DataAccessException;
 	
-	void agregarNuevoExpediente(Estudiante estudiante) throws DataAccessException;
-	void agregarNuevaMateriaCursada(EstudianteMateria estudiante_materia) throws DataAccessException;
+	void agregarOeditarExpediente(Estudiante estudiante) throws DataAccessException;
+	void agregarOeditarMateriaCursada(EstudianteMateria estudiante_materia) throws DataAccessException;
 	
 	
 	

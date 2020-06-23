@@ -1,10 +1,14 @@
 package com.student.administrador.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +22,9 @@ public class Departamento {
 	
 	@Column(name="nombre")
 	private String nombre;
+	
+	@OneToMany(mappedBy="departamento", fetch=FetchType.EAGER)
+	private List<Municipio> municipios;
 
 	public Integer getIdDepartamento() {
 		return idDepartamento;
@@ -33,5 +40,13 @@ public class Departamento {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public List<Municipio> getMunicipios() {
+		return municipios;
+	}
+
+	public void setMunicipios(List<Municipio> municipios) {
+		this.municipios = municipios;
 	}
 }
