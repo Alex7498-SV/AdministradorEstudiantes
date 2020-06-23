@@ -51,8 +51,8 @@ public class TodoServiceImpl implements TodoService{
 		return usR.catalogoUsuarios();
 	}
 	@Override
-	public List<Object[]> expedientePorNombreOApellido(String cadena) throws DataAccessException {
-		return estR.expedientePorNombreApellidos(cadena);
+	public List<Object[]> expedientePorNombreOApellido(String nombre, String apellido) throws DataAccessException {
+		return estR.expedientePorNombreApellido(nombre, apellido);
 	}
 	@Override
 	public List<Object[]> materiasPorEstudiante(String cadena) throws DataAccessException {

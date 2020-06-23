@@ -1,5 +1,7 @@
 package com.student.administrador.domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -93,8 +95,10 @@ public class Usuario {
 		return fechaNac;
 	}
 
-	public void setFechaNac(Date fechaNac) {
-		this.fechaNac = fechaNac;
+	public void setFechaNac(String fechaNac) throws ParseException {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+		Date date = df.parse(fechaNac);
+		this.fechaNac = date;
 	}
 
 	public String getDireccion() {

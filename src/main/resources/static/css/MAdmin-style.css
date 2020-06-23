@@ -6,8 +6,23 @@ body{
 .container-fluid{
      padding: 0;
      height: 100%;
+     text-align: center;
 }
 
+.content{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 5%;
+}
+
+.usr-msg{
+	color: gray;
+}
+
+.botones{
+	margin: 15%
+}
 
 footer {
     

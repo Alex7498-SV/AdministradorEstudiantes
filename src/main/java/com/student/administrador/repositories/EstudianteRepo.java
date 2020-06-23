@@ -15,8 +15,8 @@ public interface EstudianteRepo extends JpaRepository<Estudiante, Integer> {
 					+ "FROM public.estudiante e, public.materiaEstudiante me, public.materia m "
 					+ "WHERE e.idEstudiante = me.idEstudiante and  "
 					+ "me.idMateria = m.idMateria and"
-					+ "(e.nombres = ?1 or e.apellidos = ?1)"
+					+ "(e.nombres LIKE ?1% OR e.apellidos LIKE ?1%)"
 					+ "GROUP BY e.nombres, e.apellidos")
-	public List<Object[]> expedientePorNombreApellidos(String cadena) throws DataAccessException;
-	
+	public List<Object[]> expedientePorNombreApellido(String nombre, String apellido) throws DataAccessException;
+	//por la gran puta pacheco me cagas, ponele nombre en singular
 }
