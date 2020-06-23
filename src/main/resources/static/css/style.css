@@ -1,0 +1,43 @@
+
+
+body{    
+    padding: 0;
+    background-color: #dddede;
+}
+
+.navbar{
+    background-color: gray;
+    color: white;
+}
+
+.container-fluid{
+     padding: 0;
+     height: 100%;
+}
+
+.formularioWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6%;
+}
+
+.formulario{
+    width: 30%;
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+footer {
+    
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.card{
+    background-color: #e7472e;
+    height: 20px;
+}
