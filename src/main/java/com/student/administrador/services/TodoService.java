@@ -28,7 +28,7 @@ public interface TodoService {
 	
 	//QUERIES LARGAS
 	public List<Object[]> expedientePorNombreOApellido(String nombre, String apellido) throws DataAccessException;
-	public List<Object[]> materiasPorEstudiante(String cadena) throws DataAccessException;
+	public List<Object[]> materiasPorEstudiante(Integer id) throws DataAccessException;
 
 	//LOGIN
 	List<Usuario> findByUsuarioAndContra(String usuario, String contra);

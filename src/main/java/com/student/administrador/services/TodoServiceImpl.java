@@ -55,8 +55,8 @@ public class TodoServiceImpl implements TodoService{
 		return estR.expedientePorNombreApellido(nombre, apellido);
 	}
 	@Override
-	public List<Object[]> materiasPorEstudiante(String cadena) throws DataAccessException {
-		return matR.materiasCursadasPorEstudiante(cadena);
+	public List<Object[]> materiasPorEstudiante(Integer id) throws DataAccessException {
+		return matR.materiasCursadasPorEstudiante(id);
 	}
 	@Override
 	@Transactional

@@ -28,6 +28,7 @@ public class MainController {
 	@RequestMapping("/login")
 	public ModelAndView initMain(){
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("usuario", new Usuario());
 		mav.setViewName("login");
 		return mav;
 	}
@@ -44,9 +45,12 @@ public class MainController {
 	public ModelAndView welcome(@Valid @ModelAttribute Usuario user, BindingResult result){
 		ModelAndView mav = new ModelAndView();
 		if(!result.hasErrors()) {
+			user.setEstado(false);
+			user.setSesion(false);
+			if(user.getAdministrador() == null) {
+				user.setAdministrador(false);
+			}
 			try {
-				user.setEstado(false);
-				user.setSesion(false);
 				service.insertarOeditarUsuario(user);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -59,10 +63,20 @@ public class MainController {
 		return mav;
 	}
 	
-	@RequestMapping("/menu_admin")
-	public ModelAndView menuAdmin(){
+	@RequestMapping("/menu")
+	public ModelAndView menuAdmin(@ModelAttribute Usuario user){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("menu_admin");
+		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
+		for(Usuario usr: users) {
+			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
+				if(usr.getAdministrador()) {
+					mav.setViewName("menu_admin");
+				} else {
+					mav.setViewName("menu_admin");
+				}
+			}
+		}
+		mav.setViewName("login");
 		return mav;
 	}
 	
@@ -198,9 +212,17 @@ public class MainController {
 		mav.setViewName("tabla_estudiantes");
 		return mav;
 	}
-	@RequestMapping("/materias_cursadas")
-	public ModelAndView materiasCursadas(){
+	
+	@RequestMapping("/materias_cursadas" )
+	public ModelAndView materiasCursadas(@RequestParam Integer idEstudiante){
 		ModelAndView mav = new ModelAndView();
+		List<Object[]> matCursadas = null;
+		try {
+			matCursadas = service.materiasPorEstudiante(idEstudiante);
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
+		mav.addObject("matCursadas", matCursadas);
 		mav.setViewName("materias_cursadas");
 		return mav;
 	}
