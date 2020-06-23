@@ -14,7 +14,7 @@ public class MainController {
 	@Autowired
 	private TodoService service;
 	
-	@RequestMapping("/index")
+	@RequestMapping("/login")
 	public ModelAndView initMain(){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("login");

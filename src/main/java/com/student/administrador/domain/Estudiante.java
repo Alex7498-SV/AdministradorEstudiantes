@@ -40,7 +40,7 @@ public class Estudiante {
 	private String carnet;
 	
 	@Column(name="fecha_nacimiento")
-	@NotEmpty(message="El campo Carnet no puede ir vacio")
+	//@NotEmpty(message="El campo Fecha de nacimiento no puede ir vacio")
 	private Date fechaNac;
 	
 	@Column(name="direccion")

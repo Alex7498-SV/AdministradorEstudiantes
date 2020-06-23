@@ -22,15 +22,15 @@ public class EstudianteMateria {
 	private Integer idEstudianteMateria;
 	
 	@Column(name="nota")
-	@NotEmpty(message="El campo Nota no puede ir vacio")
+	//@NotEmpty(message="El campo Nota no puede ir vacio")
 	private Float nota;
 
 	@Column(name="anio")
-	@NotEmpty(message="El campo Año no puede ir vacio")
+	//@NotEmpty(message="El campo Año no puede ir vacio")
 	private Integer anio;
 	
 	@Column(name="ciclo_cursado")
-	@NotEmpty(message="El campo Ciclo no puede ir vacio")
+	//@NotEmpty(message="El campo Ciclo no puede ir vacio")
 	private Integer cicloCursado;
 	
 	@ManyToOne

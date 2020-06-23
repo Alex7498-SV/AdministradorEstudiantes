@@ -34,7 +34,7 @@ public class Usuario {
 	private String apellido;
 	
 	@Column(name="fecha_nacimiento")
-	@NotEmpty(message="El campo Fecha de Nacimiento no puede ir vacio")
+	//@NotEmpty(message="El campo Fecha de Nacimiento no puede ir vacio")
 	private Date fechaNac;
 	
 	@Column(name="direccion")
