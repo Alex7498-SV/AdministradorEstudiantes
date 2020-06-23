@@ -1,5 +1,5 @@
 package com.student.administrador.domain;
 
-public class AlumnoMateria {
+public class EstudianteMateria {
 
 }
