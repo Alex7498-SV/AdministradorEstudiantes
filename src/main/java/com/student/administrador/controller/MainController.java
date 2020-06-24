@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.student.administrador.domain.CentroEscolar;
+import com.student.administrador.domain.Estudiante;
 import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Usuario;
@@ -67,16 +68,22 @@ public class MainController {
 	public ModelAndView menuAdmin(@ModelAttribute Usuario user){
 		ModelAndView mav = new ModelAndView();
 		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
+		Integer flag = 0;
 		for(Usuario usr: users) {
 			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
 				if(usr.getAdministrador()) {
-					mav.setViewName("menu_admin");
+					flag = 1;
 				} else {
-					mav.setViewName("menu_admin");
+					flag = 2;
 				}
 			}
 		}
-		mav.setViewName("login");
+		System.out.print(flag);
+		if(flag ==1 ) {
+			mav.setViewName("menu_admin");
+		} else {
+			mav.setViewName("login");
+		}
 		return mav;
 	}
 	
@@ -93,6 +100,7 @@ public class MainController {
 		mav.setViewName("catalogo_escuela");
 		return mav;
 	}
+	
 	@RequestMapping("/editar_catalogo_escuela")
     public ModelAndView editCatEscuela(@Valid @ModelAttribute CentroEscolar escuela ,BindingResult result) {
         ModelAndView mav = new ModelAndView();
@@ -130,6 +138,7 @@ public class MainController {
 		mav.setViewName("catalogo_materia");
 		return mav;
 	}
+	
 	@RequestMapping("/editar_catalogo_materia")
     public ModelAndView editCatMateria(@Valid @ModelAttribute Materia materia ,BindingResult result) {
         ModelAndView mav = new ModelAndView();
@@ -167,6 +176,7 @@ public class MainController {
 		mav.setViewName("catalogo_usuario");
 		return mav;
 	}
+	
 	@RequestMapping("/editar_catalogo_usuario")
     public ModelAndView editCatUsuario(@Valid @ModelAttribute Usuario usuario ,BindingResult result) {
         ModelAndView mav = new ModelAndView();
@@ -190,6 +200,13 @@ public class MainController {
         }
         return mav;
     }
+
+	@RequestMapping("/buscar_o_agregar_alumnos" )
+	public ModelAndView buscarAgregarAlumnos(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("buscar_o_agregar_alumnos");
+		return mav;
+	}
 	
 	@RequestMapping("/filtrar_por_nombreApellido")
 	public ModelAndView filtrar(@RequestParam(value="nombreApellido") String cadena, @RequestParam(value="comboBoxNumber") Integer comboNumber) {
@@ -212,6 +229,21 @@ public class MainController {
 		mav.setViewName("tabla_estudiantes");
 		return mav;
 	}
+
+	@RequestMapping("/agregar_expediente_nuevo" )
+	public ModelAndView nuevoExpediente(){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("estudianteNuevo", new Estudiante());
+		mav.setViewName("tabla_estudiantes");
+		return mav;
+	}
+	
+	@RequestMapping("/guardar_expediente_nuevo" )
+	public ModelAndView nuevoExpedienteGuardado(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("buscar_o_agregar_alumnos");
+		return mav;
+	}
 	
 	@RequestMapping("/materias_cursadas" )
 	public ModelAndView materiasCursadas(@RequestParam Integer idEstudiante){
@@ -226,6 +258,7 @@ public class MainController {
 		mav.setViewName("materias_cursadas");
 		return mav;
 	}
+	
 	@RequestMapping("/agregar_nueva_materia_cursada")
 	public ModelAndView nuevaMatCursada(){
 		ModelAndView mav = new ModelAndView();
@@ -233,8 +266,9 @@ public class MainController {
 		mav.setViewName("agregar_editar_materia");
 		return mav;
 	}
+	
 	@RequestMapping("/guardar_nueva_materia_cursada")
-	public ModelAndView NuevaMatGuardada(){
+	public ModelAndView nuevaMatGuardada(){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("materias_cursadas");
 		return mav;
