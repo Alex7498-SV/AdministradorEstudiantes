@@ -12,6 +12,8 @@ import com.student.administrador.domain.Estudiante;
 import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Usuario;
+import com.student.administrador.domain.Municipio;
+import com.student.administrador.domain.Departamento;
 import com.student.administrador.repositories.DepartamentoRepo;
 import com.student.administrador.repositories.EscuelaRepo;
 import com.student.administrador.repositories.EstudianteMateriaRepo;
@@ -93,7 +95,7 @@ public class TodoServiceImpl implements TodoService{
 	}
 
 	@Override
-	public List<Object[]> findAllDepartaments(){
+	public List<Departamento> findAllDepartaments(){
 		return depR.findAllDepartaments();
 	}
 
@@ -105,5 +107,15 @@ public class TodoServiceImpl implements TodoService{
 	@Override
 	public List<Object[]> muncipioPorDep(Integer idDep){
 		return munR.municipiosPorDep(idDep);
+	}
+
+	@Override
+	public Municipio municipioPorId(Integer idMun){
+		return munR.municipioPorId(idMun);
+	}
+
+	@Override
+	public Departamento depPorId(Integer idDep){
+		return depR.depPorId(idDep);
 	}
 }

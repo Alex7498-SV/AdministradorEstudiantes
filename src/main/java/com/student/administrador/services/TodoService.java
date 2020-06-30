@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.student.administrador.domain.CentroEscolar;
+import com.student.administrador.domain.Departamento;
 import com.student.administrador.domain.Estudiante;
 import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
+import com.student.administrador.domain.Municipio;
 import com.student.administrador.domain.Usuario;
 
 public interface TodoService {
@@ -19,9 +21,11 @@ public interface TodoService {
 	void agregarOeditarExpediente(Estudiante estudiante) throws DataAccessException;
 	void agregarOeditarMateriaCursada(EstudianteMateria estudiante_materia) throws DataAccessException;
 	
-	public List<Object[]> findAllDepartaments() throws DataAccessException;
+	public List<Departamento> findAllDepartaments() throws DataAccessException;
 	public List<Object[]> escuelasPorMunicipio(Integer idMunicipio) throws DataAccessException;
 	public List<Object[]> muncipioPorDep(Integer idDep) throws DataAccessException;
+	public Municipio municipioPorId(Integer idMun) throws DataAccessException;
+	public Departamento depPorId(Integer idDep) throws DataAccessException;
 	
 	//CATALOGOS
 	public List<Object[]> catalogoMaterias() throws DataAccessException;

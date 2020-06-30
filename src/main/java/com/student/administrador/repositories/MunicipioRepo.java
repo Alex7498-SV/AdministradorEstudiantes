@@ -11,7 +11,11 @@ import com.student.administrador.domain.Municipio;
 public interface MunicipioRepo extends JpaRepository<Municipio, Integer> {
 
     @Query(nativeQuery=true,
-            value="SELECT * FROM public.municipio m WHERE c.idDepartamento = ?1")
+            value="SELECT m.nombre, m.idMunicipio FROM public.municipio m WHERE m.idDepartamento = ?1")
     public List<Object[]> municipiosPorDep(Integer idDep) throws DataAccessException; 
+
+    @Query(nativeQuery=true,
+            value="SELECT * FROM public.municipio m WHERE m.idMunicipio = ?1")
+    public Municipio municipioPorId(Integer idMunicipio) throws DataAccessException;
 
 }
