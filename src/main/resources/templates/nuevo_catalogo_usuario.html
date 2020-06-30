@@ -54,42 +54,68 @@
 			
 			<div class="content">
 				<div class="jumbotron">
-					<h3 class="display-4" id="hedit">Editar Escuela</h3>
-					<h3 class="display-4" id="hnew">Insertar una escuela</h3>
+					<h3 class="display-4" id="hedit">Editar Usuario</h3>
+					<h3 class="display-4" id="hnew">Insertar un nuevo usuario</h3>
 					<form>
 
 						<div class="form-row" id="editar">
                             <div class="form-group col-md-2">
                                 <label for="id">id</label>
-                                <input type="text" class="form-control" id="id_cE" disabled>
+                                <input type="text" class="form-control" id="id_cE" disabled value="1">
                               </div>
-                            <div class="form-group col-md-10">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre">
-                              </div>
+                            <div class="form-group col-md-5">
+								<label for="nombre">Nombre</label>
+								<input type="text" class="form-control" id="nombre">
+							</div>
+							<div class="form-group col-md-5">
+								<label for="apellido">Apellido</label>
+								<input type="text" class="form-control" id="apellido">
+							</div>
                         </div>
 
-						<div class="form-group" id="nuevo">
-							<label for="nombre">Nombre</label>
-							<input type="text" class="form-control" id="nombre">
-						  </div>
-						  
+						<div class="form-row" id="nuevo">
+                            <div class="form-group col-md-6">
+								<label for="nombre">Nombre</label>
+								<input type="text" class="form-control" id="nombre">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="apellido">Apellido</label>
+								<input type="text" class="form-control" id="apellido">
+							</div>
+                        </div>
 						<div class="form-row">
-						  <div class="form-group col-md-8">
-							<label for="estado">Municipio</label>
-							<select class="form-control" id="estado">
-							  <option>cantón tepesco loyo</option>
-							  <option>san salvador</option>
-							  <option>Soyapango</option>
-							</select>
-						  </div>
-						  <div class="form-group col-md-4">
-							<label for="estado">Estado</label>
-							<select class="form-control" id="estado">
-							  <option>Activo</option>
-							  <option>Inactivo</option>
-							</select>
-						  </div>
+
+							<div class="form-group col-md-4">
+								<label for="fNaciemiento">Fecha de Nacimiento</label>
+								<input type="date" class="form-control" id="fNacimiento">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="direccion">Direccion</label>
+								<input type="text" class="form-control" id="direccion">
+							</div>
+
+						</div>
+						<div class="form-row">
+
+							<div class="form-group col-md-4">
+								<label for="usuario">Usuario</label>
+								<input type="text" class="form-control" id="usuario">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="tipo">Tipo de cuenta</label>
+								<select class="form-control" id="tipo">
+									<option>Coordinador</option>
+									<option>Administrador</option>
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="estado">Estado</label>
+								<select class="form-control" id="estado">
+								  <option>Activo</option>
+								  <option>Inactivo</option>
+								</select>
+							</div>
+
 						</div>
 						
 					</form>

@@ -20,7 +20,6 @@ import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Usuario;
 import com.student.administrador.services.TodoService;
 
-
 @Controller
 public class MainController {
 
@@ -133,7 +132,6 @@ public class MainController {
 			e.printStackTrace();
 		}
 		mav.addObject("escuelas", escuelas);
-		//mav.setViewName("nuevo_catalogo_escuela");
 		mav.setViewName("catalogo_escuela");
 		return mav;
 	}
@@ -162,6 +160,27 @@ public class MainController {
         return mav;
     }
 	
+	@RequestMapping("/nuevo_catalogo_materia")
+	public ModelAndView nuevoCatalogoMaterias(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("nuevo_catalogo_materia");
+		return mav;
+	}
+
+	@RequestMapping("/nuevo_catalogo_usuario")
+	public ModelAndView nuevoCatalogoUsuario(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("nuevo_catalogo_usuario");
+		return mav;
+	}
+
+	@RequestMapping("/nuevo_catalogo_escuela")
+	public ModelAndView nuevoCatalogoEscuela(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("nuevo_catalogo_escuela");
+		return mav;
+	}
+
 	@RequestMapping("/catalogo_materia")
 	public ModelAndView catalogoMaterias(){
 		ModelAndView mav = new ModelAndView();
@@ -195,7 +214,7 @@ public class MainController {
             mav.setViewName("catalogo_materia");
         }
         else {
-        	mav.setViewName("editar_catalogo_materia");
+        	mav.setViewName("nuevo_catalogo_materia");
         }
         return mav;
     }
@@ -233,7 +252,7 @@ public class MainController {
             mav.setViewName("catalogo_usuario");
         }
         else {
-        	mav.setViewName("editar_catalogo_usuario");
+        	mav.setViewName("nuevo_catalogo_usuario");
         }
         return mav;
     }

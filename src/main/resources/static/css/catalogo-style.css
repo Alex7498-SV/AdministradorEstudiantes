@@ -17,17 +17,11 @@ body{
 }
 
 #new{
-    margin-top: 2%;
+    margin-top: 7%;
     margin-bottom: -2%;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
+.navbar{
+    position: fixed;
     width: 100%;
-}
-
-.card{
-    background-color: #e7472e;
-    height: 20px;
 }

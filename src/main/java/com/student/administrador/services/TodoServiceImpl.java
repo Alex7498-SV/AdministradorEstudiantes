@@ -91,4 +91,19 @@ public class TodoServiceImpl implements TodoService{
 	public List<Usuario> findAll(){
 		return usR.findAll();
 	}
+
+	@Override
+	public List<Object[]> findAllDepartaments(){
+		return depR.findAllDepartaments();
+	}
+
+	@Override
+	public List<Object[]> escuelasPorMunicipio(Integer idMunicipio){
+		return escR.escuelasPorMunicipio(idMunicipio);
+	}
+
+	@Override
+	public List<Object[]> muncipioPorDep(Integer idDep){
+		return munR.municipiosPorDep(idDep);
+	}
 }
