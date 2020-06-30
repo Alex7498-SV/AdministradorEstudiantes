@@ -12,13 +12,13 @@ public interface EstudianteRepo extends JpaRepository<Estudiante, Integer> {
 	
 	@Query(nativeQuery=true,
 			value="SELECT e.nombres, e.apellidos, "
-					+ 						"(SELECT COUNT(mee.nota) FROM public.materiaEstudiante mee, public.estudiante ee "
+					+ 						"(SELECT COUNT(mee.nota) FROM public.estudiantemateria mee, public.estudiante ee "
 					+ 						"WHERE mee.nota>=6 and mee.idEstudiante=ee.idEstudiante and (ee.nombres LIKE ?1% OR ee.apellidos LIKE ?2%)) as Aprobadas," 
-					+ 						"(SELECT COUNT(mee.nota) FROM public.materiaEstudiante mee, public.estudiante ee "
+					+ 						"(SELECT COUNT(mee.nota) FROM public.estudiantemateria mee, public.estudiante ee "
 					+ 						"WHERE mee.nota<6 and mee.idEstudiante=ee.idEstudiante and (ee.nombres LIKE ?1% OR ee.apellidos LIKE ?2%)) as Reprobadas," 
-					+ 						"(SELECT SUM(mee.nota)/COUNT(mee.nota) FROM public.materiaEstudiante mee, public.estudiante ee"
-					+ 						"WHERE mee.idEstudiante=ee.idEstudiante and (ee.nombres LIKE ?1% OR ee.apellidos LIKE ?2%)) as Promedio,"
-					+ "FROM public.estudiante e, public.materiaEstudiante me"
+					+ 						"(SELECT SUM(mee.nota)/COUNT(mee.nota) FROM public.estudiantemateria mee, public.estudiante ee"
+					+ 						"WHERE mee.idEstudiante=ee.idEstudiante and (ee.nombres LIKE ?1% OR ee.apellidos LIKE ?2%)) as Promedio"
+					+ "FROM public.estudiante e, public.estudiantemateria me"
 					+ "WHERE e.idEstudiante = me.idEstudiante and"
 					+ 			"(e.nombres LIKE ?1% OR e.apellidos LIKE ?2%)"
 					+ "GROUP BY e.nombres, e.apellidos")
