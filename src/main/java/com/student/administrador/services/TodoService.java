@@ -19,7 +19,9 @@ public interface TodoService {
 	void agregarOeditarExpediente(Estudiante estudiante) throws DataAccessException;
 	void agregarOeditarMateriaCursada(EstudianteMateria estudiante_materia) throws DataAccessException;
 	
-	
+	public List<Object[]> findAllDepartaments() throws DataAccessException;
+	public List<Object[]> escuelasPorMunicipio(Integer idMunicipio) throws DataAccessException;
+	public List<Object[]> muncipioPorDep(Integer idDep) throws DataAccessException;
 	
 	//CATALOGOS
 	public List<Object[]> catalogoMaterias() throws DataAccessException;

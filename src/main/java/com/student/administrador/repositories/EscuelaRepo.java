@@ -14,4 +14,9 @@ public interface EscuelaRepo extends JpaRepository<CentroEscolar, Integer> {
 			value="SELECT c.idEscolar AS Codigo, c.nombre as Descripcion, c.estado as Estado"
 					+ "FROM public.centroEscolar c")
 	public List<Object[]> catalogoEscuelas() throws DataAccessException;
+
+	@Query(nativeQuery=true,
+			value="SELECT * FROM public.centroEscolar c WHERE c.idMunicipio = ?1")
+	public List<Object[]> escuelasPorMunicipio(Integer idMunicipio) throws DataAccessException;
+
 }
