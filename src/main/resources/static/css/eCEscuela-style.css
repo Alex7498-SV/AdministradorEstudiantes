@@ -16,9 +16,14 @@ body{
 	margin: 5%;
 }
 
+.jumbotron{
+    text-align: start;
+}
+
+
 footer {
     
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
 }
