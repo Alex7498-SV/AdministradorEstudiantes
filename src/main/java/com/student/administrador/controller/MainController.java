@@ -120,8 +120,8 @@ public class MainController {
 			e.printStackTrace();
 		}
 		mav.addObject("escuelas", escuelas);
-		mav.setViewName("nuevo_catalogo_escuela");
-		//mav.setViewName("catalogo_escuela");
+		//mav.setViewName("nuevo_catalogo_escuela");
+		mav.setViewName("catalogo_escuela");
 		return mav;
 	}
 	
