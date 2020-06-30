@@ -27,10 +27,16 @@ public class MainController {
 	private TodoService service;
 	
 	@RequestMapping("/login")
-	public ModelAndView initMain(){
+	public ModelAndView initMain(HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("usuario", new Usuario());
-		mav.setViewName("login");
+		//Usuario user = (Usuario) session.getAttribute("usuario");
+		if(session.getAttribute("usuario")== null) {
+			mav.addObject("usuario", new Usuario());
+			mav.setViewName("login");
+		} else {
+			mav.setViewName("redirect:/menu");
+		}
+		
 		return mav;
 	}
 	
