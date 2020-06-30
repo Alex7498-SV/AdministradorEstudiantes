@@ -79,8 +79,8 @@ public class MainController {
 		return mav;
 	}
 	
-	@RequestMapping("/menu")
-	public ModelAndView menuAdmin(HttpSession session, @ModelAttribute Usuario user){
+	@RequestMapping("/redirect")
+	public ModelAndView redirect(HttpSession session, @ModelAttribute Usuario user){
 		ModelAndView mav = new ModelAndView();
 		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
 		Integer flag = null;
@@ -101,13 +101,51 @@ public class MainController {
 		System.out.print(flag);
 		if(flag != null ) {
 			if(flag ==1) {
+				mav.setViewName("redirect:/menu");
+				//mav.setViewName("menu_admin");
+			} else {
+				mav.setViewName("redirect:/buscar_o_agregar_alumnos");
+				//mav.setViewName("menu_admin");
+			}
+		} else {
+			mav.setViewName("login");
+		}
+		return mav;
+	}
+	
+	
+	@RequestMapping("/menu")
+	public ModelAndView menuAdmin(HttpSession session){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("menu_admin");
+		Usuario usr = (Usuario) session.getAttribute("usuario");
+		System.out.println(usr.getSesion());
+		/* List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
+		Integer flag = null;
+		for(Usuario usr: users) {
+			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
+				if(usr.getSesion() == false){
+					usr.setSesion(true);
+					session.setAttribute("usuario", usr);
+					service.insertarOeditarUsuario(usr);
+						if(usr.getAdministrador()) {
+							flag = 1;
+						} else {
+							flag = 2;
+						}*/
+				//} // Debe ir aqui un viewname que mande a que no se puede logear 2 veces. F -El chino 
+			//}
+		//}
+		/*System.out.print(flag);
+		if(flag != null ) {
+			if(flag ==1) {
 				mav.setViewName("menu_admin");
 			} else {
 				mav.setViewName("menu_admin");
 			}
 		} else {
 			mav.setViewName("login");
-		}
+		}*/
 		return mav;
 	}
 	
@@ -260,7 +298,7 @@ public class MainController {
 	@RequestMapping("/buscar_o_agregar_alumnos" )
 	public ModelAndView buscarAgregarAlumnos(){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("buscar_o_agregar_alumnos");
+		mav.setViewName("../templates_coordinador/buscar_o_agregar_alumnos");
 		return mav;
 	}
 	
