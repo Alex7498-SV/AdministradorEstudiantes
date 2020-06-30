@@ -45,18 +45,33 @@ public class MainController {
 	@RequestMapping("/welcome")
 	public ModelAndView welcome(@Valid @ModelAttribute Usuario user, BindingResult result){
 		ModelAndView mav = new ModelAndView();
+		Integer flag = 0;
+		List<Usuario> users = service.findAll();
 		if(!result.hasErrors()) {
-			user.setEstado(false);
-			user.setSesion(false);
-			if(user.getAdministrador() == null) {
-				user.setAdministrador(false);
+			for(Usuario usr: users) {
+				System.out.println(user.getUsuario()+usr.getUsuario());
+				if(user.getUsuario().equals(usr.getUsuario())) {
+					flag++;
+				}
 			}
-			try {
-				service.insertarOeditarUsuario(user);
-			}catch(Exception e){
-				e.printStackTrace();
+			if(flag == 0) {
+				user.setEstado(false);
+				user.setSesion(false);
+				if(user.getAdministrador() == null) {
+					user.setAdministrador(false);
+				}
+				try {
+					service.insertarOeditarUsuario(user);
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				mav.setViewName("welcome");
+			} else {
+				mav.addObject("usuario", new Usuario());
+				mav.setViewName("nueva_cuenta");
+
 			}
-			mav.setViewName("welcome");
+		
 		}
 		else {
 			mav.setViewName("nueva_cuenta");
@@ -68,19 +83,27 @@ public class MainController {
 	public ModelAndView menuAdmin(@ModelAttribute Usuario user){
 		ModelAndView mav = new ModelAndView();
 		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
-		Integer flag = 0;
+		Integer flag = null;
 		for(Usuario usr: users) {
 			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
-				if(usr.getAdministrador()) {
-					flag = 1;
-				} else {
-					flag = 2;
-				}
+				if(usr.getSesion() == false){
+					usr.setSesion(true);
+					service.insertarOeditarUsuario(usr);
+						if(usr.getAdministrador()) {
+							flag = 1;
+						} else {
+							flag = 2;
+						}
+				} // Debe ir aqui un viewname que mande a que no se puede logear 2 veces. F -El chino 
 			}
 		}
 		System.out.print(flag);
-		if(flag ==1 ) {
-			mav.setViewName("menu_admin");
+		if(flag != null ) {
+			if(flag ==1) {
+				mav.setViewName("menu_admin");
+			} else {
+				mav.setViewName("menu_admin");
+			}
 		} else {
 			mav.setViewName("login");
 		}

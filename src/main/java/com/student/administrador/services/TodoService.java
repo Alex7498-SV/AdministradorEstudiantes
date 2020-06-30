@@ -32,4 +32,7 @@ public interface TodoService {
 
 	//LOGIN
 	List<Usuario> findByUsuarioAndContra(String usuario, String contra);
+	
+	//Proposito general
+	List<Usuario> findAll();
 }

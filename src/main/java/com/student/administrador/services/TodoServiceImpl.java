@@ -87,4 +87,8 @@ public class TodoServiceImpl implements TodoService{
 	public List<Usuario> findByUsuarioAndContra(String usuario, String contra) {
 		return usR.findByUsuarioAndContra(usuario, contra);
 	}
+	@Override
+	public List<Usuario> findAll(){
+		return usR.findAll();
+	}
 }
