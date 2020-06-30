@@ -97,7 +97,8 @@ public class MainController {
 			e.printStackTrace();
 		}
 		mav.addObject("escuelas", escuelas);
-		mav.setViewName("catalogo_escuela");
+		mav.setViewName("editar_catalogo_escuela");
+		//mav.setViewName("catalogo_escuela");
 		return mav;
 	}
 	
