@@ -2,6 +2,7 @@ package com.student.administrador.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/menu")
-	public ModelAndView menuAdmin(@ModelAttribute Usuario user){
+	public ModelAndView menuAdmin(HttpSession session, @ModelAttribute Usuario user){
 		ModelAndView mav = new ModelAndView();
 		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
 		Integer flag = null;
@@ -87,6 +88,7 @@ public class MainController {
 			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
 				if(usr.getSesion() == false){
 					usr.setSesion(true);
+					session.setAttribute("usuario", usr);
 					service.insertarOeditarUsuario(usr);
 						if(usr.getAdministrador()) {
 							flag = 1;
@@ -106,6 +108,17 @@ public class MainController {
 		} else {
 			mav.setViewName("login");
 		}
+		return mav;
+	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpSession session){
+		ModelAndView mav = new ModelAndView();
+		Usuario usr = (Usuario) session.getAttribute("usuario");
+		usr.setSesion(false);
+		service.insertarOeditarUsuario(usr);
+		session.removeAttribute("usuario");
+		mav.setViewName("Logout");
 		return mav;
 	}
 	
