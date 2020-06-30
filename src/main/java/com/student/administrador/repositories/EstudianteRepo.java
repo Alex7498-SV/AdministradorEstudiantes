@@ -17,10 +17,9 @@ public interface EstudianteRepo extends JpaRepository<Estudiante, Integer> {
 					+ 						"(SELECT COUNT(mee.nota) FROM public.materiaEstudiante mee, public.estudiante ee "
 					+ 						"WHERE mee.nota<6 and mee.idEstudiante=ee.idEstudiante and (ee.nombres LIKE ?1% OR ee.apellidos LIKE ?2%)) as Reprobadas," 
 					+ 						"(SELECT SUM(mee.nota)/COUNT(mee.nota) FROM public.materiaEstudiante mee, public.estudiante ee"
-					+ 						"WHERE mee.nota>=6 and mee.idEstudiante=ee.idEstudiante and (ee.nombres LIKE ?1% OR ee.apellidos LIKE ?2%)) as Promedio,"
-					+ "FROM public.estudiante e, public.materiaEstudiante me, public.materia m "
+					+ 						"WHERE mee.idEstudiante=ee.idEstudiante and (ee.nombres LIKE ?1% OR ee.apellidos LIKE ?2%)) as Promedio,"
+					+ "FROM public.estudiante e, public.materiaEstudiante me"
 					+ "WHERE e.idEstudiante = me.idEstudiante and"
-					+ 			"me.idMateria = m.idMateria and"
 					+ 			"(e.nombres LIKE ?1% OR e.apellidos LIKE ?2%)"
 					+ "GROUP BY e.nombres, e.apellidos")
 	public List<Object[]> expedientePorNombreApellido(String nombre, String apellido) throws DataAccessException;
