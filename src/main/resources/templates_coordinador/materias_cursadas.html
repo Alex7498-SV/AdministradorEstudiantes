@@ -12,19 +12,19 @@
 				<thead>
 					<th scope="col">Accion</th>
 					<th scope="col">Materia</th>
-					<th scope="col">Año</th>
+					<th scope="col">Aï¿½o</th>
 					<th scope="col">Ciclo</th>			
 					<th scope="col">Nota</th>
 					<th scope="col">Resultado</th>
 				</thead>
-					<th:block th:each="libro, row:${listado}">
+					<th:block th:each="matCursada, row:${matCursadas}">
 						<tr>
-							<th scope="row" th:text="${libro.s_titulo}"/>
-							<th th:text="${libro.s_autor}"/>
-							<th th:text="${libro.s_isbn}"/>
-							<th th:text="${libro.categoria.s_categoria}"/>
-							<th th:text="${libro.f_ingreso}"/>
-							<th th:text="${libro.EstadoDelegate}"/>
+							<!--<th scope="row" th:text="${libro.s_titulo}"/>-->
+							<th th:text="${matCursada.nombre}"/>
+							<th th:text="${matCursada.anio}"/>
+							<th th:text="${matCursada.ciclo}"/>
+							<th th:text="${matCursada.nota}"/>
+							<th th:text="${matCursada.resultado}"/>
 						</tr>
 					</th:block>
 			</table>
