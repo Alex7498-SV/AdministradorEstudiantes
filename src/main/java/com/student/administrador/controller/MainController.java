@@ -17,8 +17,10 @@ import com.student.administrador.domain.CentroEscolar;
 import com.student.administrador.domain.Estudiante;
 import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
+import com.student.administrador.domain.Municipio;
 import com.student.administrador.domain.Usuario;
 import com.student.administrador.dto.CatalogoEscuelasDTO;
+import com.student.administrador.dto.MateriasPorEstudianteDTO;
 import com.student.administrador.services.TodoService;
 
 @Controller
@@ -103,6 +105,7 @@ public class MainController {
 							flag = 2;
 						}
 				} // Debe ir aqui un viewname que mande a que no se puede logear 2 veces. F -El chino 
+				
 			}
 		}
 		System.out.print(flag);
@@ -110,9 +113,11 @@ public class MainController {
 			if(flag ==1) {
 				mav.setViewName("redirect:/menu");
 				//mav.setViewName("menu_admin");
-			} else {
+			} else if(flag ==2) {
 				mav.setViewName("redirect:/buscar_o_agregar_alumnos");
 				//mav.setViewName("menu_admin");
+			} else {
+				mav.setViewName("errorC");
 			}
 		} else {
 			mav.setViewName("login");
@@ -176,13 +181,37 @@ public class MainController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		//Lo siento toque una query pero esta comentada. Si era de DESE, me perdonas? :3
-		
-		for(CatalogoEscuelasDTO ce: escuelas) {
-			System.out.println(ce.getCodigo() + ce.getDescripcion() + ce.getEstado());
-		}
 		mav.addObject("escuelas", escuelas);
 		mav.setViewName("catalogo_escuela");
+		return mav;
+	}
+	
+
+	@RequestMapping("/catalogo_usuario")
+	public ModelAndView catalogoUsuarios(){
+		ModelAndView mav = new ModelAndView();
+		List<Usuario> usuarios = null;
+		try{
+			usuarios = service.catalogoUsuarios();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("usuarios", usuarios);
+		mav.setViewName("catalogo_usuario");
+		return mav;
+	}
+	
+	@RequestMapping("/catalogo_materia")
+	public ModelAndView catalogoMaterias(){
+		ModelAndView mav = new ModelAndView();
+		List<Materia> materias = null;
+		try{
+			materias = service.catalogoMaterias();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("materias", materias);
+		mav.setViewName("catalogo_materia");
 		return mav;
 	}
 	
@@ -231,17 +260,17 @@ public class MainController {
 		return mav;
 	}
 
-	@RequestMapping("/catalogo_materia")
-	public ModelAndView catalogoMaterias(){
+	
+	@RequestMapping("/find_municipios")
+	public ModelAndView municipios(){
 		ModelAndView mav = new ModelAndView();
-		List<Object[]> materias = null;
+		List<Municipio> municipios = null;
 		try{
-			materias = service.catalogoMaterias();
+			municipios = service.findAllMunicipios();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		mav.addObject("materias", materias);
-		mav.setViewName("catalogo_materia");
+		mav.addObject("municipios", municipios);
 		return mav;
 	}
 	
@@ -254,7 +283,7 @@ public class MainController {
             }catch(Exception e) {
                 e.printStackTrace();
             }
-            List<Object[]> materias = null;
+            List<Materia> materias = null;
     		try{
     			materias = service.catalogoMaterias();
     		}catch(Exception e){
@@ -269,20 +298,6 @@ public class MainController {
         return mav;
     }
 	
-	@RequestMapping("/catalogo_usuario")
-	public ModelAndView catalogoUsuarios(){
-		ModelAndView mav = new ModelAndView();
-		List<Object[]> usuarios = null;
-		try{
-			usuarios = service.catalogoUsuarios();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		mav.addObject("usuarios", usuarios);
-		mav.setViewName("catalogo_usuario");
-		return mav;
-	}
-	
 	@RequestMapping("/editar_catalogo_usuario")
     public ModelAndView editCatUsuario(@Valid @ModelAttribute Usuario usuario ,BindingResult result) {
         ModelAndView mav = new ModelAndView();
@@ -292,7 +307,7 @@ public class MainController {
             }catch(Exception e) {
                 e.printStackTrace();
             }
-            List<Object[]> usuarios = null;
+            List<Usuario> usuarios = null;
     		try{
     			usuarios = service.catalogoUsuarios();
     		}catch(Exception e){
@@ -314,39 +329,6 @@ public class MainController {
 		return mav;
 	}
 
-	/*-----------------------temporal---------------------------------*/
-
-	@RequestMapping("/temp")
-	public ModelAndView tablita(){
-		ModelAndView mav =  new ModelAndView();
-		mav.setViewName("../templates_coordinador/editar_expediente_existente");
-		return mav;
-	}
-
-	/*-----------------------temporal---------------------------------*/
-	
-	@RequestMapping("/filtrar_por_nombreApellido")
-	public ModelAndView filtrar(@RequestParam(value="nombreApellido") String cadena, @RequestParam(value="comboBoxNumber") Integer comboNumber) {
-		ModelAndView mav = new ModelAndView();
-		List<Object[]> estudiantes = null;
-		if(comboNumber == 1) {
-			try {
-				estudiantes = service.expedientePorNombreOApellido(cadena,"");
-			}catch(Exception e ) {
-				e.printStackTrace();
-			}
-		}else {
-			try {
-				estudiantes = service.expedientePorNombreOApellido("",cadena);
-			}catch(Exception e ) {
-				e.printStackTrace();
-			}
-		}
-		mav.addObject("estudiantes", estudiantes);
-		mav.setViewName("tabla_estudiantes");
-		return mav;
-	}
-
 	@RequestMapping("/agregar_expediente_nuevo" )
 	public ModelAndView nuevoExpediente(){
 		ModelAndView mav = new ModelAndView();
@@ -365,7 +347,7 @@ public class MainController {
 	@RequestMapping("/materias_cursadas" )
 	public ModelAndView materiasCursadas(@RequestParam Integer idEstudiante){
 		ModelAndView mav = new ModelAndView();
-		List<Object[]> matCursadas = null;
+		List<MateriasPorEstudianteDTO> matCursadas = null;
 		try {
 			matCursadas = service.materiasPorEstudiante(idEstudiante);
 		}catch(Exception e ) {

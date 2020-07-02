@@ -78,4 +78,11 @@ public class CentroEscolar {
 	public void setEstudiantes(List<Estudiante> estudiantes) {
 		this.estudiantes = estudiantes;
 	}
+	
+	public String getEstadoDelegate() {
+        if(this.estado == null)return "";
+        else {
+            return estado == true ?"Activo":"Inactivo";
+        }
+	}
 }

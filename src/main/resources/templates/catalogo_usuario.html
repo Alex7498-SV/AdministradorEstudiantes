@@ -31,7 +31,7 @@
 				</div>
 			  </form>
 			</nav>
-			<button type="button" class="btn btn-danger" id="new">Insertar una nueva escuela</button>
+			<button type="button" class="btn btn-danger" id="new">Insertar un nuevo usuario</button>
 			<div class="content">
 				
 				<table class="table table-hover">
@@ -43,11 +43,23 @@
 					  <th scope="col">Apellido</th>
 					  <th scope="col">Descripción</th>
 					  <th scope="col">Usuario</th>
-				      <th scope="col">Estado</th>
+				      <th scope="col">Estado de la Cuenta</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
+  				  	<th:block th:each="usuario, row:${usuarios}">
+						<tr>
+							<td><button class="btn btn-primary" type="button">Editar</button></td>
+							<th th:text="${usuario.IdUsuario}"/>
+							<th th:text="${usuario.Nombre}"/>
+							<th th:text="${usuario.Apellido}"/>
+							<th th:text="${usuario.Direccion}"/>
+							<th th:text="${usuario.Usuario}"/>
+							<th th:text="${usuario.EstadoDelegate}"/>
+						</tr>
+					</th:block>
+				  
+				   <!--   <tr>
 				      <td><button class="btn btn-primary" type="button">Editar</button></td>
 				      <td>007</td>
 					  <td>Peter</td>
@@ -118,7 +130,7 @@
 						<td>xd</td>
 						<td>Spaiderman</td>
 						<td>Activo</td>
-					  </tr>
+					  </tr>-->
 					  
 				  </tbody>
 				</table>

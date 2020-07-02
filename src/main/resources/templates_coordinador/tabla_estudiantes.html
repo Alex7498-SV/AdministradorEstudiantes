@@ -43,17 +43,19 @@
 					<th scope="col">Materias Reprobadas</th>
 					<th scope="col">Promedio</th>
 				</thead>
-				<tr>
-					<td>
-						<button class="btn btn-primary" type="button">Editar</button>
-						<button class="btn btn-primary">Expediente</button>
-					</td>
-					<td>Papalota</td>
-					<td>Lopez</td>
-					<td>5</td>
-					<td>1</td>
-					<td>6</td>
-				</tr>
+				<tbody>
+					<th:block th:each="estudiante, row:${estudiantes}">
+						<tr>
+							<td>
+								<button class="btn btn-primary" type="button">Editar</button>
+								<button class="btn btn-primary">Expediente</button>
+							</td>
+							<th th:text="${estudiante.nombre}"/>
+							<th th:text="${estudiante.apellido}"/>
+							<th th:text="${estudiante.}"/>
+						</tr>
+					</th:block>
+				</tbody>
 			</table>
 		</div>
 	</div>

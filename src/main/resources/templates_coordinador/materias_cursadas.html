@@ -17,9 +17,10 @@
 					<th scope="col">Nota</th>
 					<th scope="col">Resultado</th>
 				</thead>
+				<tbody>
 					<th:block th:each="matCursada, row:${matCursadas}">
 						<tr>
-							<!--<th scope="row" th:text="${libro.s_titulo}"/>-->
+							<td><button class="btn btn-primary" type="button">Editar</button></td>
 							<th th:text="${matCursada.nombre}"/>
 							<th th:text="${matCursada.anio}"/>
 							<th th:text="${matCursada.ciclo}"/>
@@ -27,6 +28,7 @@
 							<th th:text="${matCursada.resultado}"/>
 						</tr>
 					</th:block>
+				</tbody>
 			</table>
 		</div>
 	</div>

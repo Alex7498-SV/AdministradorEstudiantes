@@ -156,4 +156,18 @@ public class Usuario {
 	public void setIdMunicipio(Municipio idMunicipio) {
 		this.idMunicipio = idMunicipio;
 	}
+	
+	public String getEstadoDelegate() {
+        if(this.estado == null)return "";
+        else {
+            return estado == true ?"Activa":"Inactiva";
+        }
+	}
+	
+	public String getSesionDelegate() {
+        if(this.sesion == null)return "";
+        else {
+            return sesion == true ?"Activo":"Inactivo";
+        }
+	}
 }

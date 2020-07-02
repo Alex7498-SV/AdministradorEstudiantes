@@ -32,71 +32,24 @@
 			</nav>
 			<button type="button" class="btn btn-danger" id="new">Insertar una nueva materia</button>
 			<div class="content">
-				
 				<table class="table table-hover">
 				  <thead class="thead-dark">
 				    <tr>
 				      <th scope="col">Acción</th>
 				      <th scope="col">Código</th>
-				      <th scope="col">Descripció</th>
+				      <th scope="col">Descripción</th>
 				      <th scope="col">Estado</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
-				      <td><button class="btn btn-primary" type="button">Editar</button></td>
-				      <td>001</td>
-				      <td>Simu</td>
-				      <td>Activo</td>
-					</tr>
-					<tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>001</td>
-						<td>Simu</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>001</td>
-						<td>Simu</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>001</td>
-						<td>Simu</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>001</td>
-						<td>Simu</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>001</td>
-						<td>Simu</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>001</td>
-						<td>Simu</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>001</td>
-						<td>Simu</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>001</td>
-						<td>Simu</td>
-						<td>Activo</td>
-					  </tr>
+				  	<th:block th:each="materia, row:${materias}">
+						<tr>
+							<td><button class="btn btn-primary" type="button">Editar</button></td>
+							<th th:text="${materia.idMateria}"/>
+							<th th:text="${materia.nombre}"/>
+							<th th:text="${materia.estadoDelegate}"/>
+						</tr>
+					</th:block>
 				  </tbody>
 				</table>
 								

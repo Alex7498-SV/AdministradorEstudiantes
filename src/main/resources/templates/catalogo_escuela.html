@@ -40,74 +40,21 @@
 				      <th scope="col">Acción</th>
 				      <th scope="col">Código</th>
 					  <th scope="col">Descripción</th>
-					  <th scope="col">Munuicipio</th>
+					  <th scope="col">Municipio</th>
 				      <th scope="col">Estado</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
-				      <td><button class="btn btn-primary" type="button">Editar</button></td>
-				      <td>007</td>
-					  <td>Otto</td>
-					  <td>San Salvador</td>
-				      <td>Activo</td>
-					</tr>
-					<tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>007</td>
-						<td>Otto</td>
-						<td>San Salvador</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>007</td>
-						<td>Otto</td>
-						<td>San Salvador</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>007</td>
-						<td>Otto</td>
-						<td>San Salvador</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>007</td>
-						<td>Otto</td>
-						<td>San Salvador</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>007</td>
-						<td>Otto</td>
-						<td>San Salvador</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>007</td>
-						<td>Otto</td>
-						<td>San Salvador</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>007</td>
-						<td>Otto</td>
-						<td>San Salvador</td>
-						<td>Activo</td>
-					  </tr>
-					  <tr>
-						<td><button class="btn btn-primary" type="button">Editar</button></td>
-						<td>007</td>
-						<td>Otto</td>
-						<td>San Salvador</td>
-						<td>Activo</td>
-					  </tr>
+				    
+					<th:block th:each="escuela, row:${escuelas}">
+						<tr>
+							<td><button class="btn btn-primary" type="button">Editar</button></td>
+							<th th:text="${escuela.codigo}"/>
+							<th th:text="${escuela.descripcion}"/>
+							<th th:text="${escuela.municipio}"/>
+							<th th:text="${escuela.estadoDelegate}"/>
+						</tr>
+					</th:block>
 				  </tbody>
 				</table>
 								

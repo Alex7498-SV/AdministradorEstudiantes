@@ -14,6 +14,8 @@ import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Usuario;
 import com.student.administrador.dto.CatalogoEscuelasDTO;
+import com.student.administrador.dto.ExpedientePorNomApellidoDTO;
+import com.student.administrador.dto.MateriasPorEstudianteDTO;
 import com.student.administrador.domain.Municipio;
 import com.student.administrador.domain.Departamento;
 import com.student.administrador.repositories.DepartamentoRepo;
@@ -43,8 +45,15 @@ public class TodoServiceImpl implements TodoService{
 	UsuarioRepo usR;
 	
 	@Override
-	public List<Object[]> catalogoMaterias() throws DataAccessException {
-		return matR.catalogoMaterias();
+	public List<Materia> catalogoMaterias() throws DataAccessException {
+		List<Materia> mat = matR.catalogoMaterias().stream().map(ce->{
+			Materia materia = new Materia();
+			materia.setIdMateria(Integer.parseInt(ce[0].toString()));
+			materia.setNombre(ce[1].toString());
+			materia.setEstado(Boolean.parseBoolean(ce[2].toString()));
+			return materia;
+		}).collect(Collectors.toList());
+		return mat;
 	}
 	
 	@Override
@@ -54,22 +63,51 @@ public class TodoServiceImpl implements TodoService{
 			dto.setCodigo(Integer.parseInt(ce[0].toString()));
 			dto.setDescripcion(ce[1].toString());
 			dto.setEstado(Boolean.valueOf(ce[2].toString()));
+			dto.setMunicipio(ce[3].toString());
 			return dto;
 		}).collect(Collectors.toList());
 		return catesc;
 		//return escR.catalogoEscuelas();
 	}
 	@Override
-	public List<Object[]> catalogoUsuarios() throws DataAccessException {
-		return usR.catalogoUsuarios();
+	public List<Usuario> catalogoUsuarios() throws DataAccessException {
+		List<Usuario> catus = usR.catalogoUsuarios().stream().map(f->{
+			Usuario dto = new Usuario();
+			dto.setIdUsuario(Integer.parseInt(f[0].toString()));
+			dto.setNombre(f[1].toString());
+			dto.setApellido(f[2].toString());
+			dto.setDireccion(f[3].toString());
+			dto.setUsuario(f[4].toString());
+			dto.setEstado(Boolean.valueOf(f[5].toString()));
+			return dto;
+		}).collect(Collectors.toList());
+		return catus;
 	}
 	@Override
-	public List<Object[]> expedientePorNombreOApellido(String nombre, String apellido) throws DataAccessException {
-		return estR.expedientePorNombreApellido(nombre, apellido);
+	public List<ExpedientePorNomApellidoDTO> expedientePorNombreOApellido(String nombre, String apellido) throws DataAccessException {
+		List<ExpedientePorNomApellidoDTO> exp = estR.expedientePorNombreApellido(nombre, apellido).stream().map(f->{
+			ExpedientePorNomApellidoDTO dto = new ExpedientePorNomApellidoDTO();
+			dto.setNombres(f[0].toString());
+			dto.setApellidos(f[1].toString());
+			dto.setAprobadas(Integer.parseInt(f[2].toString()));
+			dto.setReprobadas(Integer.parseInt(f[3].toString()));
+			dto.setPromedio(Integer.parseInt(f[4].toString()));
+			return dto;
+		}).collect(Collectors.toList());
+		return exp;
 	}
 	@Override
-	public List<Object[]> materiasPorEstudiante(Integer id) throws DataAccessException {
-		return matR.materiasCursadasPorEstudiante(id);
+	public List<MateriasPorEstudianteDTO> materiasPorEstudiante(Integer id) throws DataAccessException {
+		List<MateriasPorEstudianteDTO> matporest = matR.materiasCursadasPorEstudiante(id).stream().map(ce->{
+			MateriasPorEstudianteDTO dto = new MateriasPorEstudianteDTO();
+			dto.setNombre(ce[0].toString());
+			dto.setAnio(Integer.parseInt(ce[1].toString()));
+			dto.setCiclo(Integer.parseInt(ce[2].toString()));
+			dto.setNota(Float.parseFloat(ce[3].toString()));
+			dto.setResultado(ce[4].toString());
+			return dto;
+		}).collect(Collectors.toList());
+		return matporest;
 	}
 	@Override
 	@Transactional
@@ -128,5 +166,10 @@ public class TodoServiceImpl implements TodoService{
 	@Override
 	public Departamento depPorId(Integer idDep){
 		return depR.depPorId(idDep);
+	}
+	
+	@Override
+	public List<Municipio> findAllMunicipios(){
+		return munR.allMunicipios();
 	}
 }

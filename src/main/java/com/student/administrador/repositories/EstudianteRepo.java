@@ -13,7 +13,7 @@ public interface EstudianteRepo extends JpaRepository<Estudiante, Integer> {
 	@Query(nativeQuery=true,
 		value="SELECT e.nombres, e.apellidos,  A.Aprobadas, A.Reprobadas, A.Promedio"
 		+	"FROM public.estudiante e, public.estudiantemateria me, public.materia mat,"
-		+					"(SELECT COUNT(CASE WHEN mee.nota >= 6 THEN 1 END) as Aprobadas, COUNT(CASE WHEN mee.nota < 6 THEN 1 END) as Reprobadas, SUM(mee.nota)/COUNT(mee.idEstudiante) as Promedio, mee.idEstudiante as IDd" 
+		+					"(SELECT COUNT(CASE WHEN mee.nota>=6 THEN 1 WHEN mee.nota=null THEN 0 END) as Aprobadas, COUNT(CASE WHEN mee.nota < 6 THEN 1 WHEN mee.nota=null THEN 0 END) as Reprobadas, CASE WHEN mee.nota!=null THEN SUM(mee.nota)/COUNT(mee.idEstudiante) END as Promedio, mee.idEstudiante as IDd" 
 		+					"FROM public.estudiantemateria mee, public.estudiante ee"
 		+					"WHERE mee.idEstudiante=ee.idEstudiante and (ee.nombres LIKE ?1% OR ee.apellidos LIKE ?2%) group by mee.idEstudiante) A"
 		+	"WHERE e.idEstudiante = me.idEstudiante and"

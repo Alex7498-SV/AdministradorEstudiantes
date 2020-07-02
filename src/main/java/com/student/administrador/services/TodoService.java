@@ -12,6 +12,8 @@ import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Municipio;
 import com.student.administrador.domain.Usuario;
 import com.student.administrador.dto.CatalogoEscuelasDTO;
+import com.student.administrador.dto.ExpedientePorNomApellidoDTO;
+import com.student.administrador.dto.MateriasPorEstudianteDTO;
 
 public interface TodoService {
 	
@@ -27,19 +29,21 @@ public interface TodoService {
 	public List<Object[]> muncipioPorDep(Integer idDep) throws DataAccessException;
 	public Municipio municipioPorId(Integer idMun) throws DataAccessException;
 	public Departamento depPorId(Integer idDep) throws DataAccessException;
+	public List<Municipio> findAllMunicipios() throws DataAccessException;
 	
 	//CATALOGOS
-	public List<Object[]> catalogoMaterias() throws DataAccessException;
+	public List<Materia> catalogoMaterias() throws DataAccessException;
 	public List<CatalogoEscuelasDTO> catalogoEscuelas() throws DataAccessException;
-	public List<Object[]> catalogoUsuarios() throws DataAccessException;
+	public List<Usuario> catalogoUsuarios() throws DataAccessException;
 	
 	//QUERIES LARGAS
-	public List<Object[]> expedientePorNombreOApellido(String nombre, String apellido) throws DataAccessException;
-	public List<Object[]> materiasPorEstudiante(Integer id) throws DataAccessException;
+	public List<ExpedientePorNomApellidoDTO> expedientePorNombreOApellido(String nombre, String apellido) throws DataAccessException;
+	public List<MateriasPorEstudianteDTO> materiasPorEstudiante(Integer id) throws DataAccessException;
 
 	//LOGIN
 	List<Usuario> findByUsuarioAndContra(String usuario, String contra);
 	
 	//Proposito general
 	List<Usuario> findAll();
+	
 }
