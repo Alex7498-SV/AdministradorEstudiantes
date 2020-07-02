@@ -304,10 +304,10 @@ public class MainController {
 
 	/*-----------------------temporal---------------------------------*/
 
-	@RequestMapping("/tablita")
+	@RequestMapping("/temp")
 	public ModelAndView tablita(){
 		ModelAndView mav =  new ModelAndView();
-		mav.setViewName("../templates_coordinador/tabla_estudiantes");
+		mav.setViewName("../templates_coordinador/editar_expediente_existente");
 		return mav;
 	}
 

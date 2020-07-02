@@ -13,6 +13,13 @@ body{
      min-height: 100vh;
 }
 
+.content{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 5%;
+}
+
 .formularioWrapper{
     display: flex;
     justify-content: center;
