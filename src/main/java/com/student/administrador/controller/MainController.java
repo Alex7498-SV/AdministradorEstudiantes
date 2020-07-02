@@ -300,13 +300,24 @@ public class MainController {
         }
         return mav;
     }
-
+	
 	@RequestMapping("/buscar_o_agregar_alumnos" )
 	public ModelAndView buscarAgregarAlumnos(){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("../templates_coordinador/buscar_o_agregar_alumnos");
 		return mav;
 	}
+
+	/*-----------------------temporal---------------------------------*/
+
+	@RequestMapping("/tablita")
+	public ModelAndView tablita(){
+		ModelAndView mav =  new ModelAndView();
+		mav.setViewName("../templates_coordinador/tabla_estudiantes");
+		return mav;
+	}
+
+	/*-----------------------temporal---------------------------------*/
 	
 	@RequestMapping("/filtrar_por_nombreApellido")
 	public ModelAndView filtrar(@RequestParam(value="nombreApellido") String cadena, @RequestParam(value="comboBoxNumber") Integer comboNumber) {
@@ -343,7 +354,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("buscar_o_agregar_alumnos");
 		return mav;
-	}
+	} //Que estas haciendo???
 	
 	@RequestMapping("/materias_cursadas" )
 	public ModelAndView materiasCursadas(@RequestParam Integer idEstudiante){
