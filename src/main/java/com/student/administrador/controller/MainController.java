@@ -103,6 +103,9 @@ public class MainController {
 							flag = 2;
 						}
 				} // Debe ir aqui un viewname que mande a que no se puede logear 2 veces. F -El chino 
+				if(usr.getEstado() == false) {
+					flag = 3;
+				}
 			}
 		}
 		System.out.print(flag);
@@ -110,9 +113,11 @@ public class MainController {
 			if(flag ==1) {
 				mav.setViewName("redirect:/menu");
 				//mav.setViewName("menu_admin");
-			} else {
+			} else if(flag==2) {
 				mav.setViewName("redirect:/buscar_o_agregar_alumnos");
 				//mav.setViewName("menu_admin");
+			} else {
+				mav.setViewName("errorC");
 			}
 		} else {
 			mav.setViewName("login");
