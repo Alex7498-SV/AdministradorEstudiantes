@@ -95,7 +95,7 @@ public class MainController {
 		Integer flag = null;
 		for(Usuario usr: users) {
 			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
-				if(usr.getSesion() == false){
+				if(usr.getSesion() == false && usr.getEstado()){
 					usr.setSesion(true);
 					session.setAttribute("usuario", usr);
 					service.insertarOeditarUsuario(usr);
@@ -105,7 +105,9 @@ public class MainController {
 							flag = 2;
 						}
 				} // Debe ir aqui un viewname que mande a que no se puede logear 2 veces. F -El chino 
-				
+				if(usr.getEstado() == false) {
+					flag = 3;
+				}
 			}
 		}
 		System.out.print(flag);
