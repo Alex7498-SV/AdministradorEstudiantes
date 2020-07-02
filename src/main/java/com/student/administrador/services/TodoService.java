@@ -11,6 +11,7 @@ import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Municipio;
 import com.student.administrador.domain.Usuario;
+import com.student.administrador.dto.CatalogoEscuelasDTO;
 
 public interface TodoService {
 	
@@ -29,7 +30,7 @@ public interface TodoService {
 	
 	//CATALOGOS
 	public List<Object[]> catalogoMaterias() throws DataAccessException;
-	public List<Object[]> catalogoEscuelas() throws DataAccessException;
+	public List<CatalogoEscuelasDTO> catalogoEscuelas() throws DataAccessException;
 	public List<Object[]> catalogoUsuarios() throws DataAccessException;
 	
 	//QUERIES LARGAS

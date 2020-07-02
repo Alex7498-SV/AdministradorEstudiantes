@@ -18,6 +18,7 @@ import com.student.administrador.domain.Estudiante;
 import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Usuario;
+import com.student.administrador.dto.CatalogoEscuelasDTO;
 import com.student.administrador.services.TodoService;
 
 @Controller
@@ -27,10 +28,16 @@ public class MainController {
 	private TodoService service;
 	
 	@RequestMapping("/login")
-	public ModelAndView initMain(){
+	public ModelAndView initMain(HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("usuario", new Usuario());
-		mav.setViewName("login");
+		//Usuario user = (Usuario) session.getAttribute("usuario");
+		if(session.getAttribute("usuario")== null) {
+			mav.addObject("usuario", new Usuario());
+			mav.setViewName("login");
+		} else {
+			mav.setViewName("redirect:/menu");
+		}
+		
 		return mav;
 	}
 	
@@ -163,11 +170,16 @@ public class MainController {
 	@RequestMapping("/catalogo_escuela")
 	public ModelAndView catalogoEscuelas(){
 		ModelAndView mav = new ModelAndView();
-		List<Object[]> escuelas = null;
+		List<CatalogoEscuelasDTO> escuelas = null;
 		try{
 			escuelas = service.catalogoEscuelas();
 		}catch(Exception e){
 			e.printStackTrace();
+		}
+		//Lo siento toque una query pero esta comentada. Si era de DESE, me perdonas? :3
+		
+		for(CatalogoEscuelasDTO ce: escuelas) {
+			System.out.println(ce.getCodigo() + ce.getDescripcion() + ce.getEstado());
 		}
 		mav.addObject("escuelas", escuelas);
 		mav.setViewName("catalogo_escuela");
@@ -183,7 +195,7 @@ public class MainController {
             }catch(Exception e) {
                 e.printStackTrace();
             }
-            List<Object[]> escuelas = null;
+            List<CatalogoEscuelasDTO> escuelas = null;
     		try{
     			escuelas = service.catalogoEscuelas();
     		}catch(Exception e){

@@ -1,6 +1,7 @@
 package com.student.administrador.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -12,6 +13,7 @@ import com.student.administrador.domain.Estudiante;
 import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Usuario;
+import com.student.administrador.dto.CatalogoEscuelasDTO;
 import com.student.administrador.domain.Municipio;
 import com.student.administrador.domain.Departamento;
 import com.student.administrador.repositories.DepartamentoRepo;
@@ -44,9 +46,18 @@ public class TodoServiceImpl implements TodoService{
 	public List<Object[]> catalogoMaterias() throws DataAccessException {
 		return matR.catalogoMaterias();
 	}
+	
 	@Override
-	public List<Object[]> catalogoEscuelas() throws DataAccessException {
-		return escR.catalogoEscuelas();
+	public List<CatalogoEscuelasDTO> catalogoEscuelas() throws DataAccessException {
+		List<CatalogoEscuelasDTO> catesc = escR.catalogoEscuelas().stream().map(ce->{
+			CatalogoEscuelasDTO dto = new CatalogoEscuelasDTO();
+			dto.setCodigo(Integer.parseInt(ce[0].toString()));
+			dto.setDescripcion(ce[1].toString());
+			dto.setEstado(Boolean.valueOf(ce[2].toString()));
+			return dto;
+		}).collect(Collectors.toList());
+		return catesc;
+		//return escR.catalogoEscuelas();
 	}
 	@Override
 	public List<Object[]> catalogoUsuarios() throws DataAccessException {
