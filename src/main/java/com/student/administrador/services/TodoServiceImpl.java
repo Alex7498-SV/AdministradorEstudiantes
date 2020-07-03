@@ -152,7 +152,13 @@ public class TodoServiceImpl implements TodoService{
 
 	@Override
 	public List<Departamento> findAllDepartaments(){
-		return depR.findAllDepartaments();
+		List<Departamento> deps = depR.findAllDepartaments().stream().map(ce->{
+			Departamento dep = new Departamento();
+			dep.setIdDepartamento(Integer.parseInt(ce[0].toString()));
+			dep.setNombre(ce[1].toString());
+			return dep;
+		}).collect(Collectors.toList());
+		return deps;
 	}
 
 	@Override

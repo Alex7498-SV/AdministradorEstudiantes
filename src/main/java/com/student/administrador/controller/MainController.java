@@ -18,6 +18,7 @@ import com.student.administrador.domain.Estudiante;
 import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Municipio;
+import com.student.administrador.domain.Departamento;
 import com.student.administrador.domain.Usuario;
 import com.student.administrador.dto.CatalogoEscuelasDTO;
 import com.student.administrador.dto.ExpedientePorNomApellidoDTO;
@@ -48,6 +49,13 @@ public class MainController {
 	@RequestMapping("/register")
 	public ModelAndView nCuenta(){
 		ModelAndView mav = new ModelAndView();
+		List<Departamento> deps = null;
+		try {
+			deps = service.findAllDepartaments();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("dep", deps);
 		mav.addObject("usuario", new Usuario());
 		mav.setViewName("nueva_cuenta");
 		return mav;
