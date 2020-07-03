@@ -1,0 +1,27 @@
+body{    
+    padding: 0;
+    background-color: #dddede;
+}
+
+.container-fluid{
+     padding: 0;
+     height: 100%;
+     text-align: center;
+}
+
+.content{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 5%;
+}
+
+#new{
+    margin-top: 7%;
+    margin-bottom: -2%;
+}
+
+.navbar{
+    position: fixed;
+    width: 100%;
+}

@@ -1,0 +1,32 @@
+body{    
+    padding: 0;
+    background-color: #dddede;
+}
+
+.navbar{
+    background-color: gray;
+    color: white;
+}
+
+.container-fluid{
+     padding: 0;
+     min-height: 100vh;
+}
+
+.formularioWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
+
+
+footer {
+    bottom: 0;
+    width: 100%;
+}
+
+.card{
+    background-color: #e7472e;
+    height: 20px;
+}

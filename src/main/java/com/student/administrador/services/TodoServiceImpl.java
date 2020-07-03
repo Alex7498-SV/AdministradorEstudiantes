@@ -70,8 +70,8 @@ public class TodoServiceImpl implements TodoService{
 		//return escR.catalogoEscuelas();
 	}
 	@Override
-	public List<Usuario> catalogoUsuarios() throws DataAccessException {
-		List<Usuario> catus = usR.catalogoUsuarios().stream().map(f->{
+	public List<Usuario> catalogoUsuarios(int idSesion) throws DataAccessException {
+		List<Usuario> catus = usR.catalogoUsuarios(idSesion).stream().map(f->{
 			Usuario dto = new Usuario();
 			dto.setIdUsuario(Integer.parseInt(f[0].toString()));
 			dto.setNombre(f[1].toString());

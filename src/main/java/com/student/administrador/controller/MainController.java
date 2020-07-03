@@ -190,11 +190,12 @@ public class MainController {
 	
 
 	@RequestMapping("/catalogo_usuario")
-	public ModelAndView catalogoUsuarios(){
+	public ModelAndView catalogoUsuarios(HttpSession request){
+		Usuario usr = (Usuario)request.getAttribute("usuario");
 		ModelAndView mav = new ModelAndView();
 		List<Usuario> usuarios = null;
 		try{
-			usuarios = service.catalogoUsuarios();
+			usuarios = service.catalogoUsuarios(usr.getIdUsuario());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -266,7 +267,8 @@ public class MainController {
     }
 	
 	@RequestMapping("/editar_catalogo_usuario")
-    public ModelAndView editCatUsuario(@Valid @ModelAttribute Usuario usuario ,BindingResult result) {
+    public ModelAndView editCatUsuario(@Valid @ModelAttribute Usuario usuario ,BindingResult result, HttpSession request) {
+		Usuario usr = (Usuario)request.getAttribute("usuario");
         ModelAndView mav = new ModelAndView();
         if(!result.hasErrors()) {
             try {
@@ -276,7 +278,7 @@ public class MainController {
             }
             List<Usuario> usuarios = null;
     		try{
-    			usuarios = service.catalogoUsuarios();
+    			usuarios = service.catalogoUsuarios(usr.getIdUsuario());
     		}catch(Exception e){
     			e.printStackTrace();
     		}

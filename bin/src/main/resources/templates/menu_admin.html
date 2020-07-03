@@ -8,16 +8,13 @@
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 		<meta charset="utf-8" />
-		<link href="css/catalogo-style.css" rel="stylesheet" />
-		<title>Catalogo Usuario</title>
+		<link href="css/MAdmin-style.css" rel="stylesheet" />
+		<title>Admin</title>
 	</head>
 	<body>
 		
-		<div class="container-fluid"> 
+		<div class="container-fluid">
 		
 			<nav class="navbar navbar-light bg-light">
 			  <a class="navbar-brand">Administrador</a>
@@ -28,45 +25,41 @@
 				  </button>
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 				    <a class="dropdown-item" href="#">Configuracion de cuenta</a>
-				    <a class="dropdown-item" href="#">Cerrar sesión</a>
+				    <a class="dropdown-item" href="/logout">Cerrar sesión</a>
 				    
 				  </div>
 				</div>
 			  </form>
 			</nav>
-			<button type="button" class="btn btn-danger" id="new">Insertar un nuevo usuario</button>
+			
 			<div class="content">
+				<div>
+					<div class="usr-msg">
+						<h2>Bienvenido "ingrese usuario aqui"</h2>
+					</div>
+					<div class="botones">
+						<div class="btn-group" role="group" aria-label="Basic example">
+						  	<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Permite editar los registros de las escuelas">
+							  <a type="button" class="btn btn-dark btn-lg" href="/catalogo_escuela">Escuela</a>
+							</span>
+						  	<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Permite editar los registros de las materias">
+							  <a type="button" class="btn btn-dark btn-lg" href="/catalogo_materia">Materia</a>
+							</span>
+						  	<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Permite editar los registros de los usuarios">
+							  <a type="button" class="btn btn-dark btn-lg" href="/catalogo_usuario">Usuario</a>
+							</span>
+						</div>
+					</div>
 				
-				<table class="table table-hover">
-				  <thead class="thead-dark">
-				    <tr>
-				      <th scope="col">Acción</th>
-					  <th scope="col">Código</th>
-					  <th scope="col">Nombre</th>
-					  <th scope="col">Apellido</th>
-					  <th scope="col">Descripción</th>
-					  <th scope="col">Usuario</th>
-				      <th scope="col">Estado de la Cuenta</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-  				  	<th:block th:each="usuario, row:${usuarios}">
-						<tr>
-							<td><button class="btn btn-primary" type="button">Editar</button></td>
-							<th th:text="${usuario.IdUsuario}"/>
-							<th th:text="${usuario.Nombre}"/>
-							<th th:text="${usuario.Apellido}"/>
-							<th th:text="${usuario.Direccion}"/>
-							<th th:text="${usuario.Usuario}"/>
-							<th th:text="${usuario.EstadoDelegate}"/>
-						</tr>
-					</th:block>
-				  </tbody>
-				</table>
+				</div>
 								
 			</div>
 
 		</div>
 
 	</body>
+	<footer>
+		<div class="card">
+		</div>
+	</footer>
 </html>

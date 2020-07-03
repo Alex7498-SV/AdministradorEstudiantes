@@ -35,7 +35,7 @@ public interface TodoService {
 	//CATALOGOS
 	public List<Materia> catalogoMaterias() throws DataAccessException;
 	public List<CatalogoEscuelasDTO> catalogoEscuelas() throws DataAccessException;
-	public List<Usuario> catalogoUsuarios() throws DataAccessException;
+	public List<Usuario> catalogoUsuarios(int idSesion) throws DataAccessException;
 	
 	//QUERIES LARGAS
 	public List<ExpedientePorNomApellidoDTO> expedientePorNombreOApellido(String nombre, String apellido) throws DataAccessException;
