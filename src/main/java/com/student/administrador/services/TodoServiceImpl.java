@@ -172,4 +172,17 @@ public class TodoServiceImpl implements TodoService{
 	public List<Municipio> findAllMunicipios(){
 		return munR.allMunicipios();
 	}
+
+	@Override
+	public void insertarOeditarEstudiante(Estudiante estudiante) throws DataAccessException {
+		estR.save(estudiante);
+		
+	}
+
+	@Override
+	public Estudiante findOneEstudiante(Integer id) throws DataAccessException {
+		return estR.findOneEstudiante(id);
+	}
 }
+
+

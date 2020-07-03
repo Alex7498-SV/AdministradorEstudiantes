@@ -20,6 +20,7 @@ public interface TodoService {
 	void insertarOeditarMateria(Materia materia) throws DataAccessException;
 	void insertarOeditarUsuario(Usuario usuario) throws DataAccessException;
 	void insertarOeditarEscuela(CentroEscolar escuela) throws DataAccessException;
+	void insertarOeditarEstudiante(Estudiante estudiante) throws DataAccessException;
 	
 	void agregarOeditarExpediente(Estudiante estudiante) throws DataAccessException;
 	void agregarOeditarMateriaCursada(EstudianteMateria estudiante_materia) throws DataAccessException;
@@ -46,4 +47,5 @@ public interface TodoService {
 	//Proposito general
 	List<Usuario> findAll();
 	
+	public Estudiante findOneEstudiante(Integer id) throws DataAccessException;
 }

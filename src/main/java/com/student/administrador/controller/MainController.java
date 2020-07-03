@@ -241,41 +241,6 @@ public class MainController {
         return mav;
     }
 	
-	@RequestMapping("/nuevo_catalogo_materia")
-	public ModelAndView nuevoCatalogoMaterias(){
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("nuevo_catalogo_materia");
-		return mav;
-	}
-
-	@RequestMapping("/nuevo_catalogo_usuario")
-	public ModelAndView nuevoCatalogoUsuario(){
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("nuevo_catalogo_usuario");
-		return mav;
-	}
-
-	@RequestMapping("/nuevo_catalogo_escuela")
-	public ModelAndView nuevoCatalogoEscuela(){
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("nuevo_catalogo_escuela");
-		return mav;
-	}
-
-	
-	@RequestMapping("/find_municipios")
-	public ModelAndView municipios(){
-		ModelAndView mav = new ModelAndView();
-		List<Municipio> municipios = null;
-		try{
-			municipios = service.findAllMunicipios();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		mav.addObject("municipios", municipios);
-		return mav;
-	}
-	
 	@RequestMapping("/editar_catalogo_materia")
     public ModelAndView editCatMateria(@Valid @ModelAttribute Materia materia ,BindingResult result) {
         ModelAndView mav = new ModelAndView();
@@ -324,6 +289,44 @@ public class MainController {
         return mav;
     }
 	
+	@RequestMapping("/nuevo_catalogo_materia")
+	public ModelAndView nuevoCatalogoMaterias(){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("catalogoMateria", new Materia());
+		mav.setViewName("nuevo_catalogo_materia");
+		return mav;
+	}
+
+	@RequestMapping("/nuevo_catalogo_usuario")
+	public ModelAndView nuevoCatalogoUsuario(){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("catalogoUsuario", new Usuario());
+		mav.setViewName("nuevo_catalogo_usuario");
+		return mav;
+	}
+
+	@RequestMapping("/nuevo_catalogo_escuela")
+	public ModelAndView nuevoCatalogoEscuela(){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("catalogoEscuela", new CentroEscolar());
+		mav.setViewName("nuevo_catalogo_escuela");
+		return mav;
+	}
+
+	
+	@RequestMapping("/find_municipios")
+	public ModelAndView municipios(){
+		ModelAndView mav = new ModelAndView();
+		List<Municipio> municipios = null;
+		try{
+			municipios = service.findAllMunicipios();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("municipios", municipios);
+		return mav;
+	}
+	
 	@RequestMapping("/buscar_o_agregar_alumnos" )
 	public ModelAndView buscarAgregarAlumnos(){
 		ModelAndView mav = new ModelAndView();
@@ -331,20 +334,40 @@ public class MainController {
 		return mav;
 	}
 
+	@RequestMapping("/editar_expediente_existente" )
+	public ModelAndView editarExpediente(@RequestParam Integer idEstudiante){
+		ModelAndView mav = new ModelAndView();
+		Estudiante est = new Estudiante();
+		est = service.findOneEstudiante(idEstudiante);
+		mav.addObject("estudianteNuevo", est);
+		mav.setViewName("../templates_coordinador/agregar_estudiante");
+		return mav;
+	}
+	
 	@RequestMapping("/agregar_expediente_nuevo" )
 	public ModelAndView nuevoExpediente(){
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("estudianteNuevo", new Estudiante());
-		mav.setViewName("tabla_estudiantes");
+		mav.setViewName("../templates_coordinador/agregar_estudiante");
 		return mav;
 	}
 	
-	@RequestMapping("/guardar_expediente_nuevo" )
-	public ModelAndView nuevoExpedienteGuardado(){
+	@RequestMapping("/expediente_guardado" )
+	public ModelAndView nuevoExpedienteGuardado(@Valid @ModelAttribute Estudiante estudiante ,BindingResult result){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("buscar_o_agregar_alumnos");
-		return mav;
-	} //Que estas haciendo???
+		if(!result.hasErrors()) {
+            try {
+                service.insertarOeditarEstudiante(estudiante);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            mav.setViewName("../templates_coordinador/buscar_o_agregar_alumnos");
+        }
+        else {
+        	mav.setViewName("../templates_coordinador/agregar_estudiante");
+        }
+        return mav;
+	}
 	
 	@RequestMapping("/materias_cursadas" )
 	public ModelAndView materiasCursadas(@RequestParam Integer idEstudiante){
@@ -356,7 +379,7 @@ public class MainController {
 			e.printStackTrace();
 		}
 		mav.addObject("matCursadas", matCursadas);
-		mav.setViewName("materias_cursadas");
+		mav.setViewName("../templates_coordinador/materias_cursadas");
 		return mav;
 	}
 	
@@ -364,14 +387,24 @@ public class MainController {
 	public ModelAndView nuevaMatCursada(){
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("nuevaMateriaCursada", new EstudianteMateria());
-		mav.setViewName("agregar_editar_materia");
+		mav.setViewName("../templates_coordinador/agregar_editar_materia");
 		return mav;
 	}
 	
-	@RequestMapping("/guardar_nueva_materia_cursada")
-	public ModelAndView nuevaMatGuardada(){
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("materias_cursadas");
-		return mav;
+	@RequestMapping("/materia_cursada_guardada")
+	public ModelAndView nuevaMatGuardada(@Valid @ModelAttribute Materia materia ,BindingResult result){
+        ModelAndView mav = new ModelAndView();
+		if(!result.hasErrors()) {
+            try {
+                service.insertarOeditarMateria(materia);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            mav.setViewName("../templates_coordinador/buscar_o_agregar_alumnos");
+        }
+        else {
+        	mav.setViewName("../templates_coordinador/agregar_editar_materia");
+        }
+        return mav;
 	}
 }
