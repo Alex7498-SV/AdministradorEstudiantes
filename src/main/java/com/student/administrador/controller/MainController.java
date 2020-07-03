@@ -33,11 +33,12 @@ public class MainController {
 	@RequestMapping("/login")
 	public ModelAndView initMain(HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		//Usuario user = (Usuario) session.getAttribute("usuario");
+		Usuario user = (Usuario) session.getAttribute("usuario");
 		if(session.getAttribute("usuario")== null) {
 			mav.addObject("usuario", new Usuario());
 			mav.setViewName("login");
-		} else {
+		} 
+		else {
 			mav.setViewName("redirect:/menu");
 		}
 		
@@ -92,9 +93,12 @@ public class MainController {
 	@RequestMapping("/redirect")
 	public ModelAndView redirect(HttpSession session, @ModelAttribute Usuario user){
 		ModelAndView mav = new ModelAndView();
-		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
+		Usuario u = new Usuario();
 		Integer flag = null;
+		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
+		
 		for(Usuario usr: users) {
+			u = usr;
 			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
 				if(usr.getSesion() == false && usr.getEstado()){
 					usr.setSesion(true);
@@ -111,7 +115,7 @@ public class MainController {
 				}
 			}
 		}
-		System.out.print(flag);
+		//System.out.print(flag);
 		if(flag != null ) {
 			if(flag ==1) {
 				mav.setViewName("redirect:/menu");
@@ -123,7 +127,11 @@ public class MainController {
 				mav.setViewName("errorC");
 			}
 		} else {
-			mav.setViewName("login");
+			//System.out.println(u.getSesion() + " alv");
+			u.setSesion(false);
+			service.insertarOeditarUsuario(u);
+			session.removeAttribute("usuario");
+			mav.setViewName("dobleinicio");
 		}
 		return mav;
 	}
@@ -302,7 +310,7 @@ public class MainController {
 		mav.setViewName("nuevo_catalogo_materia");
 		return mav;
 	}
-
+	
 	@RequestMapping("/nuevo_catalogo_usuario")
 	public ModelAndView nuevoCatalogoUsuario(){
 		ModelAndView mav = new ModelAndView();
