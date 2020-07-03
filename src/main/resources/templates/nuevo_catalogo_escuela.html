@@ -54,27 +54,27 @@
 				<div class="jumbotron">
 					<h3 class="display-4" id="hedit">Editar Escuela</h3>
 					<h3 class="display-4" id="hnew">Insertar una escuela</h3>
-					<form>
+					<form th:action="@{/editar_catalogo_escuela}" th:object="${catalogoEscuela}">
 						<div class="form-group col-md-2">
 							<input type="text" class="form-control" id="id_cE" hidden>
 						</div>
 
 						<div class="form-group">
-							<label for="nombre">Nombre</label>
+							<label for="nombre" th:field="*{nombre}">Nombre</label>
 							<input type="text" class="form-control" id="nombre">
 						  </div>
 						  
 						<div class="form-row">
 						  <div class="form-group col-md-8">
-							<label for="estado">Municipio</label>
-							<select class="form-control" id="estado">
+							<label for="muni" th:field="*{municipio.getnombre}">Municipio</label>
+							<select class="form-control" id="muni">
 							  <option>cantón tepesco loyo</option>
 							  <option>san salvador</option>
 							  <option>Soyapango</option>
 							</select>
 						  </div>
 						  <div class="form-group col-md-4">
-							<label for="estado">Estado</label>
+							<label for="estado" th:field="*{estado}">Estado</label>
 							<select class="form-control" id="estado">
 							  <option>Activo</option>
 							  <option>Inactivo</option>

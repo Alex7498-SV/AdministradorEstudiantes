@@ -1,5 +1,6 @@
 package com.student.administrador.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.student.administrador.domain.CentroEscolar;
@@ -34,11 +36,12 @@ public class MainController {
 	@RequestMapping("/login")
 	public ModelAndView initMain(HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		//Usuario user = (Usuario) session.getAttribute("usuario");
+		Usuario user = (Usuario) session.getAttribute("usuario");
 		if(session.getAttribute("usuario")== null) {
 			mav.addObject("usuario", new Usuario());
 			mav.setViewName("login");
-		} else {
+		} 
+		else {
 			mav.setViewName("redirect:/menu");
 		}
 		
@@ -48,11 +51,31 @@ public class MainController {
 	@RequestMapping("/register")
 	public ModelAndView nCuenta(){
 		ModelAndView mav = new ModelAndView();
-		List<Departamento> departamentos = service.findAllDepartaments();
-		mav.addObject("dep", departamentos);
+		List<Departamento> deps = null;
+		try {
+			deps = service.findAllDepartaments();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("dep", deps);
 		mav.addObject("usuario", new Usuario());
 		mav.setViewName("nueva_cuenta");
 		return mav;
+	}
+
+	@RequestMapping("/municipios")
+	public @ResponseBody List<String[]> buscarMunicipios(@RequestParam Integer idDep){
+		List<Municipio> municipios = null;
+		try{
+			municipios = service.muncipioPorDep(idDep);
+		} catch(Exception er) {
+			er.printStackTrace();
+		}
+		List<String[]> data =  new ArrayList<>();
+		for(Municipio mun : municipios){
+			data.add(new String[]{mun.getIdMunicipio().toString(),mun.getNombre()});
+		}
+		return data;
 	}
 	
 	@RequestMapping("/welcome")
@@ -95,9 +118,12 @@ public class MainController {
 	@RequestMapping("/redirect")
 	public ModelAndView redirect(HttpSession session, @ModelAttribute Usuario user){
 		ModelAndView mav = new ModelAndView();
-		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
+		Usuario u = new Usuario();
 		Integer flag = null;
+		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
+		
 		for(Usuario usr: users) {
+			u = usr;
 			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
 				if(usr.getSesion() == false && usr.getEstado()){
 					usr.setSesion(true);
@@ -114,7 +140,7 @@ public class MainController {
 				}
 			}
 		}
-		System.out.print(flag);
+		//System.out.print(flag);
 		if(flag != null ) {
 			if(flag ==1) {
 				mav.setViewName("redirect:/menu");
@@ -126,7 +152,11 @@ public class MainController {
 				mav.setViewName("errorC");
 			}
 		} else {
-			mav.setViewName("login");
+			//System.out.println(u.getSesion() + " alv");
+			u.setSesion(false);
+			service.insertarOeditarUsuario(u);
+			session.removeAttribute("usuario");
+			mav.setViewName("dobleinicio");
 		}
 		return mav;
 	}
@@ -305,7 +335,7 @@ public class MainController {
 		mav.setViewName("nuevo_catalogo_materia");
 		return mav;
 	}
-
+	
 	@RequestMapping("/nuevo_catalogo_usuario")
 	public ModelAndView nuevoCatalogoUsuario(){
 		ModelAndView mav = new ModelAndView();

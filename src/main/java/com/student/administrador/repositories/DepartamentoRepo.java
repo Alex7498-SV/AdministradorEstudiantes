@@ -9,8 +9,9 @@ import com.student.administrador.domain.Departamento;
 public interface DepartamentoRepo extends JpaRepository<Departamento, Integer> {
 
     @Query(nativeQuery=true, 
-            value="SELECT * FROM public.departamento")
-    public List<Departamento> findAllDepartaments() throws DataAccessException;
+            value="SELECT d.idDepartamento, d.nombre FROM public.departamento d")
+    public List<Object[]> findAllDepartaments() throws DataAccessException;
+
 
 
     @Query(nativeQuery=true,
