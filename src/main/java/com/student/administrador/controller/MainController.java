@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.student.administrador.domain.CentroEscolar;
+import com.student.administrador.domain.Departamento;
 import com.student.administrador.domain.Estudiante;
 import com.student.administrador.domain.EstudianteMateria;
 import com.student.administrador.domain.Materia;
@@ -47,6 +48,8 @@ public class MainController {
 	@RequestMapping("/register")
 	public ModelAndView nCuenta(){
 		ModelAndView mav = new ModelAndView();
+		List<Departamento> departamentos = service.findAllDepartaments();
+		mav.addObject("dep", departamentos);
 		mav.addObject("usuario", new Usuario());
 		mav.setViewName("nueva_cuenta");
 		return mav;

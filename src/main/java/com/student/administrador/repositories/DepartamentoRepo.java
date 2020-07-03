@@ -12,6 +12,7 @@ public interface DepartamentoRepo extends JpaRepository<Departamento, Integer> {
             value="SELECT * FROM public.departamento")
     public List<Departamento> findAllDepartaments() throws DataAccessException;
 
+
     @Query(nativeQuery=true,
             value="SELECT * FROM public.departamento d WHERE d.idDepartamento = ?1")
     public Departamento depPorId(Integer idDep) throws DataAccessException;

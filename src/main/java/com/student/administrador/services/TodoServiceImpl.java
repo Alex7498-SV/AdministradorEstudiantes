@@ -152,7 +152,7 @@ public class TodoServiceImpl implements TodoService{
 
 	@Override
 	public List<Departamento> findAllDepartaments(){
-		return depR.findAllDepartaments();
+		return depR.findAll();
 	}
 
 	@Override
