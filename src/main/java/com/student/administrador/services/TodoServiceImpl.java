@@ -89,9 +89,16 @@ public class TodoServiceImpl implements TodoService{
 			ExpedientePorNomApellidoDTO dto = new ExpedientePorNomApellidoDTO();
 			dto.setNombres(f[0].toString());
 			dto.setApellidos(f[1].toString());
-			dto.setAprobadas(Integer.parseInt(f[2].toString()));
-			dto.setReprobadas(Integer.parseInt(f[3].toString()));
-			dto.setPromedio(Integer.parseInt(f[4].toString()));
+			if(f[2] != null) {
+				dto.setAprobadas(Integer.parseInt(f[2].toString()));
+				dto.setReprobadas(Integer.parseInt(f[3].toString()));
+				dto.setPromedio(Integer.parseInt(f[4].toString()));
+			}else {
+				dto.setAprobadas(0);
+				dto.setReprobadas(0);
+				dto.setPromedio(0);
+			}
+			
 			return dto;
 		}).collect(Collectors.toList());
 		return exp;

@@ -20,6 +20,7 @@ import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Municipio;
 import com.student.administrador.domain.Usuario;
 import com.student.administrador.dto.CatalogoEscuelasDTO;
+import com.student.administrador.dto.ExpedientePorNomApellidoDTO;
 import com.student.administrador.dto.MateriasPorEstudianteDTO;
 import com.student.administrador.services.TodoService;
 
@@ -133,6 +134,9 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("menu_admin");
 		Usuario usr = (Usuario) session.getAttribute("usuario");
+		if(session.getAttribute("usuario") == null) {
+			mav.setViewName("redirect:/login");
+		}
 		System.out.println(usr.getSesion());
 		/* List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
 		Integer flag = null;
@@ -314,7 +318,6 @@ public class MainController {
 		mav.setViewName("nuevo_catalogo_escuela");
 		return mav;
 	}
-
 	
 	@RequestMapping("/find_municipios")
 	public ModelAndView municipios(){
@@ -332,7 +335,33 @@ public class MainController {
 	@RequestMapping("/buscar_o_agregar_alumnos" )
 	public ModelAndView buscarAgregarAlumnos(){
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("objeto", new ExpedientePorNomApellidoDTO());
 		mav.setViewName("../templates_coordinador/buscar_o_agregar_alumnos");
+		return mav;
+	}
+	
+	
+	@RequestMapping("/filtrar_por_nom_ape")
+	public ModelAndView filtrar(@ModelAttribute ExpedientePorNomApellidoDTO pclave) {
+		ModelAndView mav = new ModelAndView();
+		List<ExpedientePorNomApellidoDTO> estudiantes = null;
+		System.out.println(pclave.getNombres()+pclave.getApellidos());
+		try {
+			if(pclave.getNombres().isEmpty()) {/*por la gran puta*/
+				System.out.println("Dese puta");
+			}
+			else if(pclave.getApellidos().equals("apellido")) {
+				estudiantes = service.expedientePorNombreOApellido(" ", pclave.getNombres());
+			}
+			else if (pclave.getApellidos().equals("nombre")){
+				estudiantes = service.expedientePorNombreOApellido(pclave.getNombres(), " ");
+			}
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("estudiantes", estudiantes);
+		mav.setViewName("../templates_coordinador/tabla_estudiantes");
 		return mav;
 	}
 

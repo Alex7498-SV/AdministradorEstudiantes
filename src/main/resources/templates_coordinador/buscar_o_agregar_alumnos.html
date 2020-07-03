@@ -22,7 +22,7 @@
                     Expedientes
 				</p>
 				<div class="form-inline">
-					<button class="btn btn-secondary">Cerrar Sesion</button>
+					<a href="/logout"><button class="btn btn-secondary">Cerrar Sesion</button></a>
 				</div>
 			</nav>
 
@@ -31,28 +31,36 @@
 				<div class="jumbotron">
 					<h1 class="display-4">buscar estudiantes</h1>
 
-                    <form>
+                    
                         <div class="row">
                             <div class="col">
                                 <div class="form-row">
-									<div class="form-group col-md-4">
+
+									<form th:action="@{/filtrar_por_nom_ape}" th:object="${objeto}" method="post">
+										
+										<div class="form-group col-md-4">
 										<label for="nombre">Filtrar por</label>
-										<select class="form-control" id="criterio">
-											<option>Nombres</option>
-											<option>Apellidos</option>
+										<select class="form-control" id="criterio" th:field=*{apellidos}>
+											<datalist id="datos">
+												<option value="nombre">Nombres</option>
+												<option value="apellido">Apellidos</option>
+											</datalist>
+											
 										  </select>
-									</div>
-									<div class="form-group col-md-8">
-										<label for="pclave">Valor de busqueda</label>
-										<input type="text" class="form-control" name="pclave">
-									</div>
+										</div>
+										<div class="form-group col-md-8">
+											<label for="pclave">Valor de busqueda</label>
+											<input type="text" class="form-control" name="pclave" th:field=*{nombres}>
+										</div>
+										<button type="submit" class="btn btn-primary">Buscar</button>
+									</form>
 								</div>
-								<button type="submit" class="btn btn-primary">Buscar</button>
+								
                                <hr>
 								<button type="submit" class="btn btn-danger">Crear un nuevo expediente</button>
                             </div>
                         </div>
-                    </form>
+                    
 				</div>
 			</div>
 		</div>
