@@ -47,5 +47,5 @@ public interface TodoService {
 	//Proposito general
 	List<Usuario> findAll();
 	
-	public Estudiante findOneEstudiante(Integer id) throws DataAccessException;
+	public Estudiante findByIdEstudiante(Integer id) throws DataAccessException;
 }

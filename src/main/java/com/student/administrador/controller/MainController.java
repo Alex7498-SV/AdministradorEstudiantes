@@ -338,7 +338,7 @@ public class MainController {
 	public ModelAndView editarExpediente(@RequestParam Integer idEstudiante){
 		ModelAndView mav = new ModelAndView();
 		Estudiante est = new Estudiante();
-		est = service.findOneEstudiante(idEstudiante);
+		est = service.findByIdEstudiante(idEstudiante);
 		mav.addObject("estudianteNuevo", est);
 		mav.setViewName("../templates_coordinador/agregar_estudiante");
 		return mav;

@@ -180,8 +180,8 @@ public class TodoServiceImpl implements TodoService{
 	}
 
 	@Override
-	public Estudiante findOneEstudiante(Integer id) throws DataAccessException {
-		return estR.findOneEstudiante(id);
+	public Estudiante findByIdEstudiante(Integer id) throws DataAccessException {
+		return estR.findByIdEstudiante(id);
 	}
 }
 

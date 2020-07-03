@@ -28,5 +28,5 @@ public interface EstudianteRepo extends JpaRepository<Estudiante, Integer> {
 				"GROUP BY e.nombres, e.apellidos, A.Aprobadas, A.reprobadas, A.Promedio")
 	public List<Object[]> expedientePorNombreApellido(String nombre, String apellido) throws DataAccessException;
 
-	public Estudiante findOneEstudiante(Integer code) throws DataAccessException;
+	public Estudiante findByIdEstudiante(Integer code) throws DataAccessException;
 }
