@@ -19,15 +19,41 @@
 	<script>
 		$(document).ready(function(){
 			if($("#id_cE").val() == ""){
-				
 				$("#hedit").hide();
 				$("#hnew").show();
 			}
 			else{
-				
 				$("#hedit").show();
 				$("#hnew").hide();
 			}
+			
+			function getMunicipios(){
+				$.ajax({
+					type: "POST",
+					url: './municipios',
+					data: {idDep:idDep},
+					success: function(res) {
+						$('#municipio').empty();
+
+						$.each(res, function(key){
+							$('#municipio').append($("<option></option>").val(res[key][0]).text(res[key][1]));
+						})
+						console.log(res);
+					},
+					error: function() {
+						console.log("No se ha podido obtener la información");
+					}
+				});
+			}
+
+			var idDep = $('#depa').val();
+			getMunicipios()
+			
+			$('#depa').change(function(){
+				idDep  = $('#depa').val();
+				getMunicipios();
+			})
+			
 		});
 	</script>
 		
@@ -54,37 +80,40 @@
 				<div class="jumbotron">
 					<h3 class="display-4" id="hedit">Editar Escuela</h3>
 					<h3 class="display-4" id="hnew">Insertar una escuela</h3>
-					<form th:action="@{/editar_catalogo_escuela}" th:object="${catalogoEscuela}">
+					<form th:action="@{/editar_catalogo_escuela}" th:object="${catalogoEscuela}" method= "post">
 						<div class="form-group col-md-2">
 							<input type="text" class="form-control" id="id_cE" hidden>
 						</div>
 
 						<div class="form-group">
-							<label for="nombre" th:field="*{nombre}">Nombre</label>
-							<input type="text" class="form-control" id="nombre">
+							<label for="nombre" >Nombre</label>
+							<input type="text" class="form-control" id="nombre" th:field="*{nombre}">
 						  </div>
 						  
 						<div class="form-row">
-						  <div class="form-group col-md-8">
-							<label for="muni" th:field="*{municipio.getnombre}">Municipio</label>
-							<select class="form-control" id="muni">
-							  <option>cantón tepesco loyo</option>
-							  <option>san salvador</option>
-							  <option>Soyapango</option>
+						  <div class="form-group col-md-4">
+							<label for="departamento">Departamento</label>
+							<select id="depa" class="form-control" >
+                            	<option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
 							</select>
 						  </div>
-						  <div class="form-group col-md-4">
-							<label for="estado" th:field="*{estado}">Estado</label>
-							<select class="form-control" id="estado">
-							  <option>Activo</option>
-							  <option>Inactivo</option>
+						  <div class="form-group col-md-5">
+							<label for="municipio">Municipio</label>
+							<select id="municipio" class="form-control" th:field="*{municipio.idMunicipio}">
+								<option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
+							</select>
+						</div>
+						  <div class="form-group col-md-3">
+							<label for="estado" >Estado</label>
+							<select class="form-control" id="estado" th:field="*{estado}">
+							  <option value="true">Activo</option>
+							  <option value="false">Inactivo</option>
 							</select>
 						  </div>
 						</div>
-						
+						<input type="submit" class="btn btn-primary btn-lg" value="Guardar">
 					</form>
 					<hr class="my-4">
-					<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
 				</div>					
 			</div>
 		</div>

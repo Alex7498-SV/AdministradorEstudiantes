@@ -13,21 +13,66 @@
 		
 		<meta charset="utf-8" />
 		<link href="css/eCatalogo-style.css" rel="stylesheet" />
-		<title>Catalogo Escuela</title>
+		<title>Usuario</title>
 	</head>
 	<body>
 	<script>
 		$(document).ready(function(){
 			if($("#id_cE").val() == ""){
-				
 				$("#hedit").hide();
 				$("#hnew").show();
 			}
 			else{
-			
 				$("#hedit").show();
 				$("#hnew").hide();
 			}
+			
+			$("#fNacimiento").change(function(){
+				var fecha = new Date($("#fNacimiento").val());
+				var fechaActual = new Date();
+				var edad = 0;
+				year = fecha.getFullYear();
+				edad = fechaActual.getFullYear() - year;
+				$("#edad").val(edad);
+			})
+
+			function getMunicipios(){
+				$.ajax({
+					type: "POST",
+					url: './municipios',
+					data: {idDep:idDep},
+					success: function(res) {
+						$('#municipio').empty();
+
+						$.each(res, function(key){
+							$('#municipio').append($("<option></option>").val(res[key][0]).text(res[key][1]));
+						})
+						console.log(res);
+					},
+					error: function() {
+						console.log("No se ha podido obtener la información");
+					}
+				});
+			}
+
+			var idDep = $('#depa').val();
+			getMunicipios()
+			
+			$('#depa').change(function(){
+				idDep  = $('#depa').val();
+				getMunicipios();
+			})
+			
+			$('#clean').click(function(){
+				$('#nombre').empty();
+				$('#apellido').empty();
+				$('#fNacimiento').empty();
+				$('#direccion').empty();
+				$('#edad').empty();
+				$('#usr').empty();
+				$('#psw').empty();
+			})
+			
 		});
 	</script>
 		
@@ -53,60 +98,86 @@
 			<div class="content">
 				<div class="jumbotron">
 					<h3 class="display-4" id="hedit">Editar Usuario</h3>
-					<h3 class="display-4" id="hnew">Insertar un nuevo usuario</h3>
-					<form>
+					<h3 class="display-4" id="hnew">Agregar un nuevo usuario</h3>
+					<form th:action= "@{/editar_catalogo_usuario}" th:object="${catalogoUsuario}" method= "post">
 						<div class="form-group col-md-2"> 
-							<input type="text" class="form-control" id="id_cE" hidden>
+							<input type="text" class="form-control" id="id_cE" name="idUsuario" hidden>
+							<input type="text" class="form-control" id="id_cE" name="sesion" value="false" hidden>
 						  </div>
 
 						<div class="form-row">
                             <div class="form-group col-md-6">
 								<label for="nombre">Nombre</label>
-								<input type="text" class="form-control" id="nombre">
+								<input type="text" class="form-control" id="nombre" name = "nombre">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="apellido">Apellido</label>
-								<input type="text" class="form-control" id="apellido">
+								<input type="text" class="form-control" id="apellido" name="apellido">
 							</div>
                         </div>
 						<div class="form-row">
 
 							<div class="form-group col-md-4">
 								<label for="fNaciemiento">Fecha de Nacimiento</label>
-								<input type="date" class="form-control" id="fNacimiento">
+								<input type="date" class="form-control" id="fNacimiento" name="fechaNac">
 							</div>
 							<div class="form-group col-md-8">
 								<label for="direccion">Direccion</label>
-								<input type="text" class="form-control" id="direccion">
+								<input type="text" class="form-control" id="direccion" name="direccion">
 							</div>
 
 						</div>
 						<div class="form-row">
-
-							<div class="form-group col-md-4">
-								<label for="usuario">Usuario</label>
-								<input type="text" class="form-control" id="usuario">
+							<div class="form-group col-md-2">
+								<label for="edad">Edad</label>
+								<input id="edad" type="number" class="form-control" name="edad" th:field="*{edad}" disabled>
 							</div>
-							<div class="form-group col-md-4">
-								<label for="tipo">Tipo de cuenta</label>
-								<select class="form-control" id="tipo">
-									<option>Coordinador</option>
-									<option>Administrador</option>
+							<div class="form-group col-md-6">
+								<label for="departamento">Departamento</label>
+								<select id="depa" class="form-control" >
+                                     <option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
 								</select>
 							</div>
 							<div class="form-group col-md-4">
+								<label for="municipio">Municipio</label>
+								<select id="municipio" class="form-control" name="idMunicipio.idMunicipio">
+									<option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="usuario">Usuario</label>
+								<input type="text" class="form-control" name="usuario" id="usr">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="contraseña">Contraseña</label>
+								<input type="password" class="form-control" name="contra" id="psw">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="tipo">Tipo de cuenta</label>
+								<select class="form-control" id="tipo" name="administrador">
+									<option value= "false">Coordinador</option>
+									<option value="true">Administrador</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
 								<label for="estado">Estado</label>
-								<select class="form-control" id="estado">
-								  <option>Activo</option>
-								  <option>Inactivo</option>
+								<select class="form-control" id="estado" name="estado">
+								  <option value="true">Activo</option>
+								  <option value="false">Inactivo</option>
 								</select>
 							</div>
 
 						</div>
-						
+						<hr class="my-4">
+						<a class="btn btn-secondary btn-lg" href="/catalogo_usuario">Volver</a>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+						<button id="clean" class="btn btn-primary btn-lg">Limpiar</button>
 					</form>
-					<hr class="my-4">
-					<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					
 				</div>					
 			</div>
 		</div>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -121,8 +122,9 @@ public class MainController {
 		Usuario u = new Usuario();
 		Integer flag = null;
 		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
-		
+
 		for(Usuario usr: users) {
+
 			u = usr;
 			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
 				if(usr.getSesion() == false && usr.getEstado()){
@@ -165,12 +167,14 @@ public class MainController {
 	@RequestMapping("/menu")
 	public ModelAndView menuAdmin(HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("menu_admin");
+		
 		Usuario usr = (Usuario) session.getAttribute("usuario");
 		if(session.getAttribute("usuario") == null) {
 			mav.setViewName("redirect:/login");
 		}
 		System.out.println(usr.getSesion());
+		mav.addObject("username", usr.getUsuario());
+		mav.setViewName("menu_admin");
 		/* List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
 		Integer flag = null;
 		for(Usuario usr: users) {
@@ -227,12 +231,11 @@ public class MainController {
 	
 
 	@RequestMapping("/catalogo_usuario")
-	public ModelAndView catalogoUsuarios(HttpSession request){
-		Usuario usr = (Usuario)request.getAttribute("usuario");
+	public ModelAndView catalogoUsuarios(){
 		ModelAndView mav = new ModelAndView();
 		List<Usuario> usuarios = null;
 		try{
-			usuarios = service.catalogoUsuarios(usr.getIdUsuario());
+			usuarios = service.catalogoUsuarios();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -304,8 +307,7 @@ public class MainController {
     }
 	
 	@RequestMapping("/editar_catalogo_usuario")
-    public ModelAndView editCatUsuario(@Valid @ModelAttribute Usuario usuario ,BindingResult result, HttpSession request) {
-		Usuario usr = (Usuario)request.getAttribute("usuario");
+    public ModelAndView editCatUsuario(@Valid @ModelAttribute Usuario usuario ,BindingResult result) {
         ModelAndView mav = new ModelAndView();
         if(!result.hasErrors()) {
             try {
@@ -315,7 +317,7 @@ public class MainController {
             }
             List<Usuario> usuarios = null;
     		try{
-    			usuarios = service.catalogoUsuarios(usr.getIdUsuario());
+    			usuarios = service.catalogoUsuarios();
     		}catch(Exception e){
     			e.printStackTrace();
     		}
@@ -323,6 +325,13 @@ public class MainController {
             mav.setViewName("catalogo_usuario");
         }
         else {
+        	List<Departamento> deps = null;
+    		try {
+    			deps = service.findAllDepartaments();
+    		} catch(Exception e){
+    			e.printStackTrace();
+    		}
+    		mav.addObject("dep", deps);
         	mav.setViewName("nuevo_catalogo_usuario");
         }
         return mav;
@@ -339,6 +348,13 @@ public class MainController {
 	@RequestMapping("/nuevo_catalogo_usuario")
 	public ModelAndView nuevoCatalogoUsuario(){
 		ModelAndView mav = new ModelAndView();
+		List<Departamento> deps = null;
+		try {
+			deps = service.findAllDepartaments();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("dep", deps);
 		mav.addObject("catalogoUsuario", new Usuario());
 		mav.setViewName("nuevo_catalogo_usuario");
 		return mav;
@@ -347,6 +363,13 @@ public class MainController {
 	@RequestMapping("/nuevo_catalogo_escuela")
 	public ModelAndView nuevoCatalogoEscuela(){
 		ModelAndView mav = new ModelAndView();
+		List<Departamento> deps = null;
+		try {
+			deps = service.findAllDepartaments();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("dep", deps);
 		mav.addObject("catalogoEscuela", new CentroEscolar());
 		mav.setViewName("nuevo_catalogo_escuela");
 		return mav;
@@ -380,8 +403,8 @@ public class MainController {
 		List<ExpedientePorNomApellidoDTO> estudiantes = null;
 		System.out.println(pclave.getNombres()+pclave.getApellidos());
 		try {
-			if(pclave.getNombres().isEmpty()) {/*por la gran puta*/
-				System.out.println("Dese puta");
+			if(pclave.getNombres().isEmpty()) {
+				
 			}
 			else if(pclave.getApellidos().equals("apellido")) {
 				estudiantes = service.expedientePorNombreOApellido(" ", pclave.getNombres());
@@ -392,7 +415,6 @@ public class MainController {
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
-		
 		mav.addObject("estudiantes", estudiantes);
 		mav.setViewName("../templates_coordinador/tabla_estudiantes");
 		return mav;
@@ -411,6 +433,13 @@ public class MainController {
 	@RequestMapping("/agregar_expediente_nuevo" )
 	public ModelAndView nuevoExpediente(){
 		ModelAndView mav = new ModelAndView();
+		List<Departamento> deps = null;
+		try {
+			deps = service.findAllDepartaments();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("dep", deps);
 		mav.addObject("estudianteNuevo", new Estudiante());
 		mav.setViewName("../templates_coordinador/agregar_estudiante");
 		return mav;
@@ -452,6 +481,14 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("nuevaMateriaCursada", new EstudianteMateria());
 		mav.setViewName("../templates_coordinador/agregar_editar_materia");
+		return mav;
+	}
+	
+	@RequestMapping("/editar_materia_cursada/{id}")
+	public ModelAndView editarMarCursada(@PathVariable int id){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("../templates_coordinador/agregar_editar_materia");
+		mav.addObject("idEM", id);
 		return mav;
 	}
 	

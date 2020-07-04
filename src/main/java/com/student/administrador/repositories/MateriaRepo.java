@@ -11,11 +11,11 @@ import com.student.administrador.domain.Materia;
 public interface MateriaRepo extends JpaRepository<Materia, Integer> {
 
 	@Query(nativeQuery=true,
-			value="SELECT m.nombre AS nombre, me.anio AS anio, me.ciclo_cursado AS ciclo, me.nota AS nota, CASE WHEN me.nota >=6 THEN 'Aprobada' WHEN me.nota <6 THEN 'Reprobada' END AS resultado "
+			value="SELECT m.nombre AS nombre, me.anio AS anio, me.ciclo_cursado AS ciclo, me.nota AS nota, CASE WHEN me.nota >=6 THEN 'Aprobada' WHEN me.nota <6 THEN 'Reprobada' END AS resultado, me.idEstudianteMateria AS idEM "
 					+ "FROM public.estudiante e, public.estudianteMateria me, public.materia m "
 					+ "WHERE e.idEstudiante = me.idEstudiante and me.idMateria = m.idMateria and "
 					+ "e.idEstudiante = ?1 "
-					+ "GROUP BY nombre, anio, ciclo, nota, resultado")
+					+ "GROUP BY nombre, anio, ciclo, nota, resultado, idEM")
 	public List<Object[]> materiasCursadasPorEstudiante(Integer id) throws DataAccessException;
 	
 	@Query(nativeQuery=true,

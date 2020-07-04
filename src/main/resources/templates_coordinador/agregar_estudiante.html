@@ -6,18 +6,148 @@
 <title>Ingrese la categoria</title>
 </head>
 <body>
-	<div class="container" style="margin-top: 5em">
-		<div class="row align-items-center justify-content-md-center">
-			<div>
-			<form class="form-group"  th:action= "@{/ecategoria}" th:object="${categoria}" method= "post">
-				<div class="form-group row">
-					<label class="col-sm-3 col-form-label">Nombre Categoria:</label>
-					<div class="col-sm-8">
-						<input class="form-control" type="text" name="s_categoria"><br>
-						<span th:errors = "*{s_categoria}" style = "color : #E81505;"></span>
-					</div>	
+<script>
+		$(document).ready(function(){
+			if($("#id_cE").val() == ""){
+				$("#hedit").hide();
+				$("#hnew").show();
+			}
+			else{
+				$("#hedit").show();
+				$("#hnew").hide();
+			}
+
+			function getMunicipios(){
+				$.ajax({
+					type: "POST",
+					url: './municipios',
+					data: {idDep:idDep},
+					success: function(res) {
+						$('#municipio').empty();
+
+						$.each(res, function(key){
+							$('#municipio').append($("<option></option>").val(res[key][0]).text(res[key][1]));
+						})
+						console.log(res);
+					},
+					error: function() {
+						console.log("No se ha podido obtener la información");
+					}
+				});
+			}
+
+			var idDep = $('#depa').val();
+			getMunicipios()
+			
+			$('#depa').change(function(){
+				idDep  = $('#depa').val();
+				getMunicipios();
+			})
+			
+			$('#clean').click(function(){
+				$('#nombres').empty();
+				$('#apellidos').empty();
+				$('#fechaNac').empty();
+				$('#carnet').empty();
+				$('#direccion').empty();
+				$('#telFijo').empty();
+				$('#telMovil').empty();
+			})
+			
+		});
+</script>
+	<div class="container-fluid" >
+		<nav class="navbar navbar-light bg-light">
+			  <a class="navbar-brand">Administrador</a>
+			  <div class="form-inline">
+			    <div class="btn-group dropleft">
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Opciones
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				    <a class="dropdown-item" href="#">Configuracion de cuenta</a>
+				    <a class="dropdown-item" href="#">Cerrar sesión</a>
+				    
+				  </div>
 				</div>
-				<input type="submit" class="btn btn-light" value="Guardar Categoria">
+			</div>
+		</nav>
+		<div class="content">
+			<div class="jumbotron">
+			<h3 class="display-4" id="hedit">Editar Usuario</h3>
+			<h3 class="display-4" id="hnew">Agregar un nuevo usuario</h3>
+			<form th:action="@{/expediente_guardado}" th:object="${estudianteNuevo}" method="post" class="form-row">
+				<div class="form-group col-md-2"> 
+					<input type="text" class="form-control" id="id_cE" hidden>
+			  	</div>
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label">Nombres:</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" th:field="*{nombres}" id="nombres"><br>
+						<span style = "color : #E81505" th:errors="*{nombres}"></span>
+					</div>	
+					
+					<label class="col-sm-3 col-form-label">Apellidos:</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" th:field="*{apellidos}" id="apellidos"><br>
+						<span style = "color : #E81505" th:errors="*{apellidos}"></span>
+					</div>
+					
+					<label class="col-sm-3 col-form-label">Carnet:</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" th:field="*{carnet}" id="carnet"><br>
+						<span style = "color : #E81505" th:errors="*{carnet}"></span>
+					</div>
+					
+					<label class="col-sm-3 col-form-label">Fecha de nacimiento:</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="date" th:field="*{fechaNac}" id="fechaNac"><br>
+						<span style = "color : #E81505" th:errors="*{fechaNac}"></span>
+					</div>
+					
+					<label for="departamento" class="col-sm-3 col-form-label">Departamento</label>
+					<div class="col-sm-8">
+						<select id="depa" class="form-control" >
+                                        <option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
+						</select>
+					</div>
+					
+					<label for="municipio" class="col-sm-3 col-form-label">Municipio</label>
+					<div class="col-sm-8">
+						<select id="municipio" class="form-control" >
+                        	<option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
+						</select>
+					</div>
+					<label class="col-sm-3 col-form-label">Direccion:</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" th:field="*{direccion}" id="direccion"><br>
+						<span style = "color : #E81505" th:errors="*{direccion}"></span>
+					</div>
+					<label class="col-sm-3 col-form-label">Telefono fijo:</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" th:field="*{tel_fijo}" id="telFijo"><br>
+						<span style = "color : #E81505" th:errors="*{tel_fijo}"></span>
+					</div>
+					<label class="col-sm-3 col-form-label">Telefono movil:</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" th:field="*{tel_movil}" id="telMovil"><br>
+						<span style = "color : #E81505" th:errors="*{tel_movil}"></span>
+					</div>
+					<label class="col-sm-3 col-form-label">Nombre padre:</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" th:field="*{nombrePadre}"><br>
+						<span style = "color : #E81505" th:errors="*{nombrePadre}"></span>
+					</div>
+					<label class="col-sm-3 col-form-label">Nombre madre:</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" th:field="*{nombreMadre}"><br>
+						<span style = "color : #E81505" th:errors="*{nombreMadre}"></span>
+					</div>
+				</div>
+				<hr class="my-4">
+				<a class="btn btn-secondary btn-lg" href="/catalogo_usuario">Volver</a>
+				<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+				<button id="clean" class="btn btn-primary btn-lg">Limpiar</button>
 			</form>
 			</div>
 		</div>			

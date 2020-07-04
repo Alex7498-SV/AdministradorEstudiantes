@@ -54,6 +54,9 @@ public class Usuario {
 	@Size(max=15, message="El campo Contraseña no debe tener mas de 10 caracteres")
 	private String contra;
 	
+	@Column(name="edad")
+	private Integer edad;
+	
 	@Column(name="administrador")
 	private Boolean administrador;
 	
@@ -90,7 +93,14 @@ public class Usuario {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+	
+	public Integer getEdad() {
+		return edad;
+	}
 
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
 	public Date getFechaNac() {
 		return fechaNac;
 	}
