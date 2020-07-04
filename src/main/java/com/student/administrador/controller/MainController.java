@@ -122,26 +122,30 @@ public class MainController {
 		Usuario u = new Usuario();
 		Integer flag = null;
 		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
-
-		for(Usuario usr: users) {
-			//System.out.println(usr.getIdMunicipio().getNombre());
-			u = usr;
-			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
-				if(usr.getSesion() == false && usr.getEstado()){
-					usr.setSesion(true);
-					session.setAttribute("usuario", usr);
-					service.insertarOeditarUsuario(usr);
-						if(usr.getAdministrador()) {
-							flag = 1;
-						} else {
-							flag = 2;
-						}
-				} // Verificando que este activada 
-				if(usr.getEstado() == false) {
-					flag = 3;
+		if(session.getAttribute("usuario") != null) {
+			mav.setViewName("redirect:/menu");
+		}
+		else if(users.size() == 0) {
+			flag = 4;
+			
+		} else {
+			for(Usuario usr: users) {
+				u = usr;
+				if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
+					if(usr.getSesion() == false && usr.getEstado()){
+						usr.setSesion(true);
+						session.setAttribute("usuario", usr);
+						service.insertarOeditarUsuario(usr);
+							if(usr.getAdministrador()) {
+								flag = 1;
+							} else {
+								flag = 2;
+							}
+					} // Verificando que este activada 
+					if(usr.getEstado() == false) {
+						flag = 3;
+					}
 				}
-			} else {
-				flag = 4;
 			}
 		}
 		//System.out.print(flag);
