@@ -26,13 +26,13 @@ public class Usuario {
 	private Integer idUsuario;
 	
 	@Column(name="nombre")
-	@NotEmpty(message="El campo Nombre no puede ir vacio")
-	@Size(max=30, message="El campo Nombre no debe tener mas de 30 caracteres")
+	//@NotEmpty(message="El campo Nombre no puede ir vacio")
+	//@Size(max=30, message="El campo Nombre no debe tener mas de 30 caracteres")
 	private String nombre;
 	
 	@Column(name="apellido")
-	@NotEmpty(message="El campo Apellido no puede ir vacio")
-	@Size(max=30, message="El campo Apellido no debe tener mas de 30 caracteres")
+	//@NotEmpty(message="El campo Apellido no puede ir vacio")
+	//@Size(max=30, message="El campo Apellido no debe tener mas de 30 caracteres")
 	private String apellido;
 	
 	@Column(name="fecha_nacimiento")
@@ -40,18 +40,18 @@ public class Usuario {
 	private Date fechaNac;
 	
 	@Column(name="direccion")
-	@NotEmpty(message="El campo Direccion no puede ir vacio")
-	@Size(max=75, message="El campo Direccion no debe tener mas de 75 caracteres")
+	//@NotEmpty(message="El campo Direccion no puede ir vacio")
+	//@Size(max=75, message="El campo Direccion no debe tener mas de 75 caracteres")
 	private String direccion;
 	
 	@Column(name="usuario")
-	@NotEmpty(message="El campo Usuario no puede ir vacio")
-	@Size(max=15, message="El campo Usuario no debe tener mas de 15 caracteres")
+	//@NotEmpty(message="El campo Usuario no puede ir vacio")
+	//@Size(max=15, message="El campo Usuario no debe tener mas de 15 caracteres")
 	private String usuario;
 	
 	@Column(name="contra")
-	@NotEmpty(message="El campo Contraseña no puede ir vacio")
-	@Size(max=15, message="El campo Contraseña no debe tener mas de 10 caracteres")
+	//@NotEmpty(message="El campo Contraseña no puede ir vacio")
+	//@Size(max=15, message="El campo Contraseña no debe tener mas de 10 caracteres")
 	private String contra;
 	
 	@Column(name="edad")
