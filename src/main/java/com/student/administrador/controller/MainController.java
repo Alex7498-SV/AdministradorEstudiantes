@@ -495,8 +495,17 @@ public class MainController {
 	@RequestMapping("/editar_materia_cursada/{id}")
 	public ModelAndView editarMarCursada(@PathVariable int id){
 		ModelAndView mav = new ModelAndView();
+		EstudianteMateria estMat = null;
+		MateriasPorEstudianteDTO dto = null;
+		try {
+			estMat = service.findEstudianteMateriaById(id);
+			dto = service.findMateriaEstudianteDTOById(id);
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
 		mav.setViewName("../templates_coordinador/agregar_editar_materia");
-		mav.addObject("idEM", id);
+		mav.addObject("estMat", estMat);
+		mav.addObject("dto", dto);
 		return mav;
 	}
 	
@@ -515,5 +524,47 @@ public class MainController {
         	mav.setViewName("../templates_coordinador/agregar_editar_materia");
         }
         return mav;
+	}
+
+	@RequestMapping("/guardar_materia")
+	public ModelAndView guardarMateria(@Valid @ModelAttribute EstudianteMateria estMat, BindingResult result){
+		ModelAndView mav = new ModelAndView();
+		if(!result.hasErrors()){
+			service.agregarOeditarMateriaCursada(estMat);
+			mav.setViewName("../templates_coordinador/materias_cursadas");
+			List<MateriasPorEstudianteDTO> matCursadas = null;
+			try {
+				matCursadas = service.materiasPorEstudiante(estMat.getIdEstudiante());
+			}catch(Exception e ) {
+				e.printStackTrace();
+			}
+			mav.addObject("matCursadas", matCursadas);
+			}
+		else{
+			mav.setViewName("../templates_coordinador/agregar_editar_materia");
+			MateriasPorEstudianteDTO dto = null;
+			try {
+				dto = service.findMateriaEstudianteDTOById(estMat.getIdEstudianteMateria());
+			}catch(Exception e ) {
+				e.printStackTrace();
+			}
+			mav.addObject("estMat", estMat);
+			mav.addObject("dto", dto);
+		}
+		return mav;
+	}
+
+	@RequestMapping("/prueba")
+	public ModelAndView prueba(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("../templates_coordinador/materias_cursadas");
+		List<MateriasPorEstudianteDTO> matCursadas = null;
+		try {
+			matCursadas = service.materiasPorEstudiante(1);
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
+		mav.addObject("matCursadas", matCursadas);
+		return mav;
 	}
 }

@@ -21,7 +21,7 @@
 					<th:block th:each="matCursada, row:${matCursadas}">
 						<tr>
 							<td><a class="btn btn-primary" th:href="@{'/editar_materia_cursada/' + ${matCursada.idEstudianteMateria}}">Editar</a></td>
-							<th th:text="${matCursada.nombre}"/>
+							<th th:text="${matCursada.nombreMateria}"/>
 							<th th:text="${matCursada.anio}"/>
 							<th th:text="${matCursada.ciclo}"/>
 							<th th:text="${matCursada.nota}"/>

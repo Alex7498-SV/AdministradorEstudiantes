@@ -108,10 +108,12 @@ public class TodoServiceImpl implements TodoService{
 		List<MateriasPorEstudianteDTO> matporest = matR.materiasCursadasPorEstudiante(id).stream().map(ce->{
 			MateriasPorEstudianteDTO dto = new MateriasPorEstudianteDTO();
 			dto.setNombreMateria(ce[0].toString());
-			dto.setAnio(Integer.parseInt(ce[1].toString()));
-			dto.setCiclo(Integer.parseInt(ce[2].toString()));
-			dto.setNota(Float.parseFloat(ce[3].toString()));
-			dto.setResultado(ce[4].toString());
+			dto.setNombreEstudiante(ce[1].toString());
+			dto.setAnio(Integer.parseInt(ce[2].toString()));
+			dto.setCiclo(Integer.parseInt(ce[3].toString()));
+			dto.setNota(Float.parseFloat(ce[4].toString()));
+			dto.setResultado(ce[5].toString());
+			dto.setIdEstudianteMateria(Integer.parseInt(ce[6].toString()));
 			return dto;
 		}).collect(Collectors.toList());
 		return matporest;
@@ -200,7 +202,49 @@ public class TodoServiceImpl implements TodoService{
 
 	@Override
 	public Estudiante findByIdEstudiante(Integer id) throws DataAccessException {
-		return estR.findByIdEstudiante(id);
+		List<Estudiante> ests = estR.findByIdEstudiante(id).stream().map(ce->{
+			Estudiante est = new Estudiante();
+			est.setIdEstudiante(Integer.parseInt(ce[0].toString()));
+			est.setNombres(ce[1].toString());
+			return est;
+		}).collect(Collectors.toList());
+		return ests.get(0);
+	}
+
+	@Override
+	public EstudianteMateria findEstudianteMateriaById(Integer id) throws DataAccessException {
+		List<EstudianteMateria> estMats = estMatR.findEstudianteMateriaById(id).stream().map(ce->{
+			EstudianteMateria estMat = new EstudianteMateria();
+			estMat.setIdEstudianteMateria(Integer.parseInt(ce[0].toString()));
+			estMat.setIdMateria(Integer.parseInt(ce[1].toString()));
+			estMat.setIdEstudiante(Integer.parseInt(ce[2].toString()));
+			estMat.setNota(Float.parseFloat(ce[3].toString()));
+			estMat.setAnio(Integer.parseInt(ce[4].toString()));
+			estMat.setCicloCursado(Integer.parseInt(ce[5].toString()));
+			return estMat;
+		}).collect(Collectors.toList());
+		return estMats.get(0);
+	}
+
+	@Override
+	public Materia findByIdMateria(Integer id) throws DataAccessException {
+		return matR.findByIdMateria(id);
+	}
+
+	@Override
+	public MateriasPorEstudianteDTO findMateriaEstudianteDTOById(Integer id) throws DataAccessException{
+		List<MateriasPorEstudianteDTO> matporest = estMatR.findDtoById(id).stream().map(ce->{
+			MateriasPorEstudianteDTO dto = new MateriasPorEstudianteDTO();
+			dto.setNombreMateria(ce[0].toString());
+			dto.setNombreEstudiante(ce[1].toString());
+			dto.setAnio(Integer.parseInt(ce[2].toString()));
+			dto.setCiclo(Integer.parseInt(ce[3].toString()));
+			dto.setNota(Float.parseFloat(ce[4].toString()));
+			dto.setResultado(ce[5].toString());
+			dto.setIdEstudianteMateria(Integer.parseInt(ce[6].toString()));
+			return dto;
+		}).collect(Collectors.toList());
+		return matporest.get(0);
 	}
 }
 

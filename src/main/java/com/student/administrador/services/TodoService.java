@@ -31,7 +31,11 @@ public interface TodoService {
 	public Municipio municipioPorId(Integer idMun) throws DataAccessException;
 	public Departamento depPorId(Integer idDep) throws DataAccessException;
 	public List<Municipio> findAllMunicipios() throws DataAccessException;
-	
+	public EstudianteMateria findEstudianteMateriaById(Integer id) throws DataAccessException;
+	public Estudiante findByIdEstudiante(Integer id) throws DataAccessException;
+	public Materia findByIdMateria(Integer id) throws DataAccessException;
+	public MateriasPorEstudianteDTO findMateriaEstudianteDTOById(Integer id) throws DataAccessException;
+
 	//CATALOGOS
 	public List<Materia> catalogoMaterias() throws DataAccessException;
 	public List<CatalogoEscuelasDTO> catalogoEscuelas() throws DataAccessException;
@@ -46,6 +50,4 @@ public interface TodoService {
 	
 	//Proposito general
 	List<Usuario> findAll();
-	
-	public Estudiante findByIdEstudiante(Integer id) throws DataAccessException;
 }

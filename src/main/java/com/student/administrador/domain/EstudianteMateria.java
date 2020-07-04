@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -37,11 +38,17 @@ public class EstudianteMateria {
 	@MapsId("idEstudiante")
 	@JoinColumn(name="idEstudiante")
 	private Estudiante estudiante; 
+
+	@Transient
+	private Integer idEstudiante;
 	
 	@ManyToOne
 	@MapsId("idMateria")
 	@JoinColumn(name="idMateria")
 	private Materia materia;
+
+	@Transient
+	private Integer idMateria;
 
 	public Integer getIdEstudianteMateria() {
 		return idEstudianteMateria;
@@ -89,7 +96,17 @@ public class EstudianteMateria {
 
 	public void setMateria(Materia materia) {
 		this.materia = materia;
-	} 
-	
-	
+	}
+	public Integer getIdEstudiante() {
+		return idEstudiante;
+	}
+	public void setIdEstudiante(Integer idEstudiante) {
+		this.idEstudiante = idEstudiante;
+	}
+	public Integer getIdMateria() {
+		return idMateria;
+	}
+	public void setIdMateria(Integer idMateria) {
+		this.idMateria = idMateria;
+	}
 }

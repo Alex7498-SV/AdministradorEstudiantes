@@ -3,25 +3,18 @@ package com.student.administrador.dto;
 public class MateriasPorEstudianteDTO {
 	
 	private String nombreMateria;
-	private String nombreUsuario;
+	private String nombreEstudiante;
 	private Integer anio;
 	private Integer ciclo;
 	private float nota;
 	private String resultado;
 	private Integer idEstudianteMateria;
-	private Integer idEstudiante;
-	private Integer idMateria;
+	
 	public String getNombreMateria() {
 		return nombreMateria;
 	}
 	public void setNombreMateria(String nombreMateria) {
 		this.nombreMateria = nombreMateria;
-	}
-	public String getNombreUsuario() {
-		return nombreUsuario;
-	}
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
 	}
 	public Integer getAnio() {
 		return anio;
@@ -53,16 +46,10 @@ public class MateriasPorEstudianteDTO {
 	public void setIdEstudianteMateria(Integer idEstudianteMateria) {
 		this.idEstudianteMateria = idEstudianteMateria;
 	}
-	public Integer getIdEstudiante() {
-		return idEstudiante;
+	public String getNombreEstudiante() {
+		return nombreEstudiante;
 	}
-	public void setIdEstudiante(Integer idEstudiante) {
-		this.idEstudiante = idEstudiante;
-	}
-	public Integer getIdMateria() {
-		return idMateria;
-	}
-	public void setIdMateria(Integer idMateria) {
-		this.idMateria = idMateria;
+	public void setNombreEstudiante(String nombreEstudiante) {
+		this.nombreEstudiante = nombreEstudiante;
 	}
 }
