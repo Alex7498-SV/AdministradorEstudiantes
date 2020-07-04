@@ -16,17 +16,12 @@
 		
 		<div class="container-fluid">		
 			<nav class="navbar navbar-light bg-light">
-			  <a class="navbar-brand">Administrador</a>
+			  <a class="navbar-brand" href="/menu">Administrador</a>
 			  <form class="form-inline">
 			    <div class="btn-group dropleft">
-				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    Opciones
-				  </button>
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				    <a class="dropdown-item" href="#">Configuracion de cuenta</a>
-				    <a class="dropdown-item" href="#">Cerrar sesión</a>
-				    
-				  </div>
+					<a class="btn btn-secondary" href="/logout">
+						Cerrar sesión
+					</a>
 				</div>
 			  </form>
 			</nav>
@@ -44,7 +39,7 @@
 				  <tbody>
 				  	<th:block th:each="materia, row:${materias}">
 						<tr>
-							<td><button class="btn btn-primary" type="button">Editar</button></td>
+							<td><a class="btn btn-primary" type="button" href="@{'/editar_catalogo_materia/'+${materia.idMtaeria}}">Editar</a></td>
 							<th th:text="${materia.idMateria}"/>
 							<th th:text="${materia.nombre}"/>
 							<th th:text="${materia.estadoDelegate}"/>
