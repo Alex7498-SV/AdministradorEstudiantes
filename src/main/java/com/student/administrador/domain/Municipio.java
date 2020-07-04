@@ -27,14 +27,14 @@ public class Municipio {
 	@Column(name="nombre")
 	private String nombre;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idDepartamento")
 	private Departamento departamento;
 	
-	@OneToMany(mappedBy="municipio", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="municipio", fetch=FetchType.LAZY)
 	private Set<CentroEscolar> centrosEscolares;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="municipio", fetch=FetchType.LAZY)
 	private Set<Usuario> usuarios;
 
 	public Integer getIdMunicipio() {

@@ -16,6 +16,7 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 					+ "FROM public.usuario u where u.usuario != 'admin' ")
 	public List<Object[]> catalogoUsuarios() throws DataAccessException;
 	
-	
+	/*@Query(nativeQuery=true,
+			value="SELECT * FROM public.usuario u WHERE u.usuario = ?1 AND u.contra =?2 ")*/
 	List<Usuario> findByUsuarioAndContra(String usuario, String contra);
 }

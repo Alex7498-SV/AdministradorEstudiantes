@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(schema="public", name="centroEscolar")
+@Table(schema="public", name="centroescolar")
 public class CentroEscolar {
 	
 	@Id
@@ -32,12 +32,12 @@ public class CentroEscolar {
 	@Column(name="estado")
 	private Boolean estado;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idMunicipio")
 	private Municipio municipio;
 	
-	@OneToMany(fetch=FetchType.EAGER)
-	private List<Estudiante> estudiantes;
+	@OneToMany(mappedBy = "centroescolar", fetch=FetchType.LAZY)
+	private List<Estudiante> estudiante;
 
 	public Integer getIdEscolar() {
 		return idEscolar;
@@ -71,12 +71,12 @@ public class CentroEscolar {
 		this.municipio = municipio;
 	}
 
-	public List<Estudiante> getEstudiantes() {
-		return estudiantes;
+	public List<Estudiante> getEstudiante() {
+		return estudiante;
 	}
 
-	public void setEstudiantes(List<Estudiante> estudiantes) {
-		this.estudiantes = estudiantes;
+	public void setEstudiante(List<Estudiante> estudiante) {
+		this.estudiante = estudiante;
 	}
 	
 	public String getEstadoDelegate() {

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(schema="public", name="estudianteMateria")
+@Table(schema="public", name="estudiantemateria")
 public class EstudianteMateria {
 	
 	@Id

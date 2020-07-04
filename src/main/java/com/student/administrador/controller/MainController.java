@@ -124,7 +124,7 @@ public class MainController {
 		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
 
 		for(Usuario usr: users) {
-
+			//System.out.println(usr.getIdMunicipio().getNombre());
 			u = usr;
 			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
 				if(usr.getSesion() == false && usr.getEstado()){
@@ -136,10 +136,12 @@ public class MainController {
 						} else {
 							flag = 2;
 						}
-				} // Debe ir aqui un viewname que mande a que no se puede logear 2 veces. F -El chino 
+				} // Verificando que este activada 
 				if(usr.getEstado() == false) {
 					flag = 3;
 				}
+			} else {
+				flag = 4;
 			}
 		}
 		//System.out.print(flag);
@@ -150,8 +152,10 @@ public class MainController {
 			} else if(flag ==2) {
 				mav.setViewName("redirect:/buscar_o_agregar_alumnos");
 				//mav.setViewName("menu_admin");
-			} else {
+			} else if(flag == 3){
 				mav.setViewName("errorC");
+			} else {
+				mav.setViewName("login");
 			}
 		} else {
 			//System.out.println(u.getSesion() + " alv");

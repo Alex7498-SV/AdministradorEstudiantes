@@ -66,9 +66,9 @@ public class Usuario {
 	@Column(name="sesion")
 	private Boolean sesion;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idMunicipio")
-	private Municipio idMunicipio;
+	private Municipio municipio;
 
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -159,12 +159,12 @@ public class Usuario {
 		this.sesion = sesion;
 	}
 
-	public Municipio getIdMunicipio() {
-		return idMunicipio;
+	public Municipio getmunicipio() {
+		return municipio;
 	}
 
-	public void setIdMunicipio(Municipio idMunicipio) {
-		this.idMunicipio = idMunicipio;
+	public void setmunicipio(Municipio municipio) {
+		this.municipio = municipio;
 	}
 	
 	public String getEstadoDelegate() {

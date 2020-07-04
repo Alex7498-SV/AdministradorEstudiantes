@@ -68,9 +68,9 @@ public class Estudiante {
 	@Size(max=30, message="El campo Nombre de la Madre no debe tener mas de 30 caracteres")
 	private String nombreMadre;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idEscolar")
-	private CentroEscolar idEscolar;
+	private CentroEscolar centroescolar;
 
 	public Integer getIdEstudiante() {
 		return idEstudiante;
@@ -152,11 +152,11 @@ public class Estudiante {
 		this.nombreMadre = nombreMadre;
 	}
 
-	public CentroEscolar getIdEscolar() {
-		return idEscolar;
+	public CentroEscolar getcentroEscolar() {
+		return centroescolar;
 	}
 
-	public void setIdEscolar(CentroEscolar idEscolar) {
-		this.idEscolar = idEscolar;
+	public void setcentroEscolar(CentroEscolar centroescolar) {
+		this.centroescolar = centroescolar;
 	}
 }

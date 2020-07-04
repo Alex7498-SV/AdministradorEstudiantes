@@ -16,11 +16,11 @@ public interface EscuelaRepo extends JpaRepository<CentroEscolar, Integer> {
 	//Por alguna razon las queries no sirven en lineas diferentes
 	@Query(nativeQuery=true,
 			value="SELECT c.idEscolar AS Codigo, c.nombre AS Descripcion, c.estado AS Estado, m.nombre AS municipio "
-					+ "FROM public.centroEscolar c INNER JOIN public.municipio m ON m.idMunicipio = c.idMunicipio")
+					+ "FROM public.centroescolar c INNER JOIN public.municipio m ON m.idMunicipio = c.idMunicipio")
 	public List<Object[]> catalogoEscuelas() throws DataAccessException;
 
 	@Query(nativeQuery=true,
-			value="SELECT c.idMunicipio, c.nombre FROM public.centroEscolar c WHERE c.idMunicipio = ?1 AND c.estado = true")
+			value="SELECT c.idMunicipio, c.nombre FROM public.centroescolar c WHERE c.idMunicipio = ?1 AND c.estado = true")
 	public List<Object[]> escuelasPorMunicipio(Integer idMunicipio) throws DataAccessException;
 	
 	
