@@ -55,14 +55,44 @@
 						}
 					});
 				}
+
+				function getEscuelas(){
+					$.ajax({
+						type: "POST",
+						url: './cEscolares',
+						data: {idMun:idMun},
+						success: function(res) {
+							$('#cEscolares').empty();
+	
+							$.each(res, function(key){
+								$('#cEscolares').append($("<option></option>").val(res[key][0]).text(res[key][1]));
+							})
+							console.log(res);
+						},
+						error: function() {
+							console.log("No se ha podido obtener la información");
+						}
+					});
+				}
 	
 				var idDep = $('#depa').val();
 				getMunicipios()
+
+				var idMun = $('#municipio').val();
+				getEscuelas();
+				
+				$('#municipio').change(function(){
+					var idMun = $('#municipio').val();
+					console.log(idMun);
+					getEscuelas();
+				})
 				
 				$('#depa').change(function(){
 					idDep  = $('#depa').val();
 					getMunicipios();
 				})
+
+				
 				
 				$('#clean').click(function(){
 					$('#nombre').empty();
@@ -97,7 +127,7 @@
 					<h3 class="display-4" id="hnew">Crear un nuevo expediente</h3>
 					<form>
 						<div class="form-group col-md-2"> 
-							<input type="text" class="form-control" id="id_cE" hidden value="1"> 
+							<input type="text" class="form-control" id="id_cE" hidden> 
 						  </div>
 
 						<div class="form-row">
@@ -145,16 +175,16 @@
                                      <option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
 								</select>
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-3">
 								<label for="municipio">Municipio</label>
 								<select id="municipio" class="form-control" name="idMunicipio.idMunicipio">
 									<option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
 								</select>
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-5">
 								<label for="cEscolares">Centros Escolares</label>
 								<!--combobox centros escolares-->
-								<select class="form-control" id="cEscolares">
+								<select  class="form-control" id="cEscolares">
 								  <option>Centro1</option>
 								  <option>Centro2</option>
 								</select>
