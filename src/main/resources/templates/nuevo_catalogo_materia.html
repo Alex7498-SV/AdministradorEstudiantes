@@ -56,12 +56,12 @@
 					<h3 class="display-4" id="hnew">Insertar una materia</h3>
 					<form th:action= "@{/editar_catalogo_materia}" th:object="${catalogoMateria}" method= "post">
 						<div class="form-group col-md-2">
-							<input type="text" class="form-control" id="id_cE" hidden>
+							<input type="text" class="form-control" id="id_cE" name="idMateria" th:value="*{idMateria}"  hidden>
 						  </div>
 
 						<div class="form-group">
 							<label for="nombre">Nombre</label>
-							<input type="text" class="form-control" id="nombre" name="nombre">
+							<input type="text" class="form-control" id="nombre" name="nombre" th:value="*{nombre}">
 						</div>
 						  
 						<div class="form-row">

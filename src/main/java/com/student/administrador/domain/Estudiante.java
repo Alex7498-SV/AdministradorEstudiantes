@@ -1,5 +1,7 @@
 package com.student.administrador.domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -48,6 +50,10 @@ public class Estudiante {
 	@Size(max=50, message="El campo Direccion no debe tener mas de 50 caracteres")
 	private String direccion;
 	
+	@Column(name="edad")
+	private Integer edad;
+	
+
 	@Column(name="telefono_fijo")
 	@NotEmpty(message="El campo Telefono Fijo no puede ir vacio")
 	@Pattern(regexp="^$|[0-9]{8}", message="Numero de telefono no valido")
@@ -108,8 +114,11 @@ public class Estudiante {
 		return fechaNac;
 	}
 
-	public void setFechaNac(Date fechaNac) {
-		this.fechaNac = fechaNac;
+	public void setFechaNac(String fechaNac) throws ParseException {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+		Date date = df.parse(fechaNac);
+		this.fechaNac = date;
+		//this.fechaNac = fechaNac;
 	}
 
 	public String getDireccion() {
@@ -150,6 +159,14 @@ public class Estudiante {
 
 	public void setNombreMadre(String nombreMadre) {
 		this.nombreMadre = nombreMadre;
+	}
+	
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
 	}
 
 	public CentroEscolar getcentroEscolar() {

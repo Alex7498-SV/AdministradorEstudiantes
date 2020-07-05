@@ -128,47 +128,47 @@
 				<div class="jumbotron">
 					<h3 class="display-4" id="hedit">Editar Expediente</h3>
 					<h3 class="display-4" id="hnew">Crear un nuevo expediente</h3>
-					<form>
+					<form th:action= "@{/expediente_guardado}" th:object="${estudianteNuevo}" method= "post">
 						<div class="form-group col-md-2"> 
-							<input type="text" class="form-control" id="id_cE" hidden> 
+							<input type="text" class="form-control" id="id_cE" name="idEstudiante" hidden> 
 						  </div>
 
 						<div class="form-row">
                             <div class="form-group col-md-6">
 								<label for="nombre">Nombre</label>
-								<input type="text" class="form-control" id="nombre">
+								<input type="text" class="form-control" id="nombre" name="nombres">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="apellido">Apellido</label>
-								<input type="text" class="form-control" id="apellido">
+								<input type="text" class="form-control" id="apellido" name="apellidos">
 							</div>
                         </div>
 						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label for="cMin">Carnet de minoridad</label>
-								<input type="text" class="form-control" id="cMin">
+								<input type="text" class="form-control" id="cMin" name="carnet">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="fNaciemiento">Fecha de Nacimiento</label>
-								<input type="date" class="form-control" id="fNacimiento">
+								<input type="date" class="form-control" id="fNacimiento" name="fechaNac">
 							</div>
 							<div class="form-group col-md-2">
 								<label for="edad">Edad</label>
-								<input id="edad" type="number" class="form-control" name="edad"  disabled>
+								<input id="edad" type="number" class="form-control" name="edad" th:field="*{edad}"  readonly>
 							</div>
 							<div class="form-group col-md-3">
 								<label for="tMovil">Telefono Movil</label>
-								<input type="number" class="form-control" id="tMovil">
+								<input type="number" class="form-control" id="tMovil" name="tel_movil">
 							</div>							
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-8">
 								<label for="direccion">Direccion</label>
-								<input type="text" class="form-control" id="direccion">
+								<input type="text" class="form-control" id="direccion" name="direccion">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="tFijo">Telefono Fijo</label>
-								<input type="number" class="form-control" id="tFijo">
+								<input type="number" class="form-control" id="tFijo" name="tel_fijo">
 							</div>						
 						</div>
 						<div class="form-row">
@@ -180,15 +180,15 @@
 							</div>
 							<div class="form-group col-md-4">
 								<label for="municipio">Municipio</label>
-								<select id="municipio" class="form-control" name="idMunicipio.idMunicipio">
+								<select id="municipio" class="form-control">
 									<option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
 								</select>
 							</div>
 							<div class="form-group col-md-5">
 								<label for="cEscolares">Centros Escolares</label>
 								<!--combobox centros escolares-->
-								<select  class="form-control" id="cEscolares">
-								  <option>Seleccione un Municipio</option>
+								<select  class="form-control" id="cEscolares" th:field="*{centroEscolar.idEscolar}"> 
+								  <option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
 								
 								</select>
 							</div>
@@ -196,11 +196,11 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="nMadre">Nombre de la madre</label>
-								<input type="text" class="form-control" id="nMadre">
+								<input type="text" class="form-control" id="nMadre" name="nombreMadre">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="nPadre">Nombre del padre</label>
-								<input type="text" class="form-control" id="nPadre">
+								<input type="text" class="form-control" id="nPadre" name="nombrePadre">
 							</div>
 						</div>
 						<hr class="my-4">

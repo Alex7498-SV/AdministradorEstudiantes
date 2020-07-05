@@ -39,7 +39,7 @@
 				  <tbody>
 				  	<th:block th:each="materia, row:${materias}">
 						<tr>
-							<td><a class="btn btn-primary" type="button" th:href="@{'/editar_catalogo_materia/'+${materia.idMtaeria}}">Editar</a></td>
+							<td><a class="btn btn-primary" type="button" th:href="@{'/editar_catalogo_materia/'+${materia.idMateria}}">Editar</a></td>
 							<th th:text="${materia.idMateria}"/>
 							<th th:text="${materia.nombre}"/>
 							<th th:text="${materia.estadoDelegate}"/>
