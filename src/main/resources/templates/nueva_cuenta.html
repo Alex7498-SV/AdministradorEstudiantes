@@ -56,8 +56,6 @@
 
 			function validatePassword(){
 				$('#send').attr("disabled", true);
-				var pass1 = $('#pass').val();
-				var pass2 = $('#cPass').val();
 				var span = $('<span></span>').insertAfter($('#cPass'));
 				span.hide();
 				$('#cPass').keyup(function(){

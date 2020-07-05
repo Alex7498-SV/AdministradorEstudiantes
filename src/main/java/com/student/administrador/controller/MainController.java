@@ -449,7 +449,7 @@ public class MainController {
 		}
 		mav.addObject("dep", deps);
 		mav.addObject("estudianteNuevo", new Estudiante());
-		mav.setViewName("../templates_coordinador/agregar_estudiante");
+		mav.setViewName("../templates_coordinador/editar_expediente_existente");
 		return mav;
 	}
 	
