@@ -127,6 +127,13 @@ public class MainController {
 				}
 				mav.setViewName("welcome");
 			} else {
+				List<Departamento> deps = null;
+				try {
+					deps = service.findAllDepartaments();
+				} catch(Exception e){
+					e.printStackTrace();
+				}
+				mav.addObject("dep", deps);
 				mav.addObject("usuario", new Usuario());
 				mav.setViewName("nueva_cuenta");
 
