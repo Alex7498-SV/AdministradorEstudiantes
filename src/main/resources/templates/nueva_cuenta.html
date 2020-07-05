@@ -53,6 +53,26 @@
 				idDep  = $('#depa').val();
 				getMunicipios();
 			})
+
+			function validatePassword(){
+				$('#send').attr("disabled", true);
+				var pass1 = $('#pass').val();
+				var pass2 = $('#cPass').val();
+				var span = $('<span></span>').insertAfter($('#cPass'));
+				span.hide();
+				$('#cPass').keyup(function(){
+					if( $('#pass').val() != $('#cPass').val()){
+						$('#send').attr("disabled", true);
+						span.show();
+						span.text("Las contraseñas no coinciden");
+					}else{
+						span.hide();
+						$('#send').attr("disabled", false);
+					}
+				})
+			}
+
+			validatePassword();
 			
 		});
 	</script>
@@ -79,22 +99,22 @@
 								<div class="form-row">
 									<div class="form-group col-md-6">
 										<label for="nombre">Nombre</label>
-										<input type="text" class="form-control" name="nombre">
+										<input type="text" class="form-control" name="nombre" required>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="apellido">Apellido</label>
-										<input type="text" class="form-control" name="apellido">
+										<input type="text" class="form-control" name="apellido" required>
 									</div>
 								</div>
 								<div class="form-row">
 									<div class="form-group col-md-4">
 										<label for="fechaNac">Fecha de nacimiento</label>
-										<input id="fecha" type="date" class="form-control" name="fechaNac">
+										<input id="fecha" type="date" class="form-control" name="fechaNac" required>
 										<span class="text" th:errors="*{fechaNac}" style="color: #FF0000"></span><br>
 									</div>
 									<div class="form-group col-md-8">
 										<label for="direccion">Direccion</label>
-										<input type="text" class="form-control" name="direccion">
+										<input type="text" class="form-control" name="direccion" required>
 									</div>
 								</div>
 								<div class="form-row">
@@ -118,11 +138,15 @@
 								<div class="form-row">
 									<div class="form-group col-md-6">
 										<label for="usuario">Usuario</label>
-										<input type="text" class="form-control" name="usuario">
+										<input type="text" class="form-control" name="usuario" required>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="contraseña">Contraseña</label>
-										<input type="password" class="form-control" name="contra">
+										<input type="password" class="form-control" name="contra" id="pass" required>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="contraseña">Contraseña</label>
+										<input type="password" class="form-control" id="cPass" required>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -131,7 +155,7 @@
 										<input class="form-control" type="checkbox" name="administrador" th:value="true"><br>
 									</div>
 								</div>
-								<button type="submit" class="btn btn-primary">Crear cuenta</button>
+								<button type="submit" class="btn btn-primary" id="send">Crear cuenta</button>
 							</div>
 						  </div>
 						</form>
