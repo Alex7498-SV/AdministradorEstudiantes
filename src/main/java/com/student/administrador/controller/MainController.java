@@ -434,7 +434,7 @@ public class MainController {
 		Estudiante est = new Estudiante();
 		est = service.findByIdEstudiante(idEstudiante);
 		mav.addObject("estudianteNuevo", est);
-		mav.setViewName("../templates_coordinador/agregar_estudiante");
+		mav.setViewName("../templates_coordinador/editar_expediente_existente");
 		return mav;
 	}
 	
