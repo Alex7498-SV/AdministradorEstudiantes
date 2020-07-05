@@ -313,7 +313,7 @@ public class MainController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		mav.addObject("catalogo_materia", mat);
+		mav.addObject("catalogoMateria", mat);
 		mav.setViewName("nuevo_catalogo_materia");
         verifyAdmin(session, mav);
         return mav;
@@ -400,7 +400,23 @@ public class MainController {
         return mav;
     }
 	
-
+	@RequestMapping("/catalogo_materia_guardado")
+    public ModelAndView catMateriaGuardado(@Valid @ModelAttribute Materia mat ,BindingResult result, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        if(!result.hasErrors()) {
+            try {
+                service.insertarOeditarMateria(mat);;
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            mav.setViewName("redirect:/catalogo_materia");
+        }
+        else {
+        	mav.setViewName("nuevo_catalogo_materia");
+        }
+        verifyAdmin(session, mav);
+        return mav;
+    }
 	
 	@RequestMapping("/find_municipios")
 	public ModelAndView municipios(){

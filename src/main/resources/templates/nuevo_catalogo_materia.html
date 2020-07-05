@@ -54,7 +54,7 @@
 				<div class="jumbotron">
 					<h3 class="display-4" id="hedit">Editar Materia</h3>
 					<h3 class="display-4" id="hnew">Insertar una materia</h3>
-					<form th:action= "@{/editar_catalogo_materia}" th:object="${catalogoMateria}" method= "post">
+					<form th:action= "@{/catalogo_materia_guardado}" th:object="${catalogoMateria}" method= "post">
 						<div class="form-group col-md-2">
 							<input type="text" class="form-control" id="id_cE" name="idMateria" th:value="*{idMateria}"  hidden>
 						  </div>
