@@ -20,6 +20,7 @@ import com.student.administrador.domain.CentroEscolar;
 import com.student.administrador.domain.Departamento;
 import com.student.administrador.domain.Estudiante;
 import com.student.administrador.domain.EstudianteMateria;
+import com.student.administrador.domain.Login;
 import com.student.administrador.domain.Materia;
 import com.student.administrador.domain.Municipio;
 import com.student.administrador.domain.Usuario;
@@ -45,7 +46,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		if(session.getAttribute("usuario")== null) {
-			mav.addObject("usuario", new Usuario());
+			mav.addObject("usuario", new Login());
 			mav.setViewName("login");
 		} 
 		else {
@@ -147,7 +148,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/redirect")
-	public ModelAndView redirect(HttpSession session, @ModelAttribute Usuario user){
+	public ModelAndView redirect(HttpSession session, @ModelAttribute Login user){
 		ModelAndView mav = new ModelAndView();
 		Usuario u = new Usuario();
 		Integer flag = null;
@@ -440,6 +441,13 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		Estudiante est = new Estudiante();
 		est = service.findByIdEstudiante(idEstudiante);
+		List<Departamento> deps = null;
+		try {
+			deps = service.findAllDepartaments();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("dep", deps);
 		mav.addObject("estudianteNuevo", est);
 		mav.setViewName("../templates_coordinador/editar_expediente_existente");
 		return mav;
@@ -469,10 +477,18 @@ public class MainController {
             }catch(Exception e) {
                 e.printStackTrace();
             }
-            mav.setViewName("../templates_coordinador/buscar_o_agregar_alumnos");
+            mav.setViewName("redirect:/buscar_o_agregar_alumnos");
         }
         else {
-        	mav.setViewName("../templates_coordinador/agregar_estudiante");
+    		List<Departamento> deps = null;
+    		try {
+    			deps = service.findAllDepartaments();
+    		} catch(Exception e){
+    			e.printStackTrace();
+    		}
+    		mav.addObject("dep", deps);
+    		mav.addObject("estudianteNuevo", estudiante);
+        	mav.setViewName("../templates_coordinador/editar_expediente_existente");
         }
         return mav;
 	}
