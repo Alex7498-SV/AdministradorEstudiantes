@@ -70,6 +70,8 @@ public class MainController {
 		return mav;
 	}
 
+	
+
 	@RequestMapping("/municipios")
 	public @ResponseBody List<String[]> buscarMunicipios(@RequestParam Integer idDep){
 		List<Municipio> municipios = null;
@@ -81,6 +83,21 @@ public class MainController {
 		List<String[]> data =  new ArrayList<>();
 		for(Municipio mun : municipios){
 			data.add(new String[]{mun.getIdMunicipio().toString(),mun.getNombre()});
+		}
+		return data;
+	}
+
+	@RequestMapping("/cEscolares")
+	public @ResponseBody List<String[]> buscarEscuelas(@RequestParam Integer idMun){
+		List<CentroEscolar> escuelas = null;
+		try{
+			escuelas = service.escuelasPorMunicipio(idMun);
+		} catch(Exception er) {
+			er.printStackTrace();
+		}
+		List<String[]> data =  new ArrayList<>();
+		for(CentroEscolar esc : escuelas){
+			data.add(new String[]{esc.getIdEscolar().toString(),esc.getNombre()});
 		}
 		return data;
 	}

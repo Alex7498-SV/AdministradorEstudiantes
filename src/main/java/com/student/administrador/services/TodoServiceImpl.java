@@ -164,8 +164,14 @@ public class TodoServiceImpl implements TodoService{
 	}
 
 	@Override
-	public List<Object[]> escuelasPorMunicipio(Integer idMunicipio){
-		return escR.escuelasPorMunicipio(idMunicipio);
+	public List<CentroEscolar> escuelasPorMunicipio(Integer idMunicipio){
+		List<CentroEscolar> ces = escR.escuelasPorMunicipio(idMunicipio).stream().map(ce->{
+			CentroEscolar mun = new CentroEscolar();
+			mun.setIdEscolar(Integer.parseInt(ce[0].toString()));
+			mun.setNombre(ce[1].toString());
+			return mun;
+		}).collect(Collectors.toList());
+		return ces;
 	}
 
 	@Override

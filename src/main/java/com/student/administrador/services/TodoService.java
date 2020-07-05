@@ -26,7 +26,7 @@ public interface TodoService {
 	void agregarOeditarMateriaCursada(EstudianteMateria estudiante_materia) throws DataAccessException;
 	
 	public List<Departamento> findAllDepartaments() throws DataAccessException;
-	public List<Object[]> escuelasPorMunicipio(Integer idMunicipio) throws DataAccessException;
+	public List<CentroEscolar> escuelasPorMunicipio(Integer idMunicipio) throws DataAccessException;
 	public List<Municipio> muncipioPorDep(Integer idDep) throws DataAccessException;
 	public Municipio municipioPorId(Integer idMun) throws DataAccessException;
 	public Departamento depPorId(Integer idDep) throws DataAccessException;
