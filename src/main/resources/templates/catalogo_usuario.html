@@ -47,7 +47,7 @@
 				  <tbody>
   				  	<th:block th:each="usuario, row:${usuarios}">
 						<tr>
-							<td><a class="btn btn-primary" type="button" href="@{'/editar_catalogo_usuario/'+${usuario.IdUsuario}}">Editar</a></td>
+							<td><a class="btn btn-primary" type="button" th:href="@{'/editar_catalogo_usuario/'+${usuario.IdUsuario}}">Editar</a></td>
 							<th th:text="${usuario.IdUsuario}"/>
 							<th th:text="${usuario.Nombre}"/>
 							<th th:text="${usuario.Apellido}"/>

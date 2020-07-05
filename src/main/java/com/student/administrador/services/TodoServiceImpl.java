@@ -252,6 +252,12 @@ public class TodoServiceImpl implements TodoService{
 		}).collect(Collectors.toList());
 		return matporest.get(0);
 	}
+
+	@Override
+	public Usuario findByIdUsuario(Integer id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return usR.findByIdUsuario(id);
+	}
 }
 
 

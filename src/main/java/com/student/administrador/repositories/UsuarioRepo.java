@@ -19,4 +19,6 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 	/*@Query(nativeQuery=true,
 			value="SELECT * FROM public.usuario u WHERE u.usuario = ?1 AND u.contra =?2 ")*/
 	List<Usuario> findByUsuarioAndContra(String usuario, String contra);
+	
+	Usuario findByIdUsuario(Integer id);
 }
