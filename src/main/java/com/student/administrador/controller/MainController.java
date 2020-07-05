@@ -290,7 +290,7 @@ public class MainController {
         return mav;
     }
 	
-	@RequestMapping("/editar_catalogo_materia")
+	@RequestMapping("/editar_catalogo_materia/{id}")
     public ModelAndView editCatMateria(@Valid @ModelAttribute Materia materia ,BindingResult result) {
         ModelAndView mav = new ModelAndView();
         if(!result.hasErrors()) {
