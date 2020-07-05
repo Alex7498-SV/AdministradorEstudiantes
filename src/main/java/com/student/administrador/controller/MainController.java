@@ -263,21 +263,30 @@ public class MainController {
 	}
 	
 
-	@RequestMapping("/catalogo_usuario")
-	public ModelAndView catalogoUsuarios(HttpSession session){
+	@RequestMapping("/nuevo_catalogo_escuela")
+	public ModelAndView nuevoCatalogoEscuela(HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		List<Usuario> usuarios = null;
-		try{
-			usuarios = service.catalogoUsuarios();
-		}catch(Exception e){
+		List<Departamento> deps = null;
+		try {
+			deps = service.findAllDepartaments();
+		} catch(Exception e){
 			e.printStackTrace();
 		}
-		mav.addObject("usuarios", usuarios);
-		mav.setViewName("catalogo_usuario");
+		mav.addObject("dep", deps);
+		mav.addObject("catalogoEscuela", new CentroEscolar());
+		mav.setViewName("nuevo_catalogo_escuela");
 		verifyAdmin(session, mav);
 		return mav;
 	}
 	
+		@RequestMapping("/editar_catalogo_escuela/{id}")
+    public ModelAndView editCatEscuela(@PathVariable int id, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("nuevo_catalogo_escuela");
+        verifyAdmin(session, mav);
+        return mav;
+    }
+		
 	@RequestMapping("/catalogo_materia")
 	public ModelAndView catalogoMaterias(HttpSession session){
 		ModelAndView mav = new ModelAndView();
@@ -293,30 +302,7 @@ public class MainController {
 		return mav;
 	}
 	
-	@RequestMapping("/editar_catalogo_escuela")
-    public ModelAndView editCatEscuela(@Valid @ModelAttribute CentroEscolar escuela ,BindingResult result, HttpSession session) {
-        ModelAndView mav = new ModelAndView();
-        if(!result.hasErrors()) {
-            try {
-                service.insertarOeditarEscuela(escuela);
-            }catch(Exception e) {
-                e.printStackTrace();
-            }
-            List<CatalogoEscuelasDTO> escuelas = null;
-    		try{
-    			escuelas = service.catalogoEscuelas();
-    		}catch(Exception e){
-    			e.printStackTrace();
-    		}
-    		mav.addObject("escuelas", escuelas);
-            mav.setViewName("catalogo_escuela");
-        }
-        else {
-        	mav.setViewName("nuevo_catalogo_escuela");
-        }
-        verifyAdmin(session, mav);
-        return mav;
-    }
+
 	
 	@RequestMapping("/editar_catalogo_materia/{id}")
     public ModelAndView editCatMateria(HttpSession session, @PathVariable int id) {
@@ -333,37 +319,7 @@ public class MainController {
         return mav;
     }
 	
-	@RequestMapping("/editar_catalogo_usuario")
-    public ModelAndView editCatUsuario(@Valid @ModelAttribute Usuario usuario ,BindingResult result, HttpSession session) {
-        ModelAndView mav = new ModelAndView();
-        if(!result.hasErrors()) {
-            try {
-                service.insertarOeditarUsuario(usuario);
-            }catch(Exception e) {
-                e.printStackTrace();
-            }
-            List<Usuario> usuarios = null;
-    		try{
-    			usuarios = service.catalogoUsuarios();
-    		}catch(Exception e){
-    			e.printStackTrace();
-    		}
-    		mav.addObject("usuarios", usuarios);
-            mav.setViewName("catalogo_usuario");
-        }
-        else {
-        	List<Departamento> deps = null;
-    		try {
-    			deps = service.findAllDepartaments();
-    		} catch(Exception e){
-    			e.printStackTrace();
-    		}
-    		mav.addObject("dep", deps);
-        	mav.setViewName("nuevo_catalogo_usuario");
-        }
-        verifyAdmin(session, mav);
-        return mav;
-    }
+
 	
 	@RequestMapping("/nuevo_catalogo_materia")
 	public ModelAndView nuevoCatalogoMaterias(HttpSession session){
@@ -373,6 +329,21 @@ public class MainController {
 		return mav;
 	}
 	
+		@RequestMapping("/catalogo_usuario")
+	public ModelAndView catalogoUsuarios(HttpSession session){
+		ModelAndView mav = new ModelAndView();
+		List<Usuario> usuarios = null;
+		try{
+			usuarios = service.catalogoUsuarios();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("usuarios", usuarios);
+		mav.setViewName("catalogo_usuario");
+		verifyAdmin(session, mav);
+		return mav;
+	}
+		
 	@RequestMapping("/nuevo_catalogo_usuario")
 	public ModelAndView nuevoCatalogoUsuario(HttpSession session){
 		ModelAndView mav = new ModelAndView();
@@ -388,22 +359,48 @@ public class MainController {
 		verifyAdmin(session, mav);
 		return mav;
 	}
-
-	@RequestMapping("/nuevo_catalogo_escuela")
-	public ModelAndView nuevoCatalogoEscuela(HttpSession session){
-		ModelAndView mav = new ModelAndView();
-		List<Departamento> deps = null;
+	
+	@RequestMapping("/editar_catalogo_usuario/{id}")
+    public ModelAndView editCatUsuario(@PathVariable int id, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        Usuario user = null;
+        try {
+        	user = service.findByIdUsuario(id);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+    	List<Departamento> deps = null;
 		try {
 			deps = service.findAllDepartaments();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 		mav.addObject("dep", deps);
-		mav.addObject("catalogoEscuela", new CentroEscolar());
-		mav.setViewName("nuevo_catalogo_escuela");
-		verifyAdmin(session, mav);
-		return mav;
-	}
+		mav.addObject("catalogoUsuario", user);
+    	mav.setViewName("nuevo_catalogo_usuario");
+        verifyAdmin(session, mav);
+        return mav;
+    }
+	
+	@RequestMapping("/catalogo_usuario_guardado")
+    public ModelAndView CatUsuarioGuardado(@Valid @ModelAttribute Usuario usuario ,BindingResult result, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        if(!result.hasErrors()) {
+            try {
+                service.insertarOeditarUsuario(usuario);;
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            mav.setViewName("redirect:/catalogo_usuario");
+        }
+        else {
+        	mav.setViewName("nuevo_catalogo_usuario");
+        }
+        verifyAdmin(session, mav);
+        return mav;
+    }
+	
+
 	
 	@RequestMapping("/find_municipios")
 	public ModelAndView municipios(){
@@ -607,7 +604,7 @@ public class MainController {
 		mav.setViewName("../templates_coordinador/materias_cursadas");
 		List<MateriasPorEstudianteDTO> matCursadas = null;
 		try {
-			matCursadas = service.materiasPorEstudiante(1);
+			matCursadas = service.materiasPorEstudiante(11);
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
