@@ -44,6 +44,7 @@
 						data: {idDep:idDep},
 						success: function(res) {
 							$('#municipio').empty();
+							$('#municipio').append($("<option></option>").val(0).text("Seleccione un municipio"));
 	
 							$.each(res, function(key){
 								$('#municipio').append($("<option></option>").val(res[key][0]).text(res[key][1]));
@@ -63,6 +64,7 @@
 						data: {idMun:idMun},
 						success: function(res) {
 							$('#cEscolares').empty();
+							$('#cEscolares').append($("<option></option>").val(0).text("Seleccione un centro escolar"));
 	
 							$.each(res, function(key){
 								$('#cEscolares').append($("<option></option>").val(res[key][0]).text(res[key][1]));
@@ -83,13 +85,14 @@
 				
 				$('#municipio').change(function(){
 					idMun = $('#municipio').val();
-					console.log(idMun);
 					getEscuelas();
 				})
 				
 				$('#depa').change(function(){
 					idDep  = $('#depa').val();
 					getMunicipios();
+					$('#cEscolares').empty();
+					$('#cEscolares').append($("<option></option>").val(0).text("Seleccione un centro escolar"));
 				})
 
 				
@@ -169,13 +172,13 @@
 							</div>						
 						</div>
 						<div class="form-row">
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-3">
 								<label for="departamento">Departamento</label>
 								<select id="depa" class="form-control" >
                                      <option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
 								</select>
 							</div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-4">
 								<label for="municipio">Municipio</label>
 								<select id="municipio" class="form-control" name="idMunicipio.idMunicipio">
 									<option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
@@ -185,8 +188,8 @@
 								<label for="cEscolares">Centros Escolares</label>
 								<!--combobox centros escolares-->
 								<select  class="form-control" id="cEscolares">
-								  <option>Centro1</option>
-								  <option>Centro2</option>
+								  <option>Seleccione un Municipio</option>
+								
 								</select>
 							</div>
 						</div>
