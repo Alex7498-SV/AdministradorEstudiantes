@@ -34,6 +34,12 @@ public class MainController {
 	@Autowired
 	private TodoService service;
 	
+	
+	/*private String verifyRole(HttpSession session) {
+		String pene = null;
+		return pene;
+	}*/
+	
 	@RequestMapping("/login")
 	public ModelAndView initMain(HttpSession session){
 		ModelAndView mav = new ModelAndView();
@@ -123,7 +129,12 @@ public class MainController {
 		Integer flag = null;
 		List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
 		if(session.getAttribute("usuario") != null) {
-			mav.setViewName("redirect:/menu");
+			u = (Usuario) session.getAttribute("usuario");
+			if(u.getAdministrador()) {
+				mav.setViewName("redirect:/menu");
+			} else {
+				mav.setViewName("redirect:/buscar_o_agregar_alumnos");
+			}
 		}
 		else if(users.size() == 0) {
 			flag = 4;
@@ -152,17 +163,14 @@ public class MainController {
 		if(flag != null ) {
 			if(flag ==1) {
 				mav.setViewName("redirect:/menu");
-				//mav.setViewName("menu_admin");
 			} else if(flag ==2) {
 				mav.setViewName("redirect:/buscar_o_agregar_alumnos");
-				//mav.setViewName("menu_admin");
 			} else if(flag == 3){
 				mav.setViewName("errorC");
 			} else {
 				mav.setViewName("login");
 			}
 		} else {
-			//System.out.println(u.getSesion() + " alv");
 			u.setSesion(false);
 			service.insertarOeditarUsuario(u);
 			session.removeAttribute("usuario");
@@ -183,34 +191,9 @@ public class MainController {
 		System.out.println(usr.getSesion());
 		mav.addObject("username", usr.getUsuario());
 		mav.setViewName("menu_admin");
-		/* List<Usuario> users = service.findByUsuarioAndContra(user.getUsuario(), user.getContra());
-		Integer flag = null;
-		for(Usuario usr: users) {
-			if(user.getUsuario().equals(usr.getUsuario()) && user.getContra().equals(usr.getContra())) {
-				if(usr.getSesion() == false){
-					usr.setSesion(true);
-					session.setAttribute("usuario", usr);
-					service.insertarOeditarUsuario(usr);
-						if(usr.getAdministrador()) {
-							flag = 1;
-						} else {
-							flag = 2;
-						}*/
-				//} // Debe ir aqui un viewname que mande a que no se puede logear 2 veces. F -El chino 
-			//}
-		//}
-		/*System.out.print(flag);
-		if(flag != null ) {
-			if(flag ==1) {
-				mav.setViewName("menu_admin");
-			} else {
-				mav.setViewName("menu_admin");
-			}
-		} else {
-			mav.setViewName("login");
-		}*/
 		return mav;
 	}
+	
 	
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session){
