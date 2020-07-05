@@ -279,27 +279,10 @@ public class MainController {
 		return mav;
 	}
 	
-		@RequestMapping("/editar_catalogo_escuela")
-    public ModelAndView editCatEscuela(@Valid @ModelAttribute CentroEscolar escuela ,BindingResult result, HttpSession session) {
+		@RequestMapping("/editar_catalogo_escuela/{id}")
+    public ModelAndView editCatEscuela(@PathVariable int id, HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        if(!result.hasErrors()) {
-            try {
-                service.insertarOeditarEscuela(escuela);
-            }catch(Exception e) {
-                e.printStackTrace();
-            }
-            List<CatalogoEscuelasDTO> escuelas = null;
-    		try{
-    			escuelas = service.catalogoEscuelas();
-    		}catch(Exception e){
-    			e.printStackTrace();
-    		}
-    		mav.addObject("escuelas", escuelas);
-            mav.setViewName("catalogo_escuela");
-        }
-        else {
-        	mav.setViewName("nuevo_catalogo_escuela");
-        }
+        mav.setViewName("nuevo_catalogo_escuela");
         verifyAdmin(session, mav);
         return mav;
     }

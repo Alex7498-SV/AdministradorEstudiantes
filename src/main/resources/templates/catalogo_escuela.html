@@ -43,7 +43,7 @@
 				    
 					<th:block th:each="escuela, row:${escuelas}">
 						<tr>
-							<td><a class="btn btn-primary" type="button" href="@{'/editar_catalogo_escuela/'+${escuela.codigo}}">Editar</a></td>
+							<td><a class="btn btn-primary" type="button" th:href="@{'/editar_catalogo_escuela/'+${escuela.codigo}}">Editar</a></td>
 							<th th:text="${escuela.codigo}"/>
 							<th th:text="${escuela.descripcion}"/>
 							<th th:text="${escuela.municipio}"/>
