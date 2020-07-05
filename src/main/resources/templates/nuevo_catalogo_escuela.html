@@ -80,9 +80,9 @@
 				<div class="jumbotron">
 					<h3 class="display-4" id="hedit">Editar Escuela</h3>
 					<h3 class="display-4" id="hnew">Insertar una escuela</h3>
-					<form th:action="@{/editar_catalogo_escuela}" th:object="${catalogoEscuela}" method= "post">
+					<form th:action="@{/catalogo_escuela_guardado}" th:object="${catalogoEscuela}" method= "post">
 						<div class="form-group col-md-2">
-							<input type="text" class="form-control" id="id_cE" name="idEscolar" hidden>
+							<input type="text" class="form-control" id="id_cE" name="idEscolar" th:value="*{idEscolar}" hidden>
 						</div>
 
 						<div class="form-group">

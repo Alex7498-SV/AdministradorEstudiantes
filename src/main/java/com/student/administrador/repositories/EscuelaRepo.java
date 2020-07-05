@@ -23,6 +23,6 @@ public interface EscuelaRepo extends JpaRepository<CentroEscolar, Integer> {
 			value="SELECT c.idMunicipio, c.nombre FROM public.centroescolar c WHERE c.idMunicipio = ?1 AND c.estado = true")
 	public List<Object[]> escuelasPorMunicipio(Integer idMunicipio) throws DataAccessException;
 	
-	
+	public CentroEscolar findByIdEscolar(Integer id) throws DataAccessException;
 
 }

@@ -258,6 +258,12 @@ public class TodoServiceImpl implements TodoService{
 		// TODO Auto-generated method stub
 		return usR.findByIdUsuario(id);
 	}
+
+	@Override
+	public CentroEscolar findByIdEscolar(Integer id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return escR.findByIdEscolar(id);
+	}
 }
 
 

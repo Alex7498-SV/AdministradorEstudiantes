@@ -36,6 +36,7 @@ public interface TodoService {
 	public Materia findByIdMateria(Integer id) throws DataAccessException;
 	public MateriasPorEstudianteDTO findMateriaEstudianteDTOById(Integer id) throws DataAccessException;
 	public Usuario findByIdUsuario(Integer id) throws DataAccessException;
+	public CentroEscolar findByIdEscolar(Integer id) throws DataAccessException;
 
 	//CATALOGOS
 	public List<Materia> catalogoMaterias() throws DataAccessException;
