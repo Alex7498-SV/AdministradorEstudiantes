@@ -282,7 +282,39 @@ public class MainController {
 		@RequestMapping("/editar_catalogo_escuela/{id}")
     public ModelAndView editCatEscuela(@PathVariable int id, HttpSession session) {
         ModelAndView mav = new ModelAndView();
+        CentroEscolar ce = null;
+        try {
+        	ce = service.findByIdEscolar(id);
+        } catch(Exception e) {
+        	e.printStackTrace();
+        }
+        List<Departamento> deps = null;
+        try {
+        	deps = service.findAllDepartaments();
+        } catch(Exception e) {
+        	e.printStackTrace();
+        }
+        mav.addObject("dep", deps);
+        mav.addObject("catalogoEscuela", ce);
         mav.setViewName("nuevo_catalogo_escuela");
+        verifyAdmin(session, mav);
+        return mav;
+    }
+		
+	@RequestMapping("/catalogo_escuela_guardado")
+    public ModelAndView CatEscuelaGuardado(@Valid @ModelAttribute CentroEscolar ce ,BindingResult result, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        if(!result.hasErrors()) {
+            try {
+                service.insertarOeditarEscuela(ce);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            mav.setViewName("redirect:/catalogo_escuela");
+        }
+        else {
+        	mav.setViewName("nuevo_catalogo_escuela");
+        }
         verifyAdmin(session, mav);
         return mav;
     }
