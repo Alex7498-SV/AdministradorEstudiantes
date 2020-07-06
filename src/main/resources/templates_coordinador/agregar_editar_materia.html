@@ -21,7 +21,7 @@
 			var mate = document.getElementById("mate");
 			if($("#idEstMat").val().length != 0){
 				mat.innerHTML = "<input type='text' class='form-control' value='" + $("#matName").text() + "' readonly>";
-				mate.innerHTML = "<input type='text' class='form-control' name='materia.idMateria' value='" + $("#materiaId").text() + "' hidden>";
+				mate.innerHTML = "<input type='text' class='form-control' name='materia.idMateria' value='" + $("#materiaId").val() + "' hidden>";
 				var mats = document.getElementById("mat");
 				mats.parentNode.removeChild(mats);
 				$("#mat").css("visibility","hidden");

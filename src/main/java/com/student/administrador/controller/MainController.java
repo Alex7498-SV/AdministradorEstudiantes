@@ -633,6 +633,8 @@ public class MainController {
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
+		System.out.println("Hola");
+		System.out.println(estMat.getIdMateria());
 		mav.setViewName("../templates_coordinador/agregar_editar_materia");
 		mav.addObject("estMat", estMat);
 		mav.addObject("dto", dto);
