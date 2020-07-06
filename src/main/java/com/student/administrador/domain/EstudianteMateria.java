@@ -35,7 +35,6 @@ public class EstudianteMateria {
 	private Integer cicloCursado;
 	
 	@ManyToOne
-	@MapsId("idEstudiante")
 	@JoinColumn(name="idEstudiante")
 	private Estudiante estudiante; 
 
@@ -43,7 +42,6 @@ public class EstudianteMateria {
 	private Integer idEstudiante;
 	
 	@ManyToOne
-	@MapsId("idMateria")
 	@JoinColumn(name="idMateria")
 	private Materia materia;
 

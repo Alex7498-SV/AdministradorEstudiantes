@@ -1,5 +1,6 @@
 package com.student.administrador.services;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,16 +90,16 @@ public class TodoServiceImpl implements TodoService{
 			ExpedientePorNomApellidoDTO dto = new ExpedientePorNomApellidoDTO();
 			dto.setNombres(f[0].toString());
 			dto.setApellidos(f[1].toString());
+			dto.setIdEstudiante(Integer.parseInt(f[5].toString()));
 			if(f[2] != null) {
 				dto.setAprobadas(Integer.parseInt(f[2].toString()));
 				dto.setReprobadas(Integer.parseInt(f[3].toString()));
-				dto.setPromedio(Integer.parseInt(f[4].toString()));
+				dto.setPromedio(Float.parseFloat(f[4].toString()));
 			}else {
 				dto.setAprobadas(0);
 				dto.setReprobadas(0);
-				dto.setPromedio(0);
+				dto.setPromedio(Float.parseFloat("0"));
 			}
-			
 			return dto;
 		}).collect(Collectors.toList());
 		return exp;
@@ -212,6 +213,19 @@ public class TodoServiceImpl implements TodoService{
 			Estudiante est = new Estudiante();
 			est.setIdEstudiante(Integer.parseInt(ce[0].toString()));
 			est.setNombres(ce[1].toString());
+			est.setApellidos(ce[2].toString());
+			est.setCarnet(ce[3].toString());
+			try {
+				est.setFechaNac(ce[4].toString());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			est.setEdad(Integer.parseInt(ce[5].toString()));
+			est.setDireccion(ce[6].toString());
+			est.setTel_fijo(ce[7].toString());
+			est.setTel_movil(ce[8].toString());
+			est.setNombrePadre(ce[9].toString());
+			est.setNombreMadre(ce[10].toString());
 			return est;
 		}).collect(Collectors.toList());
 		return ests.get(0);

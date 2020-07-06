@@ -13,7 +13,6 @@
 		<title>Materias cursadas</title>
 	</head>
 	<body>
-		
 		<div class="container-fluid">		
 			<nav class="navbar navbar-light bg-light">
 			  <a class="navbar-brand" href="/buscar_o_agregar_alumnos">Coordinador</a>
@@ -25,7 +24,9 @@
 				</div>
 			  </form>
 			</nav>
-			
+			<h1 class="display-4" th:text="${nombreEst}"></h1>
+			<a class="btn btn-primary" th:href="@{'/agregar_nueva_materia_cursada/' + ${idEst}}">Agregar nueva materia</a>
+			</form>
 			<div class="content">
 				<table class="table table-hover">
 					<thead class="thead-dark">
@@ -48,11 +49,8 @@
 							</tr>
 						</th:block>
 					</tbody>
-				</table>
-								
+				</table>	
 			</div>
-
 		</div>
-
 	</body>
 </html>

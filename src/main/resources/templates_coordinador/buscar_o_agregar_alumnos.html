@@ -24,7 +24,6 @@
 <title>Expedientes</title>
 </head>
 <body>
-
 	<div class="container-fluid">
 		<!-- Image and text -->
 		<nav class="navbar">
@@ -38,49 +37,31 @@
 						Sesion</button></a>
 			</div>
 		</nav>
-
 		<div class="formularioWrapper">
-
 			<div class="jumbotron">
-				<h1 class="display-4">buscar estudiantes</h1>
-
-
+				<h1 class="display-4">Buscar estudiantes</h1>
 				<div class="row">
 					<div class="col">
-
-
-						<form th:action="@{/filtrar_por_nom_ape}" th:object="${objeto}"
-							method="post" class="form-row">
-
+						<form th:action="@{/filtrar_por_nom_ape}" method="post" class="form-row">
 							<div class="form-group col-md-4">
-								<label for="nombre">Filtrar por</label> <select
-									class="form-control" id="criterio" th:field=*{apellidos}>
-
-									<option value="nombre">Nombres</option>
-									<option value="apellido">Apellidos</option>
-
-
+								<label for="nomApe">Filtrar por</label> 
+								<select class="form-control" id="criterio" name="nomApe">
+									<option value="n">Nombres</option>
+									<option value="a">Apellidos</option>
 								</select>
 							</div>
 							<div class="form-group col-md-8">
-								<label for="pclave">Valor de busqueda</label> <input type="text"
-									class="form-control" name="pclave" th:field=*{nombres}
-									placeholder="Ingrese nombre" required>
-
+								<label for="clave">Valor de busqueda</label> 
+								<input type="text" class="form-control" name="clave" placeholder="Ingrese nombre" required>
 							</div>
 							<button type="submit" class="btn btn-primary">Buscar</button>
 						</form>
-
-
 						<hr>
 						<form th:action="@{/agregar_expediente_nuevo}" method="post">
-							<button type="submit" class="btn btn-danger">Crear un
-							nuevo expediente</button>
+							<button type="submit" class="btn btn-danger">Crear un nuevo expediente</button>
 						</form>
-						
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

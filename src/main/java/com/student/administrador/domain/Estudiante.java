@@ -81,98 +81,75 @@ public class Estudiante {
 	public Integer getIdEstudiante() {
 		return idEstudiante;
 	}
-
 	public void setIdEstudiante(Integer idEstudiante) {
 		this.idEstudiante = idEstudiante;
 	}
-
 	public String getNombres() {
 		return nombres;
 	}
-
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
-
 	public String getApellidos() {
 		return apellidos;
 	}
-
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-
 	public String getCarnet() {
 		return carnet;
 	}
-
 	public void setCarnet(String carnet) {
 		this.carnet = carnet;
 	}
-
 	public Date getFechaNac() {
 		return fechaNac;
 	}
-
 	public void setFechaNac(String fechaNac) throws ParseException {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
 		Date date = df.parse(fechaNac);
 		this.fechaNac = date;
 		//this.fechaNac = fechaNac;
 	}
-
 	public String getDireccion() {
 		return direccion;
 	}
-
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
 	public String getTel_fijo() {
 		return tel_fijo;
 	}
-
 	public void setTel_fijo(String tel_fijo) {
 		this.tel_fijo = tel_fijo;
 	}
-
 	public String getTel_movil() {
 		return tel_movil;
 	}
-
 	public void setTel_movil(String tel_movil) {
 		this.tel_movil = tel_movil;
 	}
-
 	public String getNombrePadre() {
 		return nombrePadre;
 	}
-
 	public void setNombrePadre(String nombrePadre) {
 		this.nombrePadre = nombrePadre;
 	}
-
 	public String getNombreMadre() {
 		return nombreMadre;
 	}
-
 	public void setNombreMadre(String nombreMadre) {
 		this.nombreMadre = nombreMadre;
 	}
-	
 	public Integer getEdad() {
 		return edad;
 	}
-
 	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
-
 	public CentroEscolar getcentroEscolar() {
 		return centroescolar;
 	}
-
 	public void setcentroEscolar(CentroEscolar centroescolar) {
 		this.centroescolar = centroescolar;
 	}

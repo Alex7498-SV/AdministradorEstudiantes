@@ -18,18 +18,20 @@
 	<script>
 		$(document).ready(function(){
 			var mat = document.getElementById("materia");
+			var mate = document.getElementById("mate");
 			if($("#idEstMat").val().length != 0){
-				mat.innerHTML = "<input type='text' class='form-control' name='materia.idMateria' value='" + $("#matName").text() + "' disabled>"
+				mat.innerHTML = "<input type='text' class='form-control' value='" + $("#matName").text() + "' readonly>";
+				mate.innerHTML = "<input type='text' class='form-control' name='materia.idMateria' value='" + $("#materiaId").text() + "' hidden>";
+				var mats = document.getElementById("mat");
+				mats.parentNode.removeChild(mats);
+				$("#mat").css("visibility","hidden");
 			}
 			else{
-				mat.innerHTML = "<select class='custom-select' name='materia.idMateria'>"
-								+ "<th:block th:each='materia, row: ${materias}'>"
-								+ "<option th:value='${materia.idMateria}' th:text='${materia.nombre}'></option>"
-								+ "</select>";
-				$("#matName").css("visibility","hidden");
+				/*mat.innerHTML = "<select class='custom-select' name='materia.idMateria'>"
+								+ "<option th:each='materia:${materias}' th:value='${materia.idMateria}' th:text='${materia.nombre}'></option>"
+								+ "</select>";*/
 			}
 		})
-
 	</script>
 	<body>
 		<div class="container-fluid">
@@ -50,7 +52,11 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="materia.idMateria">Materia</label>
+									<select id="mat" class="form-control" th:field="*{materia.idMateria}">
+										<option th:each="materia:${materias}" th:value="${materia.idMateria}" th:text="${materia.nombre}"></option>
+								   	</select>
 									<div id="materia"></div>
+									<div id="mate"></div>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="anio">Anio</label>
@@ -70,7 +76,7 @@
 							</div>
 							<input type="hidden" id="idEstMat" th:field="*{idEstudianteMateria}"/>
 							<input type="hidden" th:field="*{idEstudiante}"/>
-							<input type="hidden" th:field="*{idMateria}"/>
+							<input id="materiaId" type="hidden" th:field="*{idMateria}"/>
 							<button type="submit" class="btn btn-primary">Guardar</button>
 						</div>
 					  </div>

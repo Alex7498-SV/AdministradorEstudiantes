@@ -130,23 +130,23 @@
 					<h3 class="display-4" id="hnew">Crear un nuevo expediente</h3>
 					<form th:action= "@{/expediente_guardado}" th:object="${estudianteNuevo}" method= "post">
 						<div class="form-group col-md-2"> 
-							<input type="text" class="form-control" id="id_cE" name="idEstudiante" hidden> 
+							<input type="text" class="form-control" id="id_cE" th:field="*{idEstudiante}"  name="idEstudiante"hidden> 
 						  </div>
 
 						<div class="form-row">
                             <div class="form-group col-md-6">
 								<label for="nombre">Nombre</label>
-								<input type="text" class="form-control" id="nombre" name="nombres">
+								<input type="text" class="form-control" id="nombre" th:field="*{nombres}" name="nombres">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="apellido">Apellido</label>
-								<input type="text" class="form-control" id="apellido" name="apellidos">
+								<input type="text" class="form-control" id="apellido" th:field="*{apellidos}" name="apellidos">
 							</div>
                         </div>
 						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label for="cMin">Carnet de minoridad</label>
-								<input type="text" class="form-control" id="cMin" name="carnet">
+								<input type="text" class="form-control" id="cMin" th:field="*{carnet}" name="carnet">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="fNaciemiento">Fecha de Nacimiento</label>
@@ -158,17 +158,17 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="tMovil">Telefono Movil</label>
-								<input type="number" class="form-control" id="tMovil" name="tel_movil">
+								<input type="number" class="form-control" id="tMovil" name="tel_movil" th:field="*{tel_movil}">
 							</div>							
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-8">
 								<label for="direccion">Direccion</label>
-								<input type="text" class="form-control" id="direccion" name="direccion">
+								<input type="text" class="form-control" id="direccion" name="direccion" th:field="*{direccion}">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="tFijo">Telefono Fijo</label>
-								<input type="number" class="form-control" id="tFijo" name="tel_fijo">
+								<input type="number" class="form-control" id="tFijo" name="tel_fijo" th:field="*{tel_fijo}">
 							</div>						
 						</div>
 						<div class="form-row">
@@ -196,11 +196,11 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="nMadre">Nombre de la madre</label>
-								<input type="text" class="form-control" id="nMadre" name="nombreMadre">
+								<input type="text" class="form-control" id="nMadre" name="nombreMadre" th:field="*{nombreMadre}">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="nPadre">Nombre del padre</label>
-								<input type="text" class="form-control" id="nPadre" name="nombrePadre">
+								<input type="text" class="form-control" id="nPadre" name="nombrePadre" th:field="*{nombrePadre}">
 							</div>
 						</div>
 						<hr class="my-4">
