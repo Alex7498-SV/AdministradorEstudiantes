@@ -13,9 +13,7 @@
 		<title>Catalogo Escuela</title>
 	</head>
 	<body>
-		
 		<div class="container-fluid"> 
-		
 			<nav class="navbar navbar-light bg-light">
 			  <a class="navbar-brand" href="/menu">Administrador</a>
 			  <form class="form-inline">
@@ -28,7 +26,6 @@
 			</nav>
 			<a href="/nuevo_catalogo_escuela"><button type="button" class="btn btn-danger" id="new">Insertar una nueva escuela</button></a>
 			<div class="content">
-				
 				<table class="table table-hover">
 				  <thead class="thead-dark">
 				    <tr>
@@ -40,7 +37,6 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    
 					<th:block th:each="escuela, row:${escuelas}">
 						<tr>
 							<td><a class="btn btn-primary" type="button" th:href="@{'/editar_catalogo_escuela/'+${escuela.codigo}}">Editar</a></td>
@@ -51,11 +47,8 @@
 						</tr>
 					</th:block>
 				  </tbody>
-				</table>
-								
+				</table>		
 			</div>
-
 		</div>
-
 	</body>
 </html>

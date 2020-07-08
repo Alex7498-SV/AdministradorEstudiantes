@@ -23,6 +23,16 @@
 <link href="css/bExpediente-style.css" rel="stylesheet" />
 <title>Expedientes</title>
 </head>
+<script>
+	$(document).ready(function(){
+		var msg = $("#msg");
+		console.log("HOLAAAAAAAAAAAAAAA");
+		if(msg.val().length != 0){
+			console.log("HOLAAAAAAAAAAAAAAA");
+			msg.css("visibility","visible");
+		}
+	})
+</script>
 <body>
 	<div class="container-fluid">
 		<!-- Image and text -->
@@ -53,6 +63,7 @@
 							<div class="form-group col-md-8">
 								<label for="clave">Valor de busqueda</label> 
 								<input type="text" class="form-control" name="clave" placeholder="Ingrese nombre" required>
+								<p id="msg" th:text="${msg}" style="color: red;"></p>
 							</div>
 							<button type="submit" class="btn btn-primary">Buscar</button>
 						</form>

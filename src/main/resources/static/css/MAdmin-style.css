@@ -27,3 +27,12 @@ footer {
     background-color: #e7472e;
     height: 20px;
 }
+
+.cont{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.jumbotron{
+    padding-bottom: 2%;
+}

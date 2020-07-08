@@ -20,11 +20,11 @@ public interface EstudianteRepo extends JpaRepository<Estudiante, Integer> {
 				+ 	"		FROM public.estudiante ee " 
 				+ 	"		LEFT JOIN public.estudiantemateria mee ON ee.idEstudiante = mee.idEstudiante " 
 				+ 	"	 	LEFT JOIN public.materia matT ON mee.idMateria=matt.idMateria " 
-				+ 	"	 	WHERE (ee.nombres LIKE ?1) OR (SPLIT_PART(ee.nombres, ' ', 2) LIKE ?1) OR " 
-				+ 	"			(ee.apellidos LIKE ?2) OR (SPLIT_PART(ee.apellidos, ' ', 2) LIKE ?2) " 
+				+ 	"	 	WHERE (LOWER(ee.nombres) LIKE ?1) OR (LOWER(SPLIT_PART(ee.nombres, ' ', 2)) LIKE ?1) OR " 
+				+ 	"			(LOWER(ee.apellidos) LIKE ?2) OR (LOWER(SPLIT_PART(ee.apellidos, ' ', 2)) LIKE ?2) " 
 				+ 	"	 	GROUP BY mee.idEstudiante) A ON em.idEstudiante = A.IDd " 
-				+ 	"WHERE (e.nombres LIKE ?1) OR (SPLIT_PART(e.nombres, ' ', 2) LIKE ?1) OR " 
-				+ 	"	(e.apellidos LIKE ?2) OR (SPLIT_PART(e.apellidos, ' ', 2) LIKE ?2) " 
+				+ 	"WHERE (LOWER(e.nombres) LIKE ?1) OR (LOWER(SPLIT_PART(e.nombres, ' ', 2)) LIKE ?1) OR " 
+				+ 	"	(LOWER(e.apellidos) LIKE ?2) OR (LOWER(SPLIT_PART(e.apellidos, ' ', 2)) LIKE ?2) " 
 				+ 	"GROUP BY e.nombres, e.apellidos, A.Aprobadas, A.reprobadas, A.Promedio, e.idEstudiante")
 	public List<Object[]> expedientePorNombreApellido(String nombre, String apellido) throws DataAccessException;
 

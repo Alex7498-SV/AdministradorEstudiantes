@@ -132,43 +132,50 @@
 						<div class="form-group col-md-2"> 
 							<input type="text" class="form-control" id="id_cE" th:field="*{idEstudiante}"  name="idEstudiante"hidden> 
 						  </div>
-
 						<div class="form-row">
                             <div class="form-group col-md-6">
 								<label for="nombre">Nombre</label>
 								<input type="text" class="form-control" id="nombre" th:field="*{nombres}" name="nombres">
+								<span class="number" th:errors="*{nombres}" style="color: #FF0000"></span><br>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="apellido">Apellido</label>
 								<input type="text" class="form-control" id="apellido" th:field="*{apellidos}" name="apellidos">
+								<span class="number" th:errors="*{apellidos}" style="color: #FF0000"></span><br>
 							</div>
                         </div>
 						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label for="cMin">Carnet de minoridad</label>
 								<input type="text" class="form-control" id="cMin" th:field="*{carnet}" name="carnet">
+								<span class="number" th:errors="*{carnet}" style="color: #FF0000"></span><br>
 							</div>
 							<div class="form-group col-md-4">
 								<label for="fNaciemiento">Fecha de Nacimiento</label>
 								<input type="date" class="form-control" id="fNacimiento" name="fechaNac">
+								<!--<span class="number" th:errors="*{fechaNac}" style="color: #FF0000"></span><br>-->
 							</div>
 							<div class="form-group col-md-2">
 								<label for="edad">Edad</label>
 								<input id="edad" type="number" class="form-control" name="edad" th:field="*{edad}"  readonly>
+								<span class="number" th:errors="*{edad}" style="color: #FF0000"></span><br>
 							</div>
 							<div class="form-group col-md-3">
 								<label for="tMovil">Telefono Movil</label>
 								<input type="number" class="form-control" id="tMovil" name="tel_movil" th:field="*{tel_movil}">
+								<span class="number" th:errors="*{tel_movil}" style="color: #FF0000"></span><br>
 							</div>							
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-8">
 								<label for="direccion">Direccion</label>
 								<input type="text" class="form-control" id="direccion" name="direccion" th:field="*{direccion}">
+								<span class="number" th:errors="*{direccion}" style="color: #FF0000"></span><br>
 							</div>
 							<div class="form-group col-md-4">
 								<label for="tFijo">Telefono Fijo</label>
 								<input type="number" class="form-control" id="tFijo" name="tel_fijo" th:field="*{tel_fijo}">
+								<span class="number" th:errors="*{tel_fijo}" style="color: #FF0000"></span><br>
 							</div>						
 						</div>
 						<div class="form-row">
@@ -189,7 +196,6 @@
 								<!--combobox centros escolares-->
 								<select  class="form-control" id="cEscolares" th:field="*{centroEscolar.idEscolar}"> 
 								  <option th:each="dep:${dep}" th:value="${dep.idDepartamento}" th:text="${dep.nombre}"></option>
-								
 								</select>
 							</div>
 						</div>
@@ -197,10 +203,12 @@
 							<div class="form-group col-md-6">
 								<label for="nMadre">Nombre de la madre</label>
 								<input type="text" class="form-control" id="nMadre" name="nombreMadre" th:field="*{nombreMadre}">
+								<span class="number" th:errors="*{nombreMadre}" style="color: #FF0000"></span><br>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="nPadre">Nombre del padre</label>
 								<input type="text" class="form-control" id="nPadre" name="nombrePadre" th:field="*{nombrePadre}">
+								<span class="number" th:errors="*{nombrePadre}" style="color: #FF0000"></span><br>
 							</div>
 						</div>
 						<hr class="my-4">
@@ -208,11 +216,9 @@
 						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
 						<button id="clean" class="btn btn-primary btn-lg">Limpiar</button>
 					</form>
-				
 				</div>					
 			</div>
 		</div>
-
 	</body>
 	<footer>
 		<div class="card">

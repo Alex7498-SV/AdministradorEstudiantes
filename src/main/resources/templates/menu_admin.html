@@ -13,9 +13,7 @@
 		<title>Admin</title>
 	</head>
 	<body>
-		
 		<div class="container-fluid">
-		
 			<nav class="navbar navbar-light bg-light">
 			  <a class="navbar-brand">Administrador</a>
 			  <form class="form-inline">
@@ -26,28 +24,25 @@
 				</div>
 			  </form>
 			</nav>
-
 			<div class="content">
 				<div class="jumbotron">
 					<h2 class="display-4">Bienvenido <th th:text="${username}"></th></h2>
 					<p class="lead">Un gran poder conlleva una gran responsabilidad.</p>
 					<hr class="my-4">
-					<div class="btn-group" role="group" aria-label="Basic example">
+					<div class="btn-group cont" role="group" aria-label="Basic example">
 						<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Permite editar los registros de las escuelas">
 						<a type="button" class="btn btn-dark " href="/catalogo_escuela">Escuela</a>
 					  </span>
 						<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Permite editar los registros de las materias">
-						<a type="button" class="btn btn-dark " href="/catalogo_materia">Materia</a>
+						<a id="btn-central" type="button" class="btn btn-dark " href="/catalogo_materia">Materia</a>
 					  </span>
 						<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Permite editar los registros de los usuarios">
 						<a type="button" class="btn btn-dark " href="/catalogo_usuario">Usuario</a>
 					  </span>
 				  </div>
-				  </div>
+				</div>
 			</div>
-
 		</div>
-
 	</body>
 	<footer>
 		<div class="card">

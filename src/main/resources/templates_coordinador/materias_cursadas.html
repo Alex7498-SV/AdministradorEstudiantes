@@ -10,7 +10,7 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 		<meta charset="utf-8" />
 		<link href="css/catalogo-style.css" rel="stylesheet" />
-		<title>Materias cursadas</title>
+		<title>Materias cursadas</title>	
 	</head>
 	<body>
 		<div class="container-fluid">		
@@ -24,18 +24,21 @@
 				</div>
 			  </form>
 			</nav>
-			<h1 class="display-4" th:text="${nombreEst}"></h1>
-			<a class="btn btn-primary" th:href="@{'/agregar_nueva_materia_cursada/' + ${idEst}}">Agregar nueva materia</a>
-			</form>
 			<div class="content">
+				<div class="sub-navbar">
+					<h1 class="display-4" th:text="${nombreEst}"></h1>
+					<a class="btn btn-primary" th:href="@{'/agregar_nueva_materia_cursada/' + ${idEst}}">Agregar nueva materia</a>
+				</div>
 				<table class="table table-hover">
 					<thead class="thead-dark">
-						<th scope="col">Accion</th>
-						<th scope="col">Materia</th>
-						<th scope="col">Año</th>
-						<th scope="col">Ciclo</th>			
-						<th scope="col">Nota</th>
-						<th scope="col">Resultado</th>
+						<tr>
+							<th scope="col">Accion</th>
+							<th scope="col">Materia</th>
+							<th scope="col">Año</th>
+							<th scope="col">Ciclo</th>			
+							<th scope="col">Nota</th>
+							<th scope="col">Resultado</th>
+						</tr>
 					</thead>
 					<tbody>
 						<th:block th:each="matCursada, row:${matCursadas}">

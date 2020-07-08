@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-<!-- CSS only -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-		
-		<!-- JS, Popper.js, and jQuery -->
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		
 		<meta charset="utf-8" />
-		<!--<link href="css/NCuenta-style.css" rel="stylesheet" />-->
+		<link href="css/bExpediente-style.css" rel="stylesheet" />
 		<title>Agregar o editar materia</title>
 	</head>
 	<script>
@@ -26,16 +21,10 @@
 				mats.parentNode.removeChild(mats);
 				$("#mat").css("visibility","hidden");
 			}
-			else{
-				/*mat.innerHTML = "<select class='custom-select' name='materia.idMateria'>"
-								+ "<option th:each='materia:${materias}' th:value='${materia.idMateria}' th:text='${materia.nombre}'></option>"
-								+ "</select>";*/
-			}
 		})
 	</script>
 	<body>
 		<div class="container-fluid">
-			<!-- Image and text -->
 			<nav class="navbar">
 				<p class="navbar-brand">
 				<img src="img/icono.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
@@ -60,18 +49,20 @@
 								</div>
 								<div class="form-group col-md-6">
 									<label for="anio">Anio</label>
-									<input type="number" class="form-control" name="anio" th:field="*{anio}">
+									<input type="number" class="form-control" th:field="*{anio}">
+									<span class="number" th:errors="*{anio}" style="color: #FF0000"></span><br>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-4">
 									<label for="cicloCursado">Ciclo</label>
-									<input type="text" class="form-control" name="cicloCursado" th:field="*{cicloCursado}">
+									<input type="text" class="form-control" th:field="*{cicloCursado}">
 									<span class="number" th:errors="*{cicloCursado}" style="color: #FF0000"></span><br>
 								</div>
 								<div class="form-group col-md-8">
 									<label for="nota">Nota</label>
-									<input type="number" class="form-control" name="nota" th:field="*{nota}">
+									<input type="number" class="form-control" step="0.01" th:field="*{nota}">
+									<span class="number" th:errors="*{nota}" style="color: #FF0000"></span><br>
 								</div>
 							</div>
 							<input type="hidden" id="idEstMat" th:field="*{idEstudianteMateria}"/>
@@ -84,7 +75,6 @@
 				</div>
 			</div>
 		</div>
-
 </body>
 <footer>
 	<div class="card"></div>

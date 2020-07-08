@@ -86,8 +86,6 @@ public class MainController {
 		return mav;
 	}
 
-	
-
 	@RequestMapping("/municipios")
 	public @ResponseBody List<String[]> buscarMunicipios(@RequestParam Integer idDep){
 		List<Municipio> municipios = null;
@@ -219,7 +217,6 @@ public class MainController {
 		return mav;
 	}
 	
-	
 	@RequestMapping("/menu")
 	public ModelAndView menuAdmin(HttpSession session){
 		ModelAndView mav = new ModelAndView();
@@ -234,7 +231,6 @@ public class MainController {
 		verifyAdmin(session, mav);
 		return mav;
 	}
-	
 	
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session){
@@ -262,7 +258,6 @@ public class MainController {
 		return mav;
 	}
 	
-
 	@RequestMapping("/nuevo_catalogo_escuela")
 	public ModelAndView nuevoCatalogoEscuela(HttpSession session){
 		ModelAndView mav = new ModelAndView();
@@ -279,7 +274,7 @@ public class MainController {
 		return mav;
 	}
 	
-		@RequestMapping("/editar_catalogo_escuela/{id}")
+	@RequestMapping("/editar_catalogo_escuela/{id}")
     public ModelAndView editCatEscuela(@PathVariable int id, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         CentroEscolar ce = null;
@@ -334,8 +329,6 @@ public class MainController {
 		return mav;
 	}
 	
-
-	
 	@RequestMapping("/editar_catalogo_materia/{id}")
     public ModelAndView editCatMateria(HttpSession session, @PathVariable int id) {
 		ModelAndView mav = new ModelAndView();
@@ -351,8 +344,6 @@ public class MainController {
         return mav;
     }
 	
-
-	
 	@RequestMapping("/nuevo_catalogo_materia")
 	public ModelAndView nuevoCatalogoMaterias(HttpSession session){
 		ModelAndView mav = new ModelAndView();
@@ -361,7 +352,7 @@ public class MainController {
 		return mav;
 	}
 	
-		@RequestMapping("/catalogo_usuario")
+	@RequestMapping("/catalogo_usuario")
 	public ModelAndView catalogoUsuarios(HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		List<Usuario> usuarios = null;
@@ -471,36 +462,12 @@ public class MainController {
 		verifyCoord(session, mav);
 		return mav;
 	}
-	
-	
-	/*@RequestMapping("/filtrar_por_nom_ape")
-	public ModelAndView filtrar(@ModelAttribute ExpedientePorNomApellidoDTO pclave, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		List<ExpedientePorNomApellidoDTO> estudiantes = null;
-		System.out.println(pclave.getNombres()+pclave.getApellidos());
-		try {
-			if(pclave.getNombres().isEmpty()) {
-				
-			}
-			else if(pclave.getApellidos().equals("apellido")) {
-				estudiantes = service.expedientePorNombreOApellido(" ", pclave.getNombres());
-			}
-			else if (pclave.getApellidos().equals("nombre")){
-				estudiantes = service.expedientePorNombreOApellido(pclave.getNombres(), " ");
-			}
-		}catch(Exception e ) {
-			e.printStackTrace();
-		}
-		mav.addObject("estudiantes", estudiantes);
-		mav.setViewName("../templates_coordinador/tabla_estudiantes");
-		verifyCoord(session, mav);
-		return mav;
-	}*/
 
 	@RequestMapping("/filtrar_por_nom_ape")
 	public ModelAndView filtrar(@RequestParam String nomApe, @RequestParam String clave, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<ExpedientePorNomApellidoDTO> estudiantes = null;
+		clave = clave.toLowerCase();
 		clave = clave + "%";
 		if(nomApe.equals("n")){
 			System.out.println(nomApe);
@@ -516,9 +483,14 @@ public class MainController {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(estudiantes.size());
-		mav.addObject("estudiantes", estudiantes);
-		mav.setViewName("../templates_coordinador/tabla_estudiantes");
+		if(estudiantes.size() == 0){
+			mav.addObject("msg", "No se ha encontrado estudiantes");
+			mav.setViewName("../templates_coordinador/buscar_o_agregar_alumnos");
+		}
+		else{
+			mav.addObject("estudiantes", estudiantes);
+			mav.setViewName("../templates_coordinador/tabla_estudiantes");
+		}
 		verifyCoord(session, mav);
 		return mav;
 	}
@@ -534,6 +506,7 @@ public class MainController {
 		} catch(Exception e){
 			e.printStackTrace();
 		}
+		System.out.println(idEstudiante);
 		mav.addObject("dep", deps);
 		mav.addObject("estudianteNuevo", est);
 		mav.setViewName("../templates_coordinador/editar_expediente_existente");
@@ -611,7 +584,6 @@ public class MainController {
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
-		System.out.println(mats.size());
 		EstudianteMateria estMat = new EstudianteMateria();
 		estMat.setIdEstudiante(id);
 		mav.addObject("estMat", estMat);
@@ -633,8 +605,6 @@ public class MainController {
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
-		System.out.println("Hola");
-		System.out.println(estMat.getIdMateria());
 		mav.setViewName("../templates_coordinador/agregar_editar_materia");
 		mav.addObject("estMat", estMat);
 		mav.addObject("dto", dto);
@@ -664,7 +634,6 @@ public class MainController {
 	public ModelAndView guardarMateria(@Valid @ModelAttribute EstudianteMateria estMat, BindingResult result, HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		Estudiante est = new Estudiante();
-		System.out.println(estMat.getIdEstudiante());
 		if(!result.hasErrors()){
 			mav.setViewName("../templates_coordinador/materias_cursadas");
 			List<MateriasPorEstudianteDTO> matCursadas = null;
