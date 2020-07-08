@@ -44,25 +44,26 @@
 									<select id="mat" class="form-control" th:field="*{materia.idMateria}">
 										<option th:each="materia:${materias}" th:value="${materia.idMateria}" th:text="${materia.nombre}"></option>
 								   	</select>
+								   	<p th:text="${materiaError}" style="color: #FF0000"></p><br>
 									<div id="materia"></div>
 									<div id="mate"></div>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="anio">Anio</label>
 									<input type="number" class="form-control" th:field="*{anio}">
-									<span class="number" th:errors="*{anio}" style="color: #FF0000"></span><br>
+									<p th:text="${anioError}" style="color: #FF0000"></p><br>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-4">
 									<label for="cicloCursado">Ciclo</label>
 									<input type="text" class="form-control" th:field="*{cicloCursado}">
-									<span class="number" th:errors="*{cicloCursado}" style="color: #FF0000"></span><br>
+									<p th:text="${cicloError}" style="color: #FF0000"></p><br>
 								</div>
 								<div class="form-group col-md-8">
 									<label for="nota">Nota</label>
 									<input type="number" class="form-control" step="0.01" th:field="*{nota}">
-									<span class="number" th:errors="*{nota}" style="color: #FF0000"></span><br>
+									<p th:text="${notaError}" style="color: #FF0000"></p><br>
 								</div>
 							</div>
 							<input type="hidden" id="idEstMat" th:field="*{idEstudianteMateria}"/>

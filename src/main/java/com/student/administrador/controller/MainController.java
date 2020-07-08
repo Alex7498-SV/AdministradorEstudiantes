@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -427,12 +428,15 @@ public class MainController {
     public ModelAndView catMateriaGuardado(@Valid @ModelAttribute Materia mat ,BindingResult result, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         if(!result.hasErrors()) {
-            try {
-                service.insertarOeditarMateria(mat);;
-            }catch(Exception e) {
-                e.printStackTrace();
-            }
-            mav.setViewName("redirect:/catalogo_materia");
+        	service.insertarOeditarMateria(mat);
+        	List<Materia> materias = null;
+    		try{
+    			materias = service.catalogoMaterias();
+    		}catch(Exception e){
+    			e.printStackTrace();
+    		}
+    		mav.addObject("materias", materias);
+            mav.setViewName("catalogo_materia");
         }
         else {
         	mav.setViewName("nuevo_catalogo_materia");
@@ -579,8 +583,10 @@ public class MainController {
 	public ModelAndView nuevaMatCursada(@PathVariable Integer id, HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		List<Materia> mats = null;
+		Estudiante  est = new Estudiante();
 		try {
 			mats = service.catalogoMaterias();
+			est = service.findByIdEstudiante(id);
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
@@ -588,7 +594,9 @@ public class MainController {
 		estMat.setIdEstudiante(id);
 		mav.addObject("estMat", estMat);
 		mav.addObject("materias", mats);
-		mav.addObject("dto", new MateriasPorEstudianteDTO());
+		MateriasPorEstudianteDTO dto = new MateriasPorEstudianteDTO();
+		dto.setNombreEstudiante(est.getNombres());
+		mav.addObject("dto", dto);
 		mav.setViewName("../templates_coordinador/agregar_editar_materia");
 		verifyCoord(session, mav);
 		return mav;
@@ -631,12 +639,61 @@ public class MainController {
 	}
 
 	@RequestMapping("/guardar_materia")
-	public ModelAndView guardarMateria(@Valid @ModelAttribute EstudianteMateria estMat, BindingResult result, HttpSession session){
+	public ModelAndView guardarMateria(@ModelAttribute EstudianteMateria estMat, HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		Estudiante est = new Estudiante();
-		if(!result.hasErrors()){
+		List<MateriasPorEstudianteDTO> matCursadas = null;
+		Estudiante est = null;
+		boolean flag = false;
+		if(estMat.getIdEstudianteMateria() == null) {
+			int id = estMat.getMateria().getIdMateria();
+			try {
+				matCursadas = service.materiasPorEstudiante(estMat.getIdEstudiante());
+				est = service.findByIdEstudiante(estMat.getIdEstudiante());
+				for(int i = 0; i < matCursadas.size(); i++) {
+					if(id == matCursadas.get(i).getIdMateria()) {
+						flag = true;
+					}
+				}
+			}catch(Exception e ) {
+				e.printStackTrace();
+			}
+		}
+		if(flag || estMat.getAnio() == null || estMat.getCicloCursado() == null || (estMat.getNota() == null || (estMat.getNota() > 10 || estMat.getNota() < 0))){
+			mav.setViewName("../templates_coordinador/agregar_editar_materia");
+			MateriasPorEstudianteDTO dto = null;
+			List<Materia> mats = null;
+			try {
+				mats = service.catalogoMaterias();
+				if(estMat.getIdEstudianteMateria() == null){
+					dto = new MateriasPorEstudianteDTO();
+					dto.setNombreEstudiante(est.getNombres());
+				} else{
+					dto = service.findMateriaEstudianteDTOById(estMat.getIdEstudianteMateria());
+				}
+			}catch(Exception e ) {
+				e.printStackTrace();
+			}
+			if(flag) {
+				mav.addObject("materiaError", "La materia seleccionada ya fue cursada por el estudiante");
+			}
+			if(estMat.getAnio() == null){
+				mav.addObject("anioError", "El campo Anio no puede ir vacio");
+			}
+			if(estMat.getCicloCursado() == null){
+				mav.addObject("cicloError", "El campo Ciclo Cursado no puede ir vacio");
+			}
+			if(estMat.getNota() == null){
+				mav.addObject("notaError", "El campo nota no puede ir vacio");
+			}
+			else if(estMat.getNota() > 10 || estMat.getNota() < 0){
+				mav.addObject("notaError", "La nota ingresada no es valida");
+			}
+			mav.addObject("estMat", estMat);
+			mav.addObject("materias", mats);
+			mav.addObject("dto", dto);
+		}
+		else{
 			mav.setViewName("../templates_coordinador/materias_cursadas");
-			List<MateriasPorEstudianteDTO> matCursadas = null;
 			try {
 				est = service.findByIdEstudiante(estMat.getIdEstudiante());
 				estMat.setEstudiante(est);
@@ -648,17 +705,6 @@ public class MainController {
 			mav.addObject("nombreEst", est.getNombres());
 			mav.addObject("idEst", est.getIdEstudiante());
 			mav.addObject("matCursadas", matCursadas);
-			}
-		else{
-			mav.setViewName("../templates_coordinador/agregar_editar_materia");
-			MateriasPorEstudianteDTO dto = null;
-			try {
-				dto = service.findMateriaEstudianteDTOById(estMat.getIdEstudianteMateria());
-			}catch(Exception e ) {
-				e.printStackTrace();
-			}
-			mav.addObject("estMat", estMat);
-			mav.addObject("dto", dto);
 		}
 		verifyCoord(session, mav);
 		return mav;

@@ -115,6 +115,7 @@ public class TodoServiceImpl implements TodoService{
 			dto.setNota(Float.parseFloat(ce[4].toString()));
 			dto.setResultado(ce[5].toString());
 			dto.setIdEstudianteMateria(Integer.parseInt(ce[6].toString()));
+			dto.setIdMateria(Integer.parseInt(ce[7].toString()));
 			return dto;
 		}).collect(Collectors.toList());
 		return matporest;

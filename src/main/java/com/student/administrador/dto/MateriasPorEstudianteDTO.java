@@ -9,6 +9,7 @@ public class MateriasPorEstudianteDTO {
 	private float nota;
 	private String resultado;
 	private Integer idEstudianteMateria;
+	private Integer idMateria;
 	
 	public String getNombreMateria() {
 		return nombreMateria;
@@ -51,5 +52,11 @@ public class MateriasPorEstudianteDTO {
 	}
 	public void setNombreEstudiante(String nombreEstudiante) {
 		this.nombreEstudiante = nombreEstudiante;
+	}
+	public Integer getIdMateria() {
+		return idMateria;
+	}
+	public void setIdMateria(Integer idMateria) {
+		this.idMateria = idMateria;
 	}
 }

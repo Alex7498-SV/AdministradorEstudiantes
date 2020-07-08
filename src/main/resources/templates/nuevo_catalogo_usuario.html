@@ -108,22 +108,22 @@
 						<div class="form-row">
                             <div class="form-group col-md-6">
 								<label for="nombre">Nombre</label>
-								<input type="text" class="form-control" id="nombre" name = "nombre" th:value="*{nombre}">
+								<input type="text" class="form-control" id="nombre" name = "nombre" th:value="*{nombre}" required>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="apellido">Apellido</label>
-								<input type="text" class="form-control" id="apellido" name="apellido" th:value="*{apellido}">
+								<input type="text" class="form-control" id="apellido" name="apellido" th:value="*{apellido}" required>
 							</div>
                         </div>
 						<div class="form-row">
 
 							<div class="form-group col-md-4">
 								<label for="fNaciemiento">Fecha de Nacimiento</label>
-								<input type="date" class="form-control" id="fNacimiento" name="fechaNac" th:value="*{fechaNac}">
+								<input type="date" class="form-control" id="fNacimiento" name="fechaNac" th:value="*{fechaNac}" required>
 							</div>
 							<div class="form-group col-md-8">
 								<label for="direccion">Direccion</label>
-								<input type="text" class="form-control" id="direccion" name="direccion" th:value="*{direccion}">
+								<input type="text" class="form-control" id="direccion" name="direccion" th:value="*{direccion}" required>
 							</div>
 
 						</div>
@@ -148,11 +148,11 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="usuario">Usuario</label>
-								<input type="text" class="form-control" name="usuario" th:value="*{usuario}" id="usr">
+								<input type="text" class="form-control" name="usuario" th:value="*{usuario}" id="usr" required>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="contraseña">Contraseña</label>
-								<input type="password" class="form-control" name="contra" th:value="*{contra}" id="psw">
+								<input type="password" class="form-control" name="contra" th:value="*{contra}" id="psw" required>
 							</div>
 						</div>
 						<div class="form-row">

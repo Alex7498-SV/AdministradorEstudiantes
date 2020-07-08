@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -23,15 +24,15 @@ public class EstudianteMateria {
 	private Integer idEstudianteMateria;
 	
 	@Column(name="nota")
-	//@NotEmpty(message="El campo Nota no puede ir vacio")
+	@NotNull(message="El campo Nota no puede ir vacio")
 	private Float nota;
 
 	@Column(name="anio")
-	//@NotEmpty(message="El campo Año no puede ir vacio")
+	@NotNull(message="El campo Año no puede ir vacio")
 	private Integer anio;
 	
 	@Column(name="ciclo_cursado")
-	//@NotEmpty(message="El campo Ciclo no puede ir vacio")
+	@NotNull(message="El campo Ciclo no puede ir vacio")
 	private Integer cicloCursado;
 	
 	@ManyToOne
