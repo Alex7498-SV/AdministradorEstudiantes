@@ -56,6 +56,18 @@ public class TodoServiceImpl implements TodoService{
 		}).collect(Collectors.toList());
 		return mat;
 	}
+
+	@Override
+	public List<Materia> materiasActivas() throws DataAccessException {
+		List<Materia> mat = matR.materiasActivas().stream().map(ce->{
+			Materia materia = new Materia();
+			materia.setIdMateria(Integer.parseInt(ce[0].toString()));
+			materia.setNombre(ce[1].toString());
+			materia.setEstado(Boolean.parseBoolean(ce[2].toString()));
+			return materia;
+		}).collect(Collectors.toList());
+		return mat;
+	}
 	
 	@Override
 	public List<CatalogoEscuelasDTO> catalogoEscuelas() throws DataAccessException {

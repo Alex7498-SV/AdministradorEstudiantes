@@ -96,17 +96,17 @@
 				})
 
 				$('#clean').click(function(){
-					$('#nombre').empty();
-					$('#apellido').empty();
-					$('#fNacimiento').empty();
-					$('#direccion').empty();
-					$('#edad').empty();
-					$('#cMin').empty();
-					$('#tMovil').empty();
-					$('#tFijo').empty();
-					$('#cEscolares').empty();
-					$('#nMadre').empty();
-					$('#nPadre').empty();
+					$('#nombre').val("");
+					$('#apellido').val("");
+					$('#fNacimiento').val("");
+					$('#direccion').val("");
+					$('#edad').val("");
+					$('#cMin').val("");
+					$('#tMovil').val("");
+					$('#tFijo').val("");
+					//$('#cEscolares').empty();
+					$('#nMadre').val("");
+					$('#nPadre').val("");
 				})
 				
 			});
@@ -208,7 +208,7 @@
 						<hr class="my-4">
 						<a class="btn btn-secondary btn-lg" href="/buscar_o_agregar_alumnos">Volver</a>
 						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
-						<button id="clean" class="btn btn-primary btn-lg">Limpiar</button>
+						<a id="clean" class="btn btn-primary btn-lg" style="color: white; font-weight: 400;">Limpiar</a>
 					</form>
 				</div>					
 			</div>

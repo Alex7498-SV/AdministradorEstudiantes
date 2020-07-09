@@ -24,6 +24,11 @@ public interface MateriaRepo extends JpaRepository<Materia, Integer> {
 			value="SELECT m.idMateria AS Codigo, m.nombre as Descripcion, m.estado as Estado "
 					+ "FROM public.materia m ")
 	public List<Object[]> catalogoMaterias() throws DataAccessException;
+
+	@Query(nativeQuery=true,
+			value="SELECT m.idMateria AS Codigo, m.nombre as Descripcion, m.estado as Estado "
+					+ "FROM public.materia m WHERE m.estado = true")
+	public List<Object[]> materiasActivas() throws DataAccessException;
  /*
 	@Query(nativeQuery = true,
 		value="SELECT * FROM public.materia WHERE idMateria = ?1")*/

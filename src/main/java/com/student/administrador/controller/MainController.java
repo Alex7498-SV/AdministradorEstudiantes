@@ -407,18 +407,59 @@ public class MainController {
     }
 	
 	@RequestMapping("/catalogo_usuario_guardado")
-    public ModelAndView CatUsuarioGuardado(@Valid @ModelAttribute Usuario usuario ,BindingResult result, HttpSession session) {
+    public ModelAndView CatUsuarioGuardado(@ModelAttribute Usuario usuario, HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        if(!result.hasErrors()) {
-            try {
-                service.insertarOeditarUsuario(usuario);;
-            }catch(Exception e) {
-                e.printStackTrace();
-            }
-            mav.setViewName("redirect:/catalogo_usuario");
+		if((usuario.getNombre() == "" || usuario.getNombre().length() > 30) || (usuario.getApellido() == "" || usuario.getApellido().length() > 30) ||
+			(usuario.getDireccion() == "" || usuario.getDireccion().length() > 75) || (usuario.getUsuario() == "" || usuario.getUsuario().length() > 15) || 
+			(usuario.getContra() == "" || usuario.getContra().length() > 15) || usuario.getmunicipio().getIdMunicipio() == 0) {
+			List<Departamento> deps = null;
+			mav.setViewName("nuevo_catalogo_usuario");
+			mav.addObject("catalogoUsuario", usuario);
+			try {
+				deps = service.findAllDepartaments();
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+			mav.addObject("dep", deps);
+
+			if(usuario.getNombre() == ""){
+				mav.addObject("nombreError", "El campo Nombre no puede ir vacio");
+			} else if(usuario.getNombre().length() > 30){
+				mav.addObject("nombreError", "El nombre no debe exceder los 30 caracteres");
+			}
+			if(usuario.getApellido() == ""){
+				mav.addObject("apellidoError", "El campo Apellido no puede ir vacio");
+			} else if(usuario.getApellido().length() > 30){
+				mav.addObject("apellidoError", "El apellido no debe exceder los 30 caracteres");
+			}
+			if(usuario.getDireccion() == ""){
+				mav.addObject("direccionError", "El campo Direccion no puede ir vacio");
+			} else if(usuario.getDireccion().length() > 75){
+				mav.addObject("direccionError", "la direccion no debe exceder los 75 caracteres");
+			}
+			if(usuario.getmunicipio().getIdMunicipio() == 0){
+				mav.addObject("munError", "Debe seleccionar un municipio");
+			} 
+			if(usuario.getUsuario() == ""){
+				mav.addObject("usuarioError", "El campo Usuario no puede ir vacio");
+			} else if(usuario.getUsuario().length() > 15){
+				mav.addObject("usuarioError", "El usuario no debe exceder los 15 caracteres");
+			}
+			if(usuario.getContra() == ""){
+				mav.addObject("passError", "La Contrasenia no puede ir vacio");
+			} else if(usuario.getContra().length() > 15){
+				mav.addObject("passError", "La contrasenia no debe exceder los 15 caracteres");
+			}
         }
         else {
-        	mav.setViewName("nuevo_catalogo_usuario");
+			List<Usuario> usuarios = null;
+			try {
+				service.insertarOeditarUsuario(usuario);
+				usuarios = service.catalogoUsuarios();
+            }catch(Exception e) {
+                e.printStackTrace();
+			}
+            mav.setViewName("redirect:/catalogo_usuario");
         }
         verifyAdmin(session, mav);
         return mav;
@@ -611,8 +652,8 @@ public class MainController {
                 service.insertarOeditarEstudiante(estudiante);
             }catch(Exception e) {
                 e.printStackTrace();
-            }
-            mav.setViewName("redirect:/buscar_o_agregar_alumnos");
+			}
+			mav.setViewName("redirect:/buscar_o_agregar_alumnos");
         }
 		verifyCoord(session, mav);
         return mav;
@@ -643,7 +684,7 @@ public class MainController {
 		List<Materia> mats = null;
 		Estudiante  est = new Estudiante();
 		try {
-			mats = service.catalogoMaterias();
+			mats = service.materiasActivas();
 			est = service.findByIdEstudiante(id);
 		}catch(Exception e ) {
 			e.printStackTrace();
@@ -721,7 +762,7 @@ public class MainController {
 			MateriasPorEstudianteDTO dto = null;
 			List<Materia> mats = null;
 			try {
-				mats = service.catalogoMaterias();
+				mats = service.materiasActivas();
 				if(estMat.getIdEstudianteMateria() == null){
 					dto = new MateriasPorEstudianteDTO();
 					dto.setNombreEstudiante(est.getNombres());
