@@ -535,26 +535,84 @@ public class MainController {
 	}
 	
 	@RequestMapping("/expediente_guardado" )
-	public ModelAndView nuevoExpedienteGuardado(@Valid @ModelAttribute Estudiante estudiante ,BindingResult result, HttpSession session){
+	public ModelAndView nuevoExpedienteGuardado(@ModelAttribute Estudiante estudiante, HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		if(!result.hasErrors()) {
-            try {
+		if((estudiante.getNombres() == "" || estudiante.getNombres().length() > 60) || (estudiante.getApellidos() == "" || estudiante.getApellidos().length() > 60) ||
+			(estudiante.getCarnet() == "" || estudiante.getCarnet().length() != 9) || /*estudiante.getFechaNac() == null ||*/ 
+			(estudiante.getDireccion() == "" || estudiante.getDireccion().length() > 50) || (estudiante.getTel_fijo() == "" || estudiante.getTel_fijo().length() != 8) ||
+			(estudiante.getTel_movil() == "" || estudiante.getTel_movil().length() != 8) || (estudiante.getNombrePadre() == "" || estudiante.getNombrePadre().length() > 30) ||
+			(estudiante.getNombreMadre() == "" || estudiante.getNombreMadre().length() > 30) || estudiante.getcentroEscolar().getIdEscolar() == 0) {
+            List<Departamento> deps = null;
+    		try {
+    			deps = service.findAllDepartaments();
+    		} catch(Exception e){
+    			e.printStackTrace();
+			}
+			if(estudiante.getNombres() == ""){
+				mav.addObject("nombreError", "El campo Nombres no puede ir vacio");
+			}
+			else if(estudiante.getNombres().length() > 60){
+				mav.addObject("nombreError", "El campo Nombres no puede exceder de 60 caracteres");
+			}
+			if(estudiante.getApellidos() == ""){
+				mav.addObject("apellidoError", "El campo Apellidos no puede ir vacio");
+			}
+			else if(estudiante.getApellidos().length() > 60){
+				mav.addObject("apellidoError", "El campo Apellidos no puede exceder de 60 caracteres");
+			}
+			if(estudiante.getCarnet() == ""){
+				mav.addObject("carnetError", "El campo Carnet no puede ir vacio");
+			}
+			else if(estudiante.getCarnet().length() != 9){
+				mav.addObject("carnetError", "El carnet ingresado no es valido");
+			}
+			/*if(estudiante.getFechaNac() == null){
+				mav.addObject("fechaError", "El campo Fecha de Nacimiento no puede ir vacio");
+			}*/
+			if(estudiante.getDireccion() == ""){
+				mav.addObject("direccionError", "El campo Direccion no puede ir vacio");
+			}
+			else if(estudiante.getDireccion().length() > 50){
+				mav.addObject("direccionError", "El campo Direccion no puede exceder de 50 caracteres");
+			}
+			if(estudiante.getTel_movil() == ""){
+				mav.addObject("tMovilError", "El campo Telefono Movil no puede ir vacio");
+			}
+			else if(estudiante.getTel_movil().length() != 8){
+				mav.addObject("tMovilError", "El numero de telefono ingresado no es valido");
+			}
+			if(estudiante.getTel_fijo() == ""){
+				mav.addObject("tFijoError", "El campo Telefono Fijo no puede ir vacio");
+			}
+			else if(estudiante.getTel_fijo().length() != 8){
+				mav.addObject("tFijoError", "El numero de telefono ingresado no es valido");
+			}
+			if(estudiante.getNombrePadre() == ""){
+				mav.addObject("nPadreError", "El ombre del padre no puede ir vacio");
+			}
+			else if(estudiante.getNombrePadre().length() > 30){
+				mav.addObject("nPadreError", "El nombre no puede exceder de 30 caracteres");
+			}
+			if(estudiante.getNombreMadre() == ""){
+				mav.addObject("nMadreError", "El nombre de la madre no puede ir vacio");
+			}
+			else if(estudiante.getNombreMadre().length() > 30){
+				mav.addObject("nMadreError", "El nombre no puede exceder de 30 caracteres");
+			}
+			if(estudiante.getcentroEscolar().getIdEscolar() == 0){
+				mav.addObject("escolarError", "No ha seleccionado ningun centro escolar");
+			}
+    		mav.addObject("dep", deps);
+    		mav.addObject("estudianteNuevo", estudiante);
+			mav.setViewName("../templates_coordinador/editar_expediente_existente");
+        }
+        else {
+			try {
                 service.insertarOeditarEstudiante(estudiante);
             }catch(Exception e) {
                 e.printStackTrace();
             }
             mav.setViewName("redirect:/buscar_o_agregar_alumnos");
-        }
-        else {
-    		List<Departamento> deps = null;
-    		try {
-    			deps = service.findAllDepartaments();
-    		} catch(Exception e){
-    			e.printStackTrace();
-    		}
-    		mav.addObject("dep", deps);
-    		mav.addObject("estudianteNuevo", estudiante);
-        	mav.setViewName("../templates_coordinador/editar_expediente_existente");
         }
 		verifyCoord(session, mav);
         return mav;

@@ -27,18 +27,18 @@ public class Estudiante {
 	private Integer idEstudiante;
 	
 	@Column(name="nombres")
-	@NotEmpty(message="El campo Nombres no puede ir vacio")
-	@Size(max=60, message="El campo Nombres no debe tener mas de 60 caracteres")
+	//@NotEmpty(message="El campo Nombres no puede ir vacio")
+	//@Size(max=60, message="El campo Nombres no debe tener mas de 60 caracteres")
 	private String nombres;
 	
 	@Column(name="apellidos")
-	@NotEmpty(message="El campo Apellidos no puede ir vacio")
-	@Size(max=60, message="El campo Apellidos no debe tener mas de 60 caracteres")
+	//@NotEmpty(message="El campo Apellidos no puede ir vacio")
+	//@Size(max=60, message="El campo Apellidos no debe tener mas de 60 caracteres")
 	private String apellidos;
 	
 	@Column(name="carnet")
-	@NotEmpty(message="El campo Carnet no puede ir vacio")
-	@Pattern(regexp="^$|[a-zA-Z0-9]{9}", message="Carnet no valido")
+	//@NotEmpty(message="El campo Carnet no puede ir vacio")
+	//@Pattern(regexp="^$|[a-zA-Z0-9]{9}", message="Carnet no valido")
 	private String carnet;
 	
 	@Column(name="fecha_nacimiento")
@@ -46,32 +46,31 @@ public class Estudiante {
 	private Date fechaNac;
 	
 	@Column(name="direccion")
-	@NotEmpty(message="El campo Direccion no puede ir vacio")
-	@Size(max=50, message="El campo Direccion no debe tener mas de 50 caracteres")
+	//@NotEmpty(message="El campo Direccion no puede ir vacio")
+	//@Size(max=50, message="El campo Direccion no debe tener mas de 50 caracteres")
 	private String direccion;
 	
 	@Column(name="edad")
 	private Integer edad;
 	
-
 	@Column(name="telefono_fijo")
-	@NotEmpty(message="El campo Telefono Fijo no puede ir vacio")
-	@Pattern(regexp="^$|[0-9]{8}", message="Numero de telefono no valido")
+	//@NotEmpty(message="El campo Telefono Fijo no puede ir vacio")
+	//@Pattern(regexp="^$|[0-9]{8}", message="Numero de telefono no valido")
 	private String tel_fijo;
 	
 	@Column(name="telefono_movil")
-	@NotEmpty(message="El campo Telefono Movil no puede ir vacio")
-	@Pattern(regexp="^$|[0-9]{8}", message="Numero de telefono no valido")
+	//@NotEmpty(message="El campo Telefono Movil no puede ir vacio")
+	//@Pattern(regexp="^$|[0-9]{8}", message="Numero de telefono no valido")
 	private String tel_movil;
 	
 	@Column(name="nombre_padre")
-	@NotEmpty(message="El campo Nombre del Padre no puede ir vacio")
-	@Size(max=30, message="El campo Nombre del Padre no debe tener mas de 30 caracteres")
+	//@NotEmpty(message="El campo Nombre del Padre no puede ir vacio")
+	//@Size(max=30, message="El campo Nombre del Padre no debe tener mas de 30 caracteres")
 	private String nombrePadre;
 	
 	@Column(name="nombre_madre")
-	@NotEmpty(message="El campo Nombre de la Madre no puede ir vacio")
-	@Size(max=30, message="El campo Nombre de la Madre no debe tener mas de 30 caracteres")
+	//@NotEmpty(message="El campo Nombre de la Madre no puede ir vacio")
+	//@Size(max=30, message="El campo Nombre de la Madre no debe tener mas de 30 caracteres")
 	private String nombreMadre;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
