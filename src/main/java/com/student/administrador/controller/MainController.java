@@ -39,20 +39,29 @@ public class MainController {
 	
 	private ModelAndView verifyAdmin(HttpSession session, ModelAndView mav) {
 		Usuario user = (Usuario) session.getAttribute("usuario");
-		if(!user.getAdministrador()){
+		if(session.getAttribute("usuario") == null) {
+			mav.clear();
+			mav.setViewName("redirect:/login");
+			return mav;
+		} else 	if(!user.getAdministrador()){
 			mav.clear();
 			mav.setViewName("redirect:/buscar_o_agregar_alumnos");
-		} 
+			return mav;
+		}
 		return mav;
-		
 	}
 	
-	private ModelAndView verifyCoord(HttpSession session, ModelAndView mav) {
+	private ModelAndView verifyCoord(HttpSession session, ModelAndView mav) { 
 		Usuario user = (Usuario) session.getAttribute("usuario");
-		if(user.getAdministrador()){
+		if(session.getAttribute("usuario") == null) {
+			mav.clear();
+			mav.setViewName("redirect:/login");
+			return mav;
+		} else if(user.getAdministrador()){
 			mav.clear();
 			mav.setViewName("redirect:/menu");
-		} 
+			return mav;
+		}
 		return mav;
 		
 	}
@@ -225,8 +234,9 @@ public class MainController {
 		Usuario usr = (Usuario) session.getAttribute("usuario");
 		if(session.getAttribute("usuario") == null) {
 			mav.setViewName("redirect:/login");
+			return mav;
 		}
-		System.out.println(usr.getSesion());
+		//System.out.println(usr.getSesion());
 		mav.addObject("username", usr.getUsuario());
 		mav.setViewName("menu_admin");
 		verifyAdmin(session, mav);
